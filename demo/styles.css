@@ -1,0 +1,21 @@
+html,
+body {
+  background: #32424e;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #dae2ea;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.button--default {
+  background: #ff6675;
+  color: #fff;
+}

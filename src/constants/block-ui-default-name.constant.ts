@@ -1,0 +1,1 @@
+export const BlockUIDefaultName = 'block-ui-main'

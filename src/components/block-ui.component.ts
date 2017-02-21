@@ -1,0 +1,69 @@
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewEncapsulation,
+  Input
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { BlockUIService } from '../services/block-ui.service';
+import { BlockUIEvent } from '../models';
+import { BlockUIActions, BlockUIDefaultName } from '../constants';
+import styles from './block-ui.component.style';
+
+@Component({
+  selector: 'block-ui',
+  templateUrl: './block-ui.component.html',
+  styles: [styles], // TODO: Find how to bundle styles for npm
+  encapsulation: ViewEncapsulation.None
+})
+export class BlockUIComponent implements OnInit {
+  @Input() name: string = BlockUIDefaultName;
+  private message: string;
+  private active: boolean = false;
+  private blockUISubscription: Subscription;
+
+  constructor(
+    private blockUI: BlockUIService
+  ) { }
+
+  ngOnInit() {
+    this.blockUISubscription = this.subscribeToBlockUI(this.blockUI.observe());
+  }
+
+  private subscribeToBlockUI(blockUI$: Observable<any>): Subscription {
+    return blockUI$
+      .map(event => this.onDispatchedEvent(event))
+      .subscribe();
+  }
+
+  private onDispatchedEvent(event: BlockUIEvent) {
+    switch (event.action) {
+      case(BlockUIActions.START):
+        this.onStart(event)
+        break;
+
+      case(BlockUIActions.STOP):
+      case(BlockUIActions.RESET):
+        this.onStop(event)
+        break;
+    }
+  }
+
+  private onStart(event: BlockUIEvent) {
+    if (event.name === this.name) {
+      this.active = true;
+      this.message = event.message;
+    }
+  }
+
+  private onStop(event: BlockUIEvent) {
+    if (event.name === this.name || event.action === BlockUIActions.RESET) {
+      this.active = false;
+    }
+  }
+
+  ngOnDestroy() {
+    this.blockUISubscription.unsubscribe();
+  }
+}
