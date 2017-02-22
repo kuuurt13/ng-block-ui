@@ -1,5 +1,7 @@
-config
-demo
 node_modules
 .gitignore
 npm-debug.log
+*.tgz
+.npmignore
+config
+demo
