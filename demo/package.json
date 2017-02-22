@@ -1,28 +1,18 @@
 {
-  "name": "ng-block-ui",
-  "version": "1.0.0-alpha.2",
-  "description": "Angular (2.x & up) Block UI",
-  "main": "index.ts",
+  "name": "ng-block-ui-demo",
+  "version": "1.0.0",
+  "description": "Angular (2.x & up) Block UI Demo",
+  "main": "src/index.ts",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kuuurt13/ng-block-ui.git"
-  },
-  "keywords": [
-    "angular",
-    "angular2",
-    "blockui",
-    "spinner"
-  ],
+  "repository": {},
+  "keywords": [],
   "author": "kuuurt13",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kuuurt13/ng-block-ui/issues"
-  },
-  "homepage": "https://github.com/kuuurt13/ng-block-ui#readme",
+  "bugs": {},
+  "homepage": "",
   "dependencies": {
     "@angular/common": "^2.4.8",
     "@angular/compiler": "^2.4.8",

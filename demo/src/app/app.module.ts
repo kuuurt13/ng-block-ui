@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { BlockUIModule } from '../../src/block-ui.module';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [

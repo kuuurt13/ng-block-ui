@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { blockUI } from '../../src/decorators/block-ui.decorator';
+import { blockUI } from 'ng-block-ui';
 
 
 @Component({
