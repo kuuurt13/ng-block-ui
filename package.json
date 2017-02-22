@@ -1,7 +1,7 @@
 {
   "name": "ng-block-ui",
-  "version": "1.0.0-alpha.2",
-  "description": "Angular (2.x & up) Block UI",
+  "version": "0.1.0",
+  "description": "Angular (2 & up) Block UI",
   "main": "index.ts",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
@@ -12,10 +12,10 @@
     "url": "git+https://github.com/kuuurt13/ng-block-ui.git"
   },
   "keywords": [
-    "angular",
-    "angular2",
-    "blockui",
-    "spinner"
+    "Angular",
+    "Angular 2",
+    "Block UI",
+    "Spinner"
   ],
   "author": "kuuurt13",
   "license": "MIT",
