@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { blockUI } from 'ng-block-ui';
+import { BlockUI } from 'ng-block-ui';
 
 
 @Component({
@@ -8,8 +8,8 @@ import { blockUI } from 'ng-block-ui';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @blockUI() blockUI;
-  @blockUI('block-element') blockUIList;
+  @BlockUI() blockUI;
+  @BlockUI('block-element') blockUIList;
 
 
   constructor(
