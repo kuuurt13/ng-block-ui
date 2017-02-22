@@ -43,7 +43,7 @@ import { BlockUI } from 'ng-block-ui'; // Inject decorator
 @Component({
   selector: 'app-root',
   template: `
-  	<div *blockUI>
+    <div *blockUI>
    	 // Your app here
     </div>
   `
@@ -52,7 +52,7 @@ export class AppComponent {
   @BlockUI() blockUI; // Decorator wires up blockUI instance
 
   constructor() {
-  	this.blockUI.start('Loading...'); // Start blocking
+    this.blockUI.start('Loading...'); // Start blocking
 
     setTimeout(() => {
       this.blockUI.stop(); // Stop blocking
