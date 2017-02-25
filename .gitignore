@@ -1,3 +1,8 @@
 node_modules
 npm-debug.log
+settings.json
 *.tgz
+*.metadata.json
+/dist
+/**/*.js
+/**/*.js.map

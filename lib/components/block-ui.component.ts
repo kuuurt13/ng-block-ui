@@ -9,11 +9,12 @@ import { Observable, Subscription } from 'rxjs';
 import { BlockUIService } from '../services/block-ui.service';
 import { BlockUIEvent } from '../models';
 import { BlockUIActions, BlockUIDefaultName } from '../constants';
-import styles from './block-ui.component.style';
+import { styles } from './block-ui.component.style';
+import { template } from './block-ui.component.template';
 
 @Component({
   selector: 'block-ui',
-  templateUrl: './block-ui.component.html',
+  template: template,
   styles: [styles], // TODO: Find how to bundle styles for npm
   encapsulation: ViewEncapsulation.None
 })

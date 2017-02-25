@@ -1,5 +1,4 @@
-export default
-`
+export const styles = `
 .block-ui-wrapper {
   position: absolute;
   height: 100%;

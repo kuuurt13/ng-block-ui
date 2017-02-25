@@ -1,1 +1,1 @@
-export const BlockUIDefaultName = 'block-ui-main'
+export const BlockUIDefaultName: string = `block-ui-main`;
