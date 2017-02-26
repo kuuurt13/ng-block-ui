@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { BlockUIActions, BlockUIDefaultName } from '../constants';
-import { BlockUI } from '../models';
+import { NgBlockUI } from '../models';
 
 
 @Injectable()
@@ -11,12 +11,12 @@ export class BlockUIService {
 
   constructor() { }
 
-  decorate(name: string = BlockUIDefaultName): BlockUI {
+  decorate(name: string = BlockUIDefaultName): NgBlockUI {
     return {
       start: this.dispatch(this.blockUISubject, BlockUIActions.START, name),
       stop: this.dispatch(this.blockUISubject, BlockUIActions.STOP, name),
       reset: this.dispatch(this.blockUISubject, BlockUIActions.RESET, name),
-    }
+    } as NgBlockUI;
   }
 
   observe(): Observable<any> {
