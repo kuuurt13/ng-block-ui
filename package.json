@@ -6,7 +6,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "node_modules/.bin/ngc -p tsconfig.json",
-    "pack": "npm run build && npm pack",
+    "pack:dev": "npm run build && npm pack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

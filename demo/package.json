@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
-    "install": "rm -rf node_modules/ng-block-ui && npm install ../*.tgz",
+    "install:dev": "rm -rf node_modules/ng-block-ui && npm install ../*.tgz",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {},

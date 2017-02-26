@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlockUIComponent } from './components/block-ui.component';
+import { BlockUIComponent, BlockUIContentComponent } from './components';
 import { BlockUIService } from './services/block-ui.service';
 import { BlockUIDirective } from './directives/block-ui.directive';
 
@@ -15,14 +15,19 @@ export function provideInstance() {
   imports: [
     CommonModule
   ],
-  entryComponents: [ BlockUIComponent ],
+  entryComponents: [
+    BlockUIComponent,
+    BlockUIContentComponent
+  ],
   declarations: [
     BlockUIComponent,
-    BlockUIDirective
+    BlockUIDirective,
+    BlockUIContentComponent
   ],
   exports: [
     BlockUIComponent,
-    BlockUIDirective
+    BlockUIDirective,
+    BlockUIContentComponent
   ],
   providers: [
     {
