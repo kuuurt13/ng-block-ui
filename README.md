@@ -24,7 +24,6 @@ import { BlockUIModule } from 'ng-block-ui';
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
-
 ```
 ### Usage
 Add the `*blockUI` directive to the outermost element of your app.
@@ -37,8 +36,10 @@ This method also can take a custom message to display while blocking.
 Once finished call the `stop` method to stop blocking the app.
 
 ```js
-// All other imports
-import { BlockUI } from 'ng-block-ui'; // Inject decorator
+import { Component } from '@angular/core';
+
+// Inject BlockUI decorator & optional NgBlockUI type
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-root',
@@ -49,7 +50,8 @@ import { BlockUI } from 'ng-block-ui'; // Inject decorator
   `
 })
 export class AppComponent {
-  @BlockUI() blockUI; // Decorator wires up blockUI instance
+  // Decorator wires up blockUI instance
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor() {
     this.blockUI.start('Loading...'); // Start blocking
@@ -58,5 +60,4 @@ export class AppComponent {
       this.blockUI.stop(); // Stop blocking
     }, 2000);
   }
-
 ```
