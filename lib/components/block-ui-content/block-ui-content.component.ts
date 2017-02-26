@@ -6,19 +6,19 @@ import {
   Input
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { BlockUIService } from '../services/block-ui.service';
-import { BlockUIEvent } from '../models';
-import { BlockUIActions, BlockUIDefaultName } from '../constants';
-import { styles } from './block-ui.component.style';
-import { template } from './block-ui.component.template';
+import { BlockUIService } from '../../services/block-ui.service';
+import { BlockUIEvent } from '../../models';
+import { BlockUIActions, BlockUIDefaultName } from '../../constants';
+import { styles } from './block-ui-content.component.style';
+import { template } from './block-ui-content.component.template';
 
 @Component({
-  selector: 'block-ui',
+  selector: 'block-ui-content',
   template: template,
   styles: [styles], // TODO: Find how to bundle styles for npm
   encapsulation: ViewEncapsulation.None
 })
-export class BlockUIComponent implements OnInit {
+export class BlockUIContentComponent implements OnInit, OnDestroy {
   @Input() name: string = BlockUIDefaultName;
   private message: string;
   private active: boolean = false;
