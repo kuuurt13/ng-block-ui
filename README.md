@@ -5,7 +5,15 @@ A Block UI implementation for Angular 2 & up
 ### Install
 Install into project via [npm](https://www.npmjs.com/package/ng-block-ui)
 
-	npm install ng-block-ui --save
+```bash
+// Angular 2.x
+npm install ng-block-ui --save
+
+-- or --
+
+// Angular 4.x
+npm install ng-block-ui@next --save
+```
 
 Include the `BlockUIModule` in your main app module.
 
@@ -26,12 +34,12 @@ import { BlockUIModule } from 'ng-block-ui';
 export class AppModule { }
 ```
 ### Usage
-Wrap your app components with the `block-ui` component in your app root component template.
+Wrap all components in your app root template with a `block-ui` component.
 
-Inject the `BlockUI` decorator into your component and declare a variable with the decorator.
+Import the `BlockUI` decorator into your component and declare a variable with the decorator.
 This decorator will auto wire this variable to the main Block UI instance of your app.
 
-To start blocking your app simply invoke the `start` method.
+To start blocking your app, simply invoke the `start` method.
 This method also can take a custom message to display while blocking.
 Once finished call the `stop` method to stop blocking the app.
 
