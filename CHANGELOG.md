@@ -1,3 +1,9 @@
+#### 1.0.0-beta.0 (2017-2-27)
+
+##### New Features
+
+* **core:** Added Angular 4.x support (#6) ([05c9d3e4](https://github.com/kuuurt13/ng-block-ui/commit/05c9d3e49bb9a972af6131f2d2f872d5c7a14306))
+
 ### 0.3.0 (2017-2-26)
 
 ##### New Features
