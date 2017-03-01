@@ -1,3 +1,9 @@
+#### 0.3.1 (2017-2-28)
+
+##### Bug Fixes
+
+* **lib:** Switch module code generation to commonjs ([b0318e66](https://github.com/kuuurt13/ng-block-ui/commit/b0318e66716a5703fc79a1106ca0300c77e7517b))
+
 ### 0.3.0 (2017-2-26)
 
 ##### New Features
