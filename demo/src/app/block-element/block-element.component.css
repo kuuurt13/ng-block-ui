@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  width: 45%;
+  max-width: 650px;
+  margin: 75px auto 10px auto;
+  background: #eee;
+}
+
+:host h1 {
+  padding: 155px 0;
+  color: #32424e;
+}
