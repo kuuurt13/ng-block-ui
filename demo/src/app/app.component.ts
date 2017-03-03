@@ -9,8 +9,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 })
 export class AppComponent {
   @BlockUI() blockUI: NgBlockUI;
-  @BlockUI('block-element') blockUIList: NgBlockUI;
-
+  @BlockUI('block-element') elementBlockUI: NgBlockUI;
 
   constructor(
   ) { }
@@ -24,10 +23,10 @@ export class AppComponent {
   }
 
   blockElement() {
-    this.blockUIList.start('Loading...');
+    this.elementBlockUI.start('Loading...');
 
     setTimeout((blockUI) => {
-      this.blockUIList.stop();
+      this.elementBlockUI.stop();
     }, 2000);
   }
 }

@@ -1,9 +1,6 @@
 <block-ui>
   <h1>Angular Block UI</h1>
-  <button class="button button--default" (click)="blockMain()">Start BlockUI</button>
-
-  <div class="example-element" *blockUI="'block-element'">
-    <h1>Angular Block UI Element</h1>
-  </div>
-  <button class="button button--default" (click)="blockElement()">Start Element BlockUI</button>
+  <button class="button button--default" (click)="blockMain()">Start Block UI</button>
+  <button class="button button--default" (click)="blockElement()">Start Element Block UI</button>
 </block-ui>
+<block-element *blockUI="'block-element'"></block-element>

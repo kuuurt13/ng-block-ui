@@ -1,18 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
 import { BlockUIModule } from 'ng-block-ui';
 
+import { AppComponent } from './app.component';
+import { BlockElementModule } from './block-element/block-element.module';
+
 @NgModule({
+  imports: [
+    BrowserModule,
+    BlockUIModule,
+    BlockElementModule
+  ],
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    BlockUIModule
-  ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
