@@ -21,6 +21,9 @@
     "node_modules",
     "demo"
   ],
+  "types": [
+    "jasmine"
+  ],
   "files": [
     "./index.ts"
   ],
