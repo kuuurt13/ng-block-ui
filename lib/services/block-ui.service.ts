@@ -30,6 +30,6 @@ export class BlockUIService {
         action,
         message
       });
-    }
+    };
   }
 }

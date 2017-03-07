@@ -41,12 +41,12 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
   private onDispatchedEvent(event: BlockUIEvent) {
     switch (event.action) {
       case(BlockUIActions.START):
-        this.onStart(event)
+        this.onStart(event);
         break;
 
       case(BlockUIActions.STOP):
       case(BlockUIActions.RESET):
-        this.onStop(event)
+        this.onStop(event);
         break;
     }
   }

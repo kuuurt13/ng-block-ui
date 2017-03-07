@@ -73,4 +73,4 @@ export const styles = `
     transform: rotate(360deg);
   }
 }
-`
+`;

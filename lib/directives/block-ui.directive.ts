@@ -37,7 +37,7 @@ export class BlockUIDirective implements OnInit {
         this.blockUIComponentRef.instance.name = this.blockTarget || BlockUIDefaultName;
       }
     } catch (error) {
-      console.error('ng-block-ui:', error)
+      console.error('ng-block-ui:', error);
     }
   }
 
