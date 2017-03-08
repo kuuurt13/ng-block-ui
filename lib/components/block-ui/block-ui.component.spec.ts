@@ -10,8 +10,8 @@ import { BlockUIDefaultName } from '../../constants/block-ui-default-name.consta
 @Component({
   selector: 'test-comp',
   template: `
-    <block-ui>
-      <h1>Test</h1>
+    <block-ui [name]="blockName">
+      <h1 class="header">Test</h1>
     </block-ui>
   `
 })
@@ -19,7 +19,7 @@ class TestComp {
   blockName: string;
 }
 
-describe('BlockUI Component', () => {
+describe('block-ui component', () => {
   let cf: ComponentFixture<any>;
   let blkContComp: DebugElement;
   let blockContentElement: HTMLElement;
@@ -40,12 +40,26 @@ describe('BlockUI Component', () => {
     blockContentElement = blkContComp.nativeElement;
   });
 
-  it('Appends BlockUIContentComponent', () => {
+  it('appends block-ui-content', () => {
     expect(blockContentElement).toBeDefined();
   });
 
-  it('Sets BlockUIContentComponent to default name', () => {
+  it('projects transcluded elements', () => {
+    let { nativeElement } = cf.debugElement.query(By.css('h1.header'));
+    expect(nativeElement).not.toBe(null);
+  });
+
+  it('sets block-ui-content name to default if name is undefined', () => {
     let instance = blkContComp.componentInstance;
     expect(instance.name).toBe(BlockUIDefaultName);
+  });
+
+  it('passes name property to block-ui-content', () => {
+    let instance = blkContComp.componentInstance;
+    instance.name = 'test-name';
+
+    cf.detectChanges();
+
+    expect(blkContComp.componentInstance.name).toBe('test-name');
   });
 });

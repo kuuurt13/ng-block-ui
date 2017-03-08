@@ -19,7 +19,8 @@
   },
   "exclude": [
     "node_modules",
-    "demo"
+    "demo",
+    "**/*.spec.ts"
   ],
   "types": [
     "jasmine"

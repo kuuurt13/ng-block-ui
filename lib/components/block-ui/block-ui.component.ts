@@ -1,7 +1,8 @@
 import {
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
+  OnInit
 } from '@angular/core';
 import { BlockUIDefaultName } from '../../constants';
 
@@ -13,8 +14,12 @@ import { BlockUIDefaultName } from '../../constants';
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class BlockUIComponent {
-  @Input() name: string = BlockUIDefaultName;
+export class BlockUIComponent implements OnInit {
+  @Input() name: string;
 
   constructor() { }
+
+  ngOnInit() {
+    this.name = this.name || BlockUIDefaultName;
+  }
 }
