@@ -4,5 +4,7 @@ settings.json
 *.tgz
 *.metadata.json
 /dist
-/**/*.js
-/**/*.js.map
+index.js
+index.js.map
+lib/**/*.js
+lib/**/*.js.map

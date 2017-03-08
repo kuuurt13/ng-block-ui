@@ -7,7 +7,8 @@
   "scripts": {
     "build": "node_modules/.bin/ngc -p tsconfig.json",
     "pack:dev": "npm run build && npm pack",
-    "test": "node_modules/karma/bin/karma start karma.conf.js"
+    "test": "node_modules/karma/bin/karma start karma.conf.js",
+    "test:watch": "node_modules/karma/bin/karma start karma.conf.js --singleRun=false"
   },
   "repository": {
     "type": "git",
