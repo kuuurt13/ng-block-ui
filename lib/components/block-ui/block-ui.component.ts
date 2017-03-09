@@ -4,7 +4,7 @@ import {
   ViewEncapsulation,
   OnInit
 } from '@angular/core';
-import { BlockUIDefaultName } from '../../constants';
+import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 
 @Component({
   selector: 'block-ui',

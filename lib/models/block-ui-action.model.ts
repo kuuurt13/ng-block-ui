@@ -1,4 +1,4 @@
-import { BlockUIActions } from '../constants';
+import { BlockUIActions } from '../constants/block-ui-actions.constant';
 
 export class BlockUIEvent {
     name: string;
