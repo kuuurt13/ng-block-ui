@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlockUIComponent, BlockUIContentComponent } from './components';
+
+import { BlockUIComponent } from './components/block-ui/block-ui.component';
+import { BlockUIContentComponent } from './components/block-ui-content/block-ui-content.component';
 import { BlockUIService } from './services/block-ui.service';
 import { BlockUIDirective } from './directives/block-ui.directive';
 

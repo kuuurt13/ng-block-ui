@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "node_modules/.bin/ngc -p tsconfig.json",
+    "build": "npm run build:ngc && npm run build:tsc",
+    "build:ngc": "node_modules/.bin/ngc -p tsconfig.json",
+    "build:tsc": "node_modules/typescript/bin/tsc -p tsconfig-umd.json",
     "pack:dev": "npm run build && npm pack",
     "test": "node_modules/karma/bin/karma start karma.conf.js",
     "test:watch": "node_modules/karma/bin/karma start karma.conf.js --singleRun=false"
@@ -61,6 +63,7 @@
     "zone.js": "~0.6.26"
   },
   "files": [
-    "dist"
+    "dist",
+    "bundles"
   ]
 }

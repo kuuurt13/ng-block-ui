@@ -5,10 +5,11 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { BlockUIService } from '../../services/block-ui.service';
-import { BlockUIEvent } from '../../models';
-import { BlockUIActions, BlockUIDefaultName } from '../../constants';
+import { BlockUIEvent } from '../../models/block-ui-action.model';
+import { BlockUIActions } from '../../constants/block-ui-actions.constant';
+import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 import { styles } from './block-ui-content.component.style';
 import { template } from './block-ui-content.component.template';
 
