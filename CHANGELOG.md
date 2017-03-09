@@ -1,3 +1,9 @@
+#### 0.3.2 (2017-3-8)
+
+##### Other Changes
+
+* **lib:** Added systemjs support (#8) ([cfd3c65b](https://github.com/kuuurt13/ng-block-ui/commit/cfd3c65b14a45a62e91d352043853158a7055819))
+
 #### 0.3.1 (2017-2-28)
 
 ##### Bug Fixes
