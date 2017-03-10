@@ -11,11 +11,13 @@ import { BlockUIDefaultName } from '../../constants/block-ui-default-name.consta
 @Component({
   selector: 'test-comp',
   template: `
-    <block-ui></block-ui>
+    <block-ui-content [message]="defaultMessage">
+    </block-ui-content>
   `
 })
 class TestComp {
   @BlockUI() blockUI: any;
+  defaultMessage: string;
 }
 
 describe('block-ui-content component', () => {
@@ -80,5 +82,30 @@ describe('block-ui-content component', () => {
 
     let { nativeElement } = cf.debugElement.query(By.css('div.message'));
     expect(nativeElement.textContent).toBe(expectedMessage);
+  });
+
+  it('displays default message if set and no message is passed', () => {
+    let defaultMessage = 'Default';
+    testCmp.defaultMessage = defaultMessage;
+    cf.detectChanges();
+
+    testCmp.blockUI.start();
+    cf.detectChanges();
+
+    let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+    expect(nativeElement.textContent).toBe(defaultMessage);
+  });
+
+  it('passed messages take priority iver default', () => {
+    let message = 'Loading...';
+
+    testCmp.defaultMessage = 'Default';
+    cf.detectChanges();
+
+    testCmp.blockUI.start(message);
+    cf.detectChanges();
+
+    let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+    expect(nativeElement.textContent).toBe(message);
   });
 });

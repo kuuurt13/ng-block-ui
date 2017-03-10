@@ -21,6 +21,8 @@ import { template } from './block-ui-content.component.template';
 })
 export class BlockUIContentComponent implements OnInit, OnDestroy {
   @Input() name: string = BlockUIDefaultName;
+  @Input('message') defaultMessage: string;
+
   private message: string;
   private active: boolean = false;
   private blockUISubscription: Subscription;
