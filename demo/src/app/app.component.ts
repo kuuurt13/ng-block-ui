@@ -10,16 +10,18 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 export class AppComponent {
   @BlockUI() blockUI: NgBlockUI;
   @BlockUI('block-element') elementBlockUI: NgBlockUI;
+  defaultMessage: string = 'Default Message...';
+  timeout: number = 2000;
 
   constructor(
   ) { }
 
-  blockMain() {
-    this.blockUI.start();
+  blockMain(message: string) {
+    this.blockUI.start(message);
 
     setTimeout((blockUI) => {
       this.blockUI.stop();
-    }, 2000);
+    }, this.timeout);
   }
 
   blockElement() {
@@ -27,6 +29,6 @@ export class AppComponent {
 
     setTimeout((blockUI) => {
       this.elementBlockUI.stop();
-    }, 2000);
+    }, this.timeout);
   }
 }

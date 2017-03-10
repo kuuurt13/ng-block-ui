@@ -10,13 +10,14 @@ import { BlockUIDefaultName } from '../../constants/block-ui-default-name.consta
 @Component({
   selector: 'test-comp',
   template: `
-    <block-ui [name]="blockName">
+    <block-ui [name]="blockName" [message]="message">
       <h1 class="header">Test</h1>
     </block-ui>
   `
 })
 class TestComp {
   blockName: string;
+  message: string = 'Default...';
 }
 
 describe('block-ui component', () => {
@@ -27,9 +28,7 @@ describe('block-ui component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ BlockUIModule ],
-      declarations: [
-        TestComp
-      ]
+      declarations: [ TestComp ]
     })
     .compileComponents();
 
@@ -50,16 +49,28 @@ describe('block-ui component', () => {
   });
 
   it('sets block-ui-content name to default if name is undefined', () => {
-    let instance = blkContComp.componentInstance;
-    expect(instance.name).toBe(BlockUIDefaultName);
+    let { componentInstance } = blkContComp;
+    expect(componentInstance.name).toBe(BlockUIDefaultName);
   });
 
   it('passes name property to block-ui-content', () => {
     let instance = blkContComp.componentInstance;
-    instance.name = 'test-name';
+    let name = 'test-name';
+    let { componentInstance } = blkContComp;
+
+    instance.name = name;
+    cf.detectChanges();
+
+    expect(componentInstance.name).toBe(name);
+  });
+
+  it('passes default message property to block-ui-content', () => {
+    let instance = blkContComp.componentInstance;
+    let message = instance.message;
+    let { componentInstance } = blkContComp;
 
     cf.detectChanges();
 
-    expect(blkContComp.componentInstance.name).toBe('test-name');
+    expect(componentInstance.message).toBe(message);
   });
 });
