@@ -1,3 +1,9 @@
+### 0.4.0 (2017-3-9)
+
+##### New Features
+
+* **component:** Ability to set a default message (#10) ([1ac8cf86](https://github.com/kuuurt13/ng-block-ui/commit/1ac8cf86f7c4f15bf2245bd54e4c4d95949e1798))
+
 #### 0.3.2 (2017-3-8)
 
 ##### Other Changes
