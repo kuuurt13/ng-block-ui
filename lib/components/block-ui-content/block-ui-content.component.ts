@@ -5,10 +5,11 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { BlockUIService } from '../../services/block-ui.service';
-import { BlockUIEvent } from '../../models';
-import { BlockUIActions, BlockUIDefaultName } from '../../constants';
+import { BlockUIEvent } from '../../models/block-ui-action.model';
+import { BlockUIActions } from '../../constants/block-ui-actions.constant';
+import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 import { styles } from './block-ui-content.component.style';
 import { template } from './block-ui-content.component.template';
 
@@ -20,6 +21,8 @@ import { template } from './block-ui-content.component.template';
 })
 export class BlockUIContentComponent implements OnInit, OnDestroy {
   @Input() name: string = BlockUIDefaultName;
+  @Input('message') defaultMessage: string;
+
   private message: string;
   private active: boolean = false;
   private blockUISubscription: Subscription;
@@ -41,12 +44,12 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
   private onDispatchedEvent(event: BlockUIEvent) {
     switch (event.action) {
       case(BlockUIActions.START):
-        this.onStart(event)
+        this.onStart(event);
         break;
 
       case(BlockUIActions.STOP):
       case(BlockUIActions.RESET):
-        this.onStop(event)
+        this.onStop(event);
         break;
     }
   }

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "bundles/umd",
     "target": "es5",
-    "module": "commonjs",
+    "module": "umd",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -20,16 +20,10 @@
   "exclude": [
     "node_modules",
     "demo",
-    "**/*.spec.ts"
-  ],
-  "types": [
-    "jasmine"
+    "**/*.spec.ts",
+    "dist"
   ],
   "files": [
     "./index.ts"
-  ],
-  "angularCompilerOptions": {
-    "genDir": "dist",
-    "skipTemplateCodegen": true
-  }
+  ]
 }

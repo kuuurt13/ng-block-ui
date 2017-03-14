@@ -5,3 +5,9 @@ npm-debug.log
 .npmignore
 config
 demo
+bundles
+karma.conf.js
+karma.shim.js
+tslint.json
+webpack.config.json
+vendor.ts

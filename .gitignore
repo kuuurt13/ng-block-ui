@@ -3,6 +3,11 @@ npm-debug.log
 settings.json
 *.tgz
 *.metadata.json
+
 /dist
-/**/*.js
-/**/*.js.map
+/bundles
+
+index.js
+index.js.map
+lib/**/*.js
+lib/**/*.js.map

@@ -1,6 +1,7 @@
-<block-ui>
+<block-ui [message]="defaultMessage">
   <h1>Angular Block UI</h1>
-  <button class="button button--default" (click)="blockMain()">Start Block UI</button>
-  <button class="button button--default" (click)="blockElement()">Start Element Block UI</button>
+  <button class="button button--default" (click)="blockMain('Loading...')">Block UI</button>
+  <button class="button button--default" (click)="blockMain()">Block UI Default Message</button>
+  <button class="button button--default" (click)="blockElement()">Element Block UI</button>
 </block-ui>
 <block-element *blockUI="'block-element'"></block-element>
