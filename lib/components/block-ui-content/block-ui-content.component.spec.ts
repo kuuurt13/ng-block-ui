@@ -81,7 +81,7 @@ describe('block-ui-content component', () => {
     cf.detectChanges();
 
     let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-    expect(nativeElement.textContent).toBe(expectedMessage);
+    expect(nativeElement.innerText).toBe(expectedMessage);
   });
 
   it('displays default message if set and no message is passed', () => {
@@ -93,7 +93,7 @@ describe('block-ui-content component', () => {
     cf.detectChanges();
 
     let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-    expect(nativeElement.textContent).toBe(defaultMessage);
+    expect(nativeElement.innerText).toBe(defaultMessage);
   });
 
   it('passed messages take priority iver default', () => {
@@ -106,6 +106,6 @@ describe('block-ui-content component', () => {
     cf.detectChanges();
 
     let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-    expect(nativeElement.textContent).toBe(message);
+    expect(nativeElement.innerText).toBe(message);
   });
 });
