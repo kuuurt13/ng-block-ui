@@ -24,9 +24,9 @@ export class BlockUIService {
     return this.blockUIObservable;
   }
 
-  private dispatch(blockUISubject: ReplaySubject<any>, action: BlockUIActions, name?: string): Function {
+  private dispatch(subject: ReplaySubject<any>, action: BlockUIActions, name: string = BlockUIDefaultName): Function {
     return (message?: string): void => {
-      blockUISubject.next({
+      subject.next({
         name,
         action,
         message
