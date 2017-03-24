@@ -2,6 +2,8 @@
 
 A Block UI implementation for Angular 2 & up
 
+[![Build Status](https://travis-ci.org/kuuurt13/ng-block-ui.svg?branch=master)](https://travis-ci.org/kuuurt13/ng-block-ui)
+
 ### Install
 Install into project via [npm](https://www.npmjs.com/package/ng-block-ui)
 
