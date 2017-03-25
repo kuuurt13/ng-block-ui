@@ -1,4 +1,10 @@
-### 0.4.0 (2017-3-9)
+#### 0.4.1 (2017-3-25)
+
+##### Bug Fixes
+
+* **component:** Active should be a property ([d5184987](https://github.com/kuuurt13/ng-block-ui/commit/d51849877d14c73bb33c7b769f26ff98a17f499e))
+
+#### 0.4.0 (2017-3-9)
 
 ##### New Features
 
