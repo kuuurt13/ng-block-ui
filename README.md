@@ -2,6 +2,7 @@
 
 A Block UI implementation for Angular 2 & up
 
+[![npm](https://img.shields.io/npm/v/ng-block-ui.svg)]()
 [![Build Status](https://travis-ci.org/kuuurt13/ng-block-ui.svg?branch=master)](https://travis-ci.org/kuuurt13/ng-block-ui)
 
 ### Install
