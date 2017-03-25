@@ -5,6 +5,7 @@ module.exports = config => {
     autoWatch: true,
     browsers: ['PhantomJS'],
     files: [
+      'node_modules/babel-polyfill/dist/polyfill.js',
       'karma.shim.js'
     ],
     frameworks: ['jasmine'],
