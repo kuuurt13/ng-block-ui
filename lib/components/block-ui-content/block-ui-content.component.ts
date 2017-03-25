@@ -23,8 +23,9 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
   @Input() name: string = BlockUIDefaultName;
   @Input('message') defaultMessage: string;
 
+  active: boolean = false;
+
   private message: string;
-  private active: boolean = false;
   private blockUISubscription: Subscription;
 
   constructor(
