@@ -72,3 +72,5 @@ export class AppComponent {
     }, 2000);
   }
 ```
+### Examples
+#### BlockUI Component - [Plunker](https://plnkr.co/edit/ZVDRrq?p=preview)
