@@ -1,3 +1,5 @@
+// Spinner style - https://github.com/lukehaas/css-loaders
+
 export const styles = `
 .block-ui-wrapper {
   position: absolute;
@@ -53,6 +55,7 @@ export const styles = `
   -webkit-animation: load8 1.1s infinite linear;
   animation: load8 1.1s infinite linear;
 }
+
 @-webkit-keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);
@@ -63,6 +66,7 @@ export const styles = `
     transform: rotate(360deg);
   }
 }
+
 @keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);
