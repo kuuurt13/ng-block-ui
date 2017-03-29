@@ -3,15 +3,12 @@
 module.exports = config => {
   config.set({
     autoWatch: true,
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     files: [
       'karma.shim.js'
     ],
     frameworks: ['jasmine'],
     logLevel: config.LOG_INFO,
-    phantomJsLauncher: {
-      exitOnResourceError: true
-    },
     port: 9876,
     preprocessors: {
       'karma.shim.js': ['webpack', 'sourcemap']
@@ -21,6 +18,12 @@ module.exports = config => {
     webpack: require('./webpack.config.js'),
     webpackServer: {
       noInfo: true
+    },
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
     }
   });
 };
