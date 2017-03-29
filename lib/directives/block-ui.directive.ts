@@ -27,11 +27,11 @@ export class BlockUIDirective implements OnInit {
   ngOnInit() {
     try {
       this.viewRef.createEmbeddedView(this.templateRef);
-
       const parentElement = this.viewRef.element.nativeElement.nextElementSibling;
-      parentElement.className += ' block-ui__element';
 
-      if (!this.isComponentInTemplate(parentElement)) {
+      if (parentElement && !this.isComponentInTemplate(parentElement)) {
+        parentElement.classList.add('block-ui__element');
+
         this.blockUIComponentRef = this.createComponent();
         parentElement.append(this.viewRef.element.nativeElement.nextSibling);
         this.blockUIComponentRef.instance.name = this.blockTarget || BlockUIDefaultName;
@@ -42,7 +42,7 @@ export class BlockUIDirective implements OnInit {
   }
 
   private isComponentInTemplate(element: any): boolean {
-    let { children } = element;
+    let { children } = element || [];
     children = Array.from(children).reverse();
     return children.some((el: any) => el.localName === 'block-ui');
   }
