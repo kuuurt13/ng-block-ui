@@ -18,6 +18,31 @@ npm install ng-block-ui --save
 npm install ng-block-ui@next --save
 ```
 
+###Configuring SystemJS
+
+If your project is using SystemJS for module loading, you will need to add ng-block-ui to the SystemJS configuration:
+
+```js
+System.config({
+  // existing configuration options
+  map: {
+    ...
+    'ng-block-ui': 'npm:ng-block-ui/dist',
+    ...
+  }
+  packages: {
+    ...
+    'ng-block-ui': {
+        main: 'index.js',
+        defaultExtension: 'js'
+    },
+    ...
+  }
+});
+
+```
+
+
 Include the `BlockUIModule` in your main app module.
 
 ```js
