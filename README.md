@@ -18,7 +18,7 @@ npm install ng-block-ui --save
 npm install ng-block-ui@next --save
 ```
 
-###Configuring SystemJS
+### Configuring SystemJS
 
 If your project is using SystemJS for module loading, you will need to add ng-block-ui to the SystemJS configuration:
 
