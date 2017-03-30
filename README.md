@@ -27,7 +27,7 @@ System.config({
   // existing configuration options
   map: {
     ...
-    'ng-block-ui': 'npm:ng-block-ui/dist',
+    'ng-block-ui': 'npm:ng-block-ui/bundles/umd',
     ...
   },
   packages: {
