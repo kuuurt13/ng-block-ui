@@ -1,12 +1,12 @@
-## NG Block UI
+# NG Block UI
 
 A Block UI implementation for Angular 2 & up
 
 [![npm](https://img.shields.io/npm/v/ng-block-ui.svg)](https://www.npmjs.com/package/ng-block-ui)
 [![Build Status](https://travis-ci.org/kuuurt13/ng-block-ui.svg?branch=master)](https://travis-ci.org/kuuurt13/ng-block-ui)
 
-### Install
-Install into project via [npm](https://www.npmjs.com/package/ng-block-ui)
+## Installation
+Add to project via [npm](https://www.npmjs.com/package/ng-block-ui)
 
 ```bash
 // Angular 2.x
@@ -18,13 +18,13 @@ npm install ng-block-ui --save
 npm install ng-block-ui@next --save
 ```
 
-### Configuring SystemJS
+#### Configuring SystemJS
 
 If your project is using SystemJS for module loading, you will need to add ng-block-ui to the SystemJS configuration:
 
 ```js
 System.config({
-  // existing configuration options
+  // Existing configuration options
   map: {
     ...
     'ng-block-ui': 'npm:ng-block-ui/bundles/umd',
@@ -41,7 +41,6 @@ System.config({
 });
 
 ```
-
 
 Include the `BlockUIModule` in your main app module.
 
@@ -61,7 +60,9 @@ import { BlockUIModule } from 'ng-block-ui';
 })
 export class AppModule { }
 ```
-### Usage
+## Usage
+
+### Block UI Component
 Wrap all components in your app root template with a `block-ui` component.
 
 Import the `BlockUI` decorator into your component and declare a variable with the decorator.
@@ -97,5 +98,40 @@ export class AppComponent {
     }, 2000);
   }
 ```
-### Examples
-#### BlockUI Component - [Plunker](https://plnkr.co/edit/ZVDRrq?p=preview)
+
+### Block UI Directive
+Sometimes you want to only apply blocking to a certain element in your app.
+The Block UI directive can be added to an element to apply blocking only to that specific element.
+
+Add the `*blockUI` structural directive to any element
+and pass it an instance name `*blockUI="'contact-list'"`.
+
+Then in a component create a variable using the Block UI decorator with the instance name.
+This will then take care of wiring up that variable to point to that specific instance in your app `@BlockUI('contact-list')`.
+
+```js
+... // Imports
+
+@Component({
+  selector: 'app-cmp',
+  template: `
+    <div>
+      <!-- Other markup -->
+      <div *blockUI="'contact-list'">
+        <!-- List markup -->
+      </div>
+    </div>
+  `
+})
+export class AppComponent {
+  // Pass instance name to decorator
+  @BlockUI('contact-list') blockUIList: NgBlockUI;
+
+  constructor() {
+    this.blockUIList.start('Loading...'); // Start blocking element only
+    this.blockUIList.stop(); // Stop blocking
+  }
+```
+
+## Examples
+### BlockUI Component - [Plunker](https://plnkr.co/edit/ZVDRrq?p=preview)
