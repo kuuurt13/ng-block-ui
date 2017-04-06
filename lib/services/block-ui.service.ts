@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, ReplaySubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { BlockUIActions } from '../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 import { NgBlockUI } from '../models/block-ui.model';
