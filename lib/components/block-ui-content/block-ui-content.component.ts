@@ -5,7 +5,10 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 import { BlockUIService } from '../../services/block-ui.service';
 import { BlockUIEvent } from '../../models/block-ui-action.model';
 import { BlockUIActions } from '../../constants/block-ui-actions.constant';
