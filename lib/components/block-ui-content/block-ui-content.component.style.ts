@@ -9,6 +9,7 @@ export const styles = `
   left: 0;
   background: rgba(0, 0, 0, 0.70);
   z-index: 30000;
+  cursor: wait;
 }
 
 .block-ui-wrapper.block-ui-main {
