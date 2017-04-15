@@ -1,3 +1,23 @@
+### 1.0.0-beta.4 (2017-4-15)
+
+##### New Features
+
+* **component:** Show spinner cursor when blocking ([fb1468fb](https://github.com/kuuurt13/ng-block-ui/commit/fb1468fba452ce0e5894e18f40338609e942b8c6))
+
+##### Other Changes
+
+* **rxjs:** Import methods to avoid importing all of rxjs ([b309ae90](https://github.com/kuuurt13/ng-block-ui/commit/b309ae904cffc34b8716f65c2c7ab0a79162c625))
+* **docs:**
+  * Add directive usage to docs (#12) ([11d1925b](https://github.com/kuuurt13/ng-block-ui/commit/11d1925b8f4c1eaf48d500f5ca6b23177fbbe956))
+  * Configuring SystemJS  (#14) ([0017b22e](https://github.com/kuuurt13/ng-block-ui/commit/0017b22e854ebe6cf44649a7847bfce024c93c2e))
+  * Add examples section with plunker link ([f6c4d487](https://github.com/kuuurt13/ng-block-ui/commit/f6c4d487d49a63e5fbc12cab8c489cf8b9326264))
+  * Add npm url to npm badge ([16b4cd96](https://github.com/kuuurt13/ng-block-ui/commit/16b4cd96673c8369404db7ad1e96312b920c1658))
+* **ci:** Update karma to use chrome for testing ([8b3f07f2](https://github.com/kuuurt13/ng-block-ui/commit/8b3f07f2ca352e7b9b51b0cafa0b5a76025e7026))
+
+##### Tests
+
+* **tests:** Added blockUI directive tests ([281a0930](https://github.com/kuuurt13/ng-block-ui/commit/281a09307144f2ca05ebd85eed459d0a2c86648e))
+
 ### 1.0.0-beta.3 (2017-3-25)
 
 ##### Bug Fixes
