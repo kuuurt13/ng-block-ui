@@ -99,6 +99,31 @@ export class AppComponent {
   }
 ```
 
+#### Default Message
+A default message can be configured to be shown instead of passing a message each time to the start method.
+The default message will be shown any time blocking is activated. A message can still be passed to the start method
+and it will take precedence over the default message.
+
+```js
+// Imports
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <block-ui [message]="'Loading...'">
+      <!-- Your app markup here -->
+    </block-ui>
+  `
+})
+export class AppComponent {
+  @BlockUI() blockUI: NgBlockUI;
+
+  constructor() {
+    this.blockUI.start(); // Default "Loading..." message will display
+    this.blockUI.start('Updating...'); // Custom "Updating..." message will display
+  }
+```
+
 ### Block UI Directive
 Sometimes you want to only apply blocking to a certain element in your app.
 The Block UI directive can be added to an element to apply blocking only to that specific element.
@@ -135,3 +160,4 @@ export class AppComponent {
 
 ## Examples
 ### BlockUI Component - [Plunker](https://plnkr.co/edit/ZVDRrq?p=preview)
+### BlockUI Component Default Message - [Plunker](https://plnkr.co/edit/oTBw4G?p=preview)
