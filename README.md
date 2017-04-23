@@ -158,6 +158,13 @@ export class AppComponent {
   }
 ```
 
+### NgBlockUI Instance
+| Method | Description
+|---|---|
+| `start` | Starts blocking for instance, can be passed an optional message.
+| `stop` | Stops blocking for instance.
+| `reset` | Stops blocking for all currently blocking instances app wide.
+
 ## Examples
 ### BlockUI Component - [Plunker](https://plnkr.co/edit/ZVDRrq?p=preview)
 ### BlockUI Component Default Message - [Plunker](https://plnkr.co/edit/oTBw4G?p=preview)
