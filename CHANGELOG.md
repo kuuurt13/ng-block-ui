@@ -1,3 +1,15 @@
+#### 0.5.1 (2017-4-24)
+
+##### Bug Fixes
+
+* **directive:** Fix IE compatibility issue - (#17) ([96a33730](https://github.com/kuuurt13/ng-block-ui/commit/96a337304b37ec93efe791085020783d30255473))
+
+##### Other Changes
+
+* **docs:**
+  * Add NgBlockUI methods overview - #12 ([f6ac137d](https://github.com/kuuurt13/ng-block-ui/commit/f6ac137dfcdc1bf57788aac9d2c83a08733f7f14))
+  * Add component default message usage/example ([e51584d3](https://github.com/kuuurt13/ng-block-ui/commit/e51584d3fd06ff96460654afd36eedcecd8b7606))
+
 ### 0.5.0 (2017-4-15)
 
 ##### Chores
