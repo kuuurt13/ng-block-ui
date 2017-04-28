@@ -1,37 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { BlockUIActions } from '../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
-import { NgBlockUI } from '../models/block-ui.model';
+import { BlockUIInstanceService } from './block-ui-instance.service';
 
 
 @Injectable()
 export class BlockUIService {
-  private blockUISubject: ReplaySubject<any> = new ReplaySubject();
-  private blockUIObservable: Observable<any> = this.blockUISubject.asObservable();
 
-  constructor() { }
+  constructor(
+    private blockUIInstance: BlockUIInstanceService
+  ) {}
 
-  decorate(name: string = BlockUIDefaultName): NgBlockUI {
-    return {
-      start: this.dispatch(this.blockUISubject, BlockUIActions.START, name),
-      stop: this.dispatch(this.blockUISubject, BlockUIActions.STOP, name),
-      reset: this.dispatch(this.blockUISubject, BlockUIActions.RESET, name),
-    } as NgBlockUI;
+  /**
+  * Starts blocking for given BlockUI instance or instances
+  */
+  start(target: string | string[], message?: string): void {
+    this.dispatch(target, BlockUIActions.START, message);
   }
 
-  observe(): Observable<any> {
-    return this.blockUIObservable;
+  /**
+  * Stops blocking for given BlockUI instance or instances
+  */
+  stop(target: string | string[]): void {
+    this.dispatch(target, BlockUIActions.STOP);
   }
 
-  private dispatch(subject: ReplaySubject<any>, action: BlockUIActions, name: string = BlockUIDefaultName): Function {
-    return (message?: string): void => {
-      subject.next({
-        name,
-        action,
-        message
-      });
-    };
+  /**
+  * Unsubscribes for given BlockUI instance or instances
+  */
+  unsubscribe(target: string | string[]): void {
+    this.dispatch(target, BlockUIActions.UNSUBSCRIBE);
+  }
+
+  private dispatch(target: string | string[] = [], type: string, message?: string) {
+    const instances = typeof target === 'string' ? [target] : target;
+    instances.forEach(i => this.blockUIInstance.decorate(i)[type](message));
   }
 }

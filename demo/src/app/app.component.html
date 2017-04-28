@@ -1,7 +1,15 @@
 <block-ui [message]="defaultMessage">
   <h1>Angular Block UI</h1>
-  <button class="button button--default" (click)="blockMain('Loading...')">Block UI</button>
-  <button class="button button--default" (click)="blockMain()">Block UI Default Message</button>
-  <button class="button button--default" (click)="blockElement()">Element Block UI</button>
+  <div class="controls">
+    <button class="button button--default" (click)="blockMain('Loading...')">Block UI</button>
+    <button class="button button--default" (click)="blockMain()">Block UI Default Message</button>
+  </div>
+  <div class="controls">
+    <button class="button button--default" (click)="blockElement()">Element Block UI</button>
+    <button class="button button--default" (click)="blockUpdate()">Block &amp; Update Message</button>
+    <button class="button button--default" (click)="blockAllElements()">Block All Elements</button>
+  </div>
 </block-ui>
-<block-element *blockUI="'block-element'"></block-element>
+<div *ngFor="let block of blockInstances">
+  <block-element *blockUI="block"></block-element>
+</div>

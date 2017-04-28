@@ -6,7 +6,7 @@ A Block UI implementation for Angular 2 & up
 [![Build Status](https://travis-ci.org/kuuurt13/ng-block-ui.svg?branch=master)](https://travis-ci.org/kuuurt13/ng-block-ui)
 
 ## Installation
-Add to project via [npm](https://www.npmjs.com/package/ng-block-ui)
+Add to your project via [npm](https://www.npmjs.com/package/ng-block-ui)
 
 ```bash
 // Angular 2.x
@@ -164,6 +164,18 @@ export class AppComponent {
 | `start` | Starts blocking for instance, can be passed an optional message.
 | `stop` | Stops blocking for instance.
 | `reset` | Stops blocking for all currently blocking instances app wide.
+| `update` | Updates current instances blocking message with the passed message.
+| `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe during the `onDestroy` lifecycle hook. In some cases it might be desirable to unsubscribe while the component/element is still in the view.
+
+### BlockUIService
+In some cases you may want to have more control over all the instances in you app.
+Instead of declaring seperate instances with the `@BlockUI()` decorator you can use the `BlockUIService`. This service allows you to easily target multiple instance across your app.
+| Method | Parameters | Description
+|---|---|---|
+| `start` | `target: string | string[], message?: string` | Starts blocking for a single instance or multiple instances by passing instance name(s).
+| `stop` | `target: string | string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
+| `unsubscribe` | `target: string | string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
+
 
 ## Examples
 ### BlockUI Component - [Plunker](https://plnkr.co/edit/ZVDRrq?p=preview)
