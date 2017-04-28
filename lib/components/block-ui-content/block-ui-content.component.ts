@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { BlockUIService } from '../../services/block-ui.service';
+import { BlockUIInstanceService } from '../../services/block-ui-instance.service';
 import { BlockUIEvent } from '../../models/block-ui-action.model';
 import { BlockUIActions } from '../../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
@@ -32,7 +32,7 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
   private blockUISubscription: Subscription;
 
   constructor(
-    private blockUI: BlockUIService
+    private blockUI: BlockUIInstanceService
   ) { }
 
   ngOnInit() {
@@ -48,12 +48,18 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
   private onDispatchedEvent(event: BlockUIEvent) {
     switch (event.action) {
       case(BlockUIActions.START):
+      case(BlockUIActions.UPDATE):
         this.onStart(event);
         break;
 
       case(BlockUIActions.STOP):
       case(BlockUIActions.RESET):
         this.onStop(event);
+        break;
+
+      case(BlockUIActions.UNSUBSCRIBE):
+        this.onStop(event);
+        this.onUnsubscribe(event.name);
         break;
     }
   }
@@ -66,12 +72,20 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
   }
 
   private onStop(event: BlockUIEvent) {
-    if (event.name === this.name || event.action === BlockUIActions.RESET) {
+    const { name, action } = event;
+
+    if (name === this.name || action === BlockUIActions.RESET) {
       this.active = false;
     }
   }
 
+  private onUnsubscribe(name: string) {
+    if (name === this.name) {
+      this.blockUISubscription.unsubscribe();
+    }
+  }
+
   ngOnDestroy() {
-    this.blockUISubscription.unsubscribe();
+    this.onUnsubscribe(this.name);
   }
 }
