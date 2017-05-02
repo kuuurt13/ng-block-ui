@@ -1,3 +1,9 @@
+#### 1.0.0-beta.7 (2017-5-1)
+
+##### Fix npm package
+
+* **npm:** Fix npm build
+
 #### 1.0.0-beta.6 (2017-5-1)
 
 ##### New Features
