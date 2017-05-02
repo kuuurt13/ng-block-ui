@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^2.4.8",
     "@angular/router": "^3.4.8",
     "core-js": "^2.4.1",
+    "ng-block-ui": "../",
     "rxjs": "^5.1.1",
     "zone.js": "^0.7.7"
   },
