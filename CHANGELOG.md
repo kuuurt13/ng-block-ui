@@ -1,3 +1,9 @@
+#### 1.0.0-beta.6 (2017-5-1)
+
+##### New Features
+
+* **service:** Introduce new BlockUIService (#18) ([72330a40](https://github.com/kuuurt13/ng-block-ui/commit/72330a40b1c1485fb693e426ab075d8d04a72a2f))
+
 #### 1.0.0-beta.5 (2017-4-24)
 
 ##### Bug Fixes
