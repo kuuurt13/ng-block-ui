@@ -170,11 +170,12 @@ export class AppComponent {
 ### BlockUIService
 In some cases you may want to have more control over all the instances in you app.
 Instead of declaring seperate instances with the `@BlockUI()` decorator you can use the `BlockUIService`. This service allows you to easily target multiple instance across your app.
+
 | Method | Parameters | Description
 |---|---|---|
-| `start` | `target: string | string[], message?: string` | Starts blocking for a single instance or multiple instances by passing instance name(s).
-| `stop` | `target: string | string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
-| `unsubscribe` | `target: string | string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
+| `start` | `target: string \| string[], message?: string` | Starts blocking for a single instance or multiple instances by passing instance name(s).
+| `stop` | `target: string \| string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
+| `unsubscribe` | `target: string \| string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
 
 
 ## Examples
