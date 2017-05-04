@@ -1,9 +1,17 @@
 import {
   Component,
   OnInit,
+  AfterViewInit,
+  AfterViewChecked,
   OnDestroy,
   ViewEncapsulation,
-  Input
+  Input,
+  ViewChild,
+  ComponentRef,
+  TemplateRef,
+  ComponentFactoryResolver,
+  ViewContainerRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
@@ -22,21 +30,50 @@ import { template } from './block-ui-content.component.template';
   styles: [styles], // TODO: Find how to bundle styles for npm
   encapsulation: ViewEncapsulation.None
 })
-export class BlockUIContentComponent implements OnInit, OnDestroy {
+export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @Input() name: string = BlockUIDefaultName;
   @Input('message') defaultMessage: string;
+  @Input('template') templateCmp: any;
+  @ViewChild('templateOutlet', { read: ViewContainerRef })
+  templateOutlet: ViewContainerRef;
 
+  blockWrapperClass: string = 'block-ui-wrapper ' + this.name;
   active: boolean = false;
+  templateCompRef: ComponentRef<{ message?}> | TemplateRef<{}>;
+
 
   private message: string;
   private blockUISubscription: Subscription;
 
   constructor(
-    private blockUI: BlockUIInstanceService
+    private blockUI: BlockUIInstanceService,
+    private resolver: ComponentFactoryResolver,
+    private changeDetectionRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.blockUISubscription = this.subscribeToBlockUI(this.blockUI.observe());
+  }
+
+  ngAfterViewInit() {
+    try {
+      if (this.templateCmp) {
+        if (this.templateCmp instanceof TemplateRef) {
+          this.templateOutlet.createEmbeddedView(this.templateCmp);
+        } else {
+          const templateComp = this.resolver.resolveComponentFactory(this.templateCmp);
+          this.templateCompRef = this.templateOutlet.createComponent(templateComp);
+
+          this.updateBlockTemplate(this.message);
+        }
+      }
+    } catch (error) {
+      console.error('ng-block-ui:', error);
+    }
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetectionRef.detectChanges();
   }
 
   private subscribeToBlockUI(blockUI$: Observable<any>): Subscription {
@@ -47,17 +84,17 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
 
   private onDispatchedEvent(event: BlockUIEvent) {
     switch (event.action) {
-      case(BlockUIActions.START):
-      case(BlockUIActions.UPDATE):
+      case (BlockUIActions.START):
+      case (BlockUIActions.UPDATE):
         this.onStart(event);
         break;
 
-      case(BlockUIActions.STOP):
-      case(BlockUIActions.RESET):
+      case (BlockUIActions.STOP):
+      case (BlockUIActions.RESET):
         this.onStop(event);
         break;
 
-      case(BlockUIActions.UNSUBSCRIBE):
+      case (BlockUIActions.UNSUBSCRIBE):
         this.onStop(event);
         this.onUnsubscribe(event.name);
         break;
@@ -68,6 +105,7 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
     if (event.name === this.name) {
       this.active = true;
       this.message = event.message;
+      this.updateBlockTemplate(event.message);
     }
   }
 
@@ -76,6 +114,12 @@ export class BlockUIContentComponent implements OnInit, OnDestroy {
 
     if (name === this.name || action === BlockUIActions.RESET) {
       this.active = false;
+    }
+  }
+
+  private updateBlockTemplate(msg: string = this.defaultMessage): void {
+    if (this.templateCompRef && this.templateCompRef instanceof ComponentRef) {
+      this.templateCompRef.instance.message = msg;
     }
   }
 

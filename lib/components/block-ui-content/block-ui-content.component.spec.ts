@@ -1,6 +1,6 @@
 import { } from 'jasmine';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
+import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { BlockUIModule } from '../../block-ui.module';
@@ -8,104 +8,241 @@ import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.co
 import { BlockUI } from '../../decorators/block-ui.decorator';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 
-@Component({
-  selector: 'test-comp',
-  template: `
-    <block-ui-content [message]="defaultMessage">
-    </block-ui-content>
-  `
-})
-class TestComp {
-  @BlockUI() blockUI: any;
-  defaultMessage: string;
-}
-
 describe('block-ui-content component', () => {
-  let cf: ComponentFixture<any>;
-  let testCmp: TestComp;
-  let blkContComp: DebugElement;
+  describe('block-ui-content component no template', () => {
+    @Component({
+      selector: 'test-comp',
+      template: `<block-ui-content [message]="defaultMessage"></block-ui-content>`
+    })
+    class TestComp {
+      @BlockUI() blockUI: any;
+      defaultMessage: string;
+    }
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+    let cf: ComponentFixture<any>;
+    let testCmp: TestComp;
+    let blkContComp: DebugElement;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [BlockUIModule],
+        declarations: [TestComp]
+      })
+        .compileComponents();
+
+      cf = TestBed.createComponent(TestComp);
+      cf.detectChanges();
+
+      testCmp = cf.debugElement.componentInstance;
+      blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+    });
+
+    it('block-ui-wrapper is not active by default', () => {
+      let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
+      expect(blockWrapper.classes.active).toBeFalsy();
+    });
+
+    it('block-ui-wrapper is active on blockUI.start()', () => {
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
+      expect(blockWrapper.classes.active).toBeTruthy();
+    });
+
+    it('block-ui-wrapper is no longer active on blockUI.stop()', () => {
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      testCmp.blockUI.stop();
+      cf.detectChanges();
+
+      let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
+      expect(blockWrapper.classes.active).toBeFalsy();
+    });
+
+    it('block-ui-wrapper is no longer active on blockUI.reset()', () => {
+      testCmp.blockUI.reset();
+      cf.detectChanges();
+
+      testCmp.blockUI.stop();
+      cf.detectChanges();
+
+      let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
+      expect(blockWrapper.classes.active).toBeFalsy();
+    });
+
+    it('displays messages passed to blockUI.start()', () => {
+      let expectedMessage = 'Loading...';
+      testCmp.blockUI.start(expectedMessage);
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+      expect(nativeElement.innerText).toBe(expectedMessage);
+    });
+
+    it('displays default message if set and no message is passed', () => {
+      let defaultMessage = 'Default';
+      testCmp.defaultMessage = defaultMessage;
+      cf.detectChanges();
+
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+      expect(nativeElement.innerText).toBe(defaultMessage);
+    });
+
+    it('passed messages take priority over default', () => {
+      let message = 'Loading...';
+
+      testCmp.defaultMessage = 'Default';
+      cf.detectChanges();
+
+      testCmp.blockUI.start(message);
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+      expect(nativeElement.innerText).toBe(message);
+    });
+  });
+
+  describe('block-ui-content custom Component template', () => {
+
+    @Component({
+      selector: 'template-comp',
+      template: `
+        <div class="test-template">{{message}}</div>
+      `
+    })
+    class TestTemplateComp {}
+
+    @Component({
+      selector: 'test-comp',
+      template: `
+        <block-ui-content [message]="defaultMessage" [template]="template"></block-ui-content>
+      `
+    })
+    class TestComp {
+      @BlockUI() blockUI: any;
+      defaultMessage: string;
+      template = TestTemplateComp;
+    }
+
+    @NgModule({
+      imports: [ BlockUIModule ],
+      declarations: [ TestTemplateComp, TestComp ],
+      entryComponents: [ TestTemplateComp ]
+    })
+    class TestModule {}
+
+    let cf: ComponentFixture<any>;
+    let testCmp: TestComp;
+    let blkContComp: DebugElement;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [ BlockUIModule, TestModule ]
+      })
+        .compileComponents();
+
+      cf = TestBed.createComponent(TestComp);
+      cf.detectChanges();
+
+      testCmp = cf.debugElement.componentInstance;
+      blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+    });
+
+    it('appends template to blockUIContent', () => {
+      let template;
+
+      template = cf.debugElement.query(By.css('.test-template'));
+      expect(template).toBeDefined();
+    });
+
+    it('default spinner is hidden when template is passed', () => {
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      let spinner = cf.debugElement.query(By.css('.block-ui-spinner'));
+      expect(spinner).toBe(null);
+    });
+
+    it('displays messages passed to blockUI.start()', () => {
+      let expectedMessage = 'Loading...';
+      testCmp.blockUI.start(expectedMessage);
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('.test-template'));
+      expect(nativeElement.innerText).toBe(expectedMessage);
+    });
+
+     it('displays default message if set and no message is passed', () => {
+      let defaultMessage = 'Default';
+
+      testCmp.defaultMessage = defaultMessage;
+      cf.detectChanges();
+
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('.test-template'));
+      expect(nativeElement.innerText).toBe(defaultMessage);
+    });
+  });
+
+  describe('block-ui-content custom TemplateRef template', () => {
+    @Component({
+      selector: 'test-comp',
+      template: `
+        <template class="ref-template" #templateTest>
+          <div class="test-template">Test</div>
+        </template>
+        <block-ui-content [message]="defaultMessage" [template]="templateTest"></block-ui-content>
+      `
+    })
+    class TestComp {
+      @BlockUI() blockUI: any;
+      defaultMessage: string;
+      templateTest;
+    }
+
+    @NgModule({
       imports: [ BlockUIModule ],
       declarations: [ TestComp ]
     })
-    .compileComponents();
+    class TestModule {}
 
-    cf = TestBed.createComponent(TestComp);
-    cf.detectChanges();
+    let cf: ComponentFixture<any>;
+    let testCmp: TestComp;
+    let blkContComp: DebugElement;
 
-    testCmp = cf.debugElement.componentInstance;
-    blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
-  });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [ BlockUIModule, TestModule ]
+      })
+        .compileComponents();
 
-  it('hides block-ui-spinner by default', () => {
-    let spinner = cf.debugElement.query(By.css('div.block-ui-spinner'));
+      cf = TestBed.createComponent(TestComp);
+      cf.detectChanges();
 
-    expect(spinner).toBe(null);
-  });
+      testCmp = cf.debugElement.componentInstance;
+      blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+    });
 
-  it('shows spinner on blockUI.start()', () => {
-    testCmp.blockUI.start();
-    cf.detectChanges();
+    it('appends template to blockUIContent', () => {
+      let template;
 
-    let spinner = cf.debugElement.query(By.css('div.block-ui-spinner'));
-    expect(spinner).not.toBe(null);
-  });
+      template = cf.debugElement.query(By.css('.test-template'));
+      expect(template).toBeDefined();
+    });
 
-  it('hides spinner on blockUI.stop()', () => {
-    testCmp.blockUI.start();
-    cf.detectChanges();
+    it('default spinner is hidden when template is passed', () => {
+      testCmp.blockUI.start('Loading...');
+      cf.detectChanges();
 
-    testCmp.blockUI.stop();
-    cf.detectChanges();
-
-    let spinner = cf.debugElement.query(By.css('div.block-ui-spinner'));
-    expect(spinner).toBe(null);
-  });
-
-  it('hides spinner on blockUI.reset()', () => {
-    testCmp.blockUI.reset();
-    cf.detectChanges();
-
-    testCmp.blockUI.stop();
-    cf.detectChanges();
-
-    let spinner = cf.debugElement.query(By.css('div.block-ui-spinner'));
-    expect(spinner).toBe(null);
-  });
-
-  it('displays messages passed to blockUI.start()', () => {
-    let expectedMessage = 'Loading...';
-    testCmp.blockUI.start(expectedMessage);
-    cf.detectChanges();
-
-    let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-    expect(nativeElement.innerText).toBe(expectedMessage);
-  });
-
-  it('displays default message if set and no message is passed', () => {
-    let defaultMessage = 'Default';
-    testCmp.defaultMessage = defaultMessage;
-    cf.detectChanges();
-
-    testCmp.blockUI.start();
-    cf.detectChanges();
-
-    let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-    expect(nativeElement.innerText).toBe(defaultMessage);
-  });
-
-  it('passed messages take priority iver default', () => {
-    let message = 'Loading...';
-
-    testCmp.defaultMessage = 'Default';
-    cf.detectChanges();
-
-    testCmp.blockUI.start(message);
-    cf.detectChanges();
-
-    let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-    expect(nativeElement.innerText).toBe(message);
+      let spinner = cf.debugElement.query(By.css('.block-ui-spinner'));
+      expect(spinner).toBe(null);
+    });
   });
 });
