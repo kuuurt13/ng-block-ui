@@ -1,3 +1,13 @@
+#### 1.1.0-beta.8 (2017-5-7)
+
+##### Documentation Changes
+
+* **BlockUIService:** Fix methods table ([c5e6f00f](https://github.com/kuuurt13/ng-block-ui/commit/c5e6f00f6abbcb5bb2ea5ebd23af2d829c3eedd0))
+
+##### New Features
+
+* **component:** Add support for custom templates (#20) ([7f07dd24](https://github.com/kuuurt13/ng-block-ui/commit/7f07dd248c6c5eb7b3e7866284cb14b6136d13e8))
+
 #### 1.0.0-beta.7 (2017-5-1)
 
 ##### Fix npm package
