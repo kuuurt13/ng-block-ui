@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 import { BlockUI, NgBlockUI, BlockUIService } from 'ng-block-ui';
-
+import { BlockTemplateComponent } from './block-template/block-template.component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ export class AppComponent {
   defaultMessage: string = 'Default Message...';
   timeout: number = 2000;
   blockInstances = ['block-element', 'block-element-2', 'block-element-3'];
+  blockTemplate: BlockTemplateComponent = BlockTemplateComponent;
 
   constructor(
     private blockUIService: BlockUIService

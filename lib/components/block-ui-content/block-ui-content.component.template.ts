@@ -1,10 +1,11 @@
 export const template = `
-<div class="block-ui-wrapper" [class]="'block-ui-wrapper ' + name" *ngIf="active">
-  <div class="block-ui-spinner">
+<div class="block-ui-wrapper" [class]="className" [ngClass]="{ 'active': active }">
+  <div class="block-ui-spinner" *ngIf="!templateCmp">
     <div class="loader"></div>
     <div *ngIf="message || defaultMessage" class="message">
       {{ message || defaultMessage }}
     </div>
   </div>
+  <template *ngIf="templateCmp" #templateOutlet></template>
 </div>
 `;

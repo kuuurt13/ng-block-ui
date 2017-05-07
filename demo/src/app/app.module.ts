@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BlockUIModule } from 'ng-block-ui';
 
-import { AppComponent } from './app.component';
 import { BlockElementModule } from './block-element/block-element.module';
+import { AppComponent } from './app.component';
+import { BlockTemplateComponent } from './block-template/block-template.component';
 
 @NgModule({
   imports: [
@@ -12,11 +13,13 @@ import { BlockElementModule } from './block-element/block-element.module';
     BlockElementModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    BlockTemplateComponent
   ],
   providers: [],
   bootstrap: [
     AppComponent
-  ]
+  ],
+  entryComponents: [ BlockTemplateComponent ]
 })
 export class AppModule { }
