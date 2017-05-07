@@ -2,6 +2,7 @@
 
 export const styles = `
 .block-ui-wrapper {
+  display: none;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -12,11 +13,16 @@ export const styles = `
   cursor: wait;
 }
 
+.block-ui-wrapper.active {
+  display: block;
+}
+
 .block-ui-wrapper.block-ui-main {
   position: fixed;
 }
 
-.block-ui-spinner {
+.block-ui-spinner,
+.block-ui-template {
   position: absolute;
   top: 40%;
   margin: 0 auto;
