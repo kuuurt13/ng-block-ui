@@ -1,3 +1,9 @@
+#### 1.0.0-beta.9 (2017-5-9)
+
+##### Bug Fixes
+
+* **component:** Set css to be fixed position by default ([5b6f99a1](https://github.com/kuuurt13/ng-block-ui/commit/5b6f99a168e1d96b3a867edbf0a057afe600d984))
+
 #### 1.1.0-beta.8 (2017-5-7)
 
 ##### Documentation Changes
