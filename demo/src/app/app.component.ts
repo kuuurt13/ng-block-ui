@@ -10,6 +10,7 @@ import { BlockTemplateComponent } from './block-template/block-template.componen
 export class AppComponent {
   @BlockUI() blockUI: NgBlockUI;
   @BlockUI('block-element') elementBlockUI: NgBlockUI;
+
   defaultMessage: string = 'Default Message...';
   timeout: number = 2000;
   blockInstances = ['block-element', 'block-element-2', 'block-element-3'];
@@ -30,9 +31,9 @@ export class AppComponent {
   blockElement() {
     this.elementBlockUI.start('Loading...');
 
-    setTimeout((blockUI) => {
-      this.elementBlockUI.stop();
-    }, this.timeout);
+    // setTimeout((blockUI) => {
+    //   this.elementBlockUI.stop();
+    // }, this.timeout);
   }
 
   blockAllElements() {

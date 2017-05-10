@@ -35,9 +35,11 @@ export class BlockUIDirective implements OnInit {
         this.blockUIComponentRef = this.createComponent();
 
         let blockUIContent = this.findContentNode(this.viewRef.element.nativeElement);
+
         if (blockUIContent) {
           parentElement.appendChild(blockUIContent);
           this.blockUIComponentRef.instance.name = this.blockTarget || BlockUIDefaultName;
+          this.blockUIComponentRef.instance.className = 'block-ui-wrapper--element';
         }
       }
     } catch (error) {
