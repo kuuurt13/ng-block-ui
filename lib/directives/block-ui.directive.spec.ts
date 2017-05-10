@@ -10,7 +10,7 @@ import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant'
 @Component({
   selector: 'test-comp',
   template: `
-    <div *blockUI="'element'">
+    <div class="host-element" *blockUI="'element'">
         <h1 class="header">Test</h1>
     </div>
   `
@@ -41,8 +41,13 @@ describe(`block-ui element directive`, () => {
     expect(blockContentElement).toBeDefined();
   });
 
+  it(`adds 'block-ui-wrapper--element' to block-ui-content`, () => {
+    let blkContComp = cf.debugElement.query(By.css('block-ui-content.block-ui-wrapper--element'));
+    expect(blkContComp).toBeDefined();
+  });
+
   it(`adds 'block-ui__element' class to host element`, () => {
-    let hostElement = cf.debugElement.query(By.css('.block-ui__element'));
+    let hostElement = cf.debugElement.query(By.css('host-element.block-ui__element'));
     expect(hostElement).toBeDefined();
   });
 

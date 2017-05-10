@@ -37,7 +37,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   @ViewChild('templateOutlet', { read: ViewContainerRef })
   templateOutlet: ViewContainerRef;
 
-  blockWrapperClass: string = 'block-ui-wrapper ' + this.name;
+  className: string;
   active: boolean = false;
   templateCompRef: ComponentRef<{ message?}> | TemplateRef<{}>;
 

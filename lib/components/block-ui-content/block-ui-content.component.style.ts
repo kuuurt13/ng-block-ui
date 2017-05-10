@@ -3,7 +3,7 @@
 export const styles = `
 .block-ui-wrapper {
   display: none;
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   top: 0;
@@ -11,6 +11,10 @@ export const styles = `
   background: rgba(0, 0, 0, 0.70);
   z-index: 30000;
   cursor: wait;
+}
+
+.block-ui-wrapper.block-ui-wrapper--element {
+  position: absolute;
 }
 
 .block-ui-wrapper.active {
