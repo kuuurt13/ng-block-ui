@@ -1,3 +1,17 @@
+#### 0.7.1 (2017-5-9)
+
+##### Documentation Changes
+
+* **BlockUIService:** Fix methods table ([d0c3db75](https://github.com/kuuurt13/ng-block-ui/commit/d0c3db7522b91706f5799adb9c4ed613878b740c))
+
+##### New Features
+
+* **component:** Add support for custom templates (#20) ([fa86970f](https://github.com/kuuurt13/ng-block-ui/commit/fa86970f820998ca685b350523d42c8111dd949b))
+
+##### Bug Fixes
+
+* **component:** Set css to be fixed position by default ([66f77bc2](https://github.com/kuuurt13/ng-block-ui/commit/66f77bc22744534c49849b2f98c5b8cf3dbae9e4))
+
 ### 0.7.0 (2017-5-7)
 
 ##### Documentation Changes
