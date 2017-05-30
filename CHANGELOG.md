@@ -1,3 +1,14 @@
+#### 1.0.0-beta.10 (2017-5-30)
+
+##### Documentation Changes
+
+* **npm:** Added npm monthly downloads badge ([33b56f33](https://github.com/kuuurt13/ng-block-ui/commit/33b56f33f4e71d8ad9fd19f352d800813707dd06))
+* **examples:** Add more plunker examples ([7189d20a](https://github.com/kuuurt13/ng-block-ui/commit/7189d20a46369edab9861825e6d24d96531518d1))
+
+##### Bug Fixes
+
+* **compile:** Compile with "noImplicitAny": true (#23) ([ee5133e3](https://github.com/kuuurt13/ng-block-ui/commit/ee5133e33e1b492195c512c1b2a4580f766d39cc))
+
 #### 1.0.0-beta.9 (2017-5-9)
 
 ##### Bug Fixes
