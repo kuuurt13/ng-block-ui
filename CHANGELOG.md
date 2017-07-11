@@ -1,3 +1,9 @@
+### 0.8.0 (2017-7-11)
+
+##### New Features
+
+* **directive:** Allow settings to be passed (#27) ([e61ae064](https://github.com/kuuurt13/ng-block-ui/commit/e61ae0647cb87318e911c46b2f029d6ab56c3039))
+
 #### 0.7.2 (2017-5-30)
 
 ##### Documentation Changes
