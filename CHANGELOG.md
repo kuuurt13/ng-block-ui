@@ -1,3 +1,9 @@
+#### 1.0.0-beta.11 (2017-7-11)
+
+##### New Features
+
+* **directive:** Allow settings to be passed (#27) ([27d7d45a](https://github.com/kuuurt13/ng-block-ui/commit/27d7d45aba5a26881ae81d7cfa704e26d6760aa5))
+
 #### 1.0.0-beta.10 (2017-5-30)
 
 ##### Documentation Changes
