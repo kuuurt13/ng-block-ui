@@ -54,20 +54,18 @@ describe('block-ui component', () => {
   });
 
   it('passes name property to block-ui-content', () => {
-    let instance = blkContComp.componentInstance;
     let name = 'test-name';
     let { componentInstance } = blkContComp;
 
-    instance.name = name;
+    componentInstance.name = name;
     cf.detectChanges();
 
     expect(componentInstance.name).toBe(name);
   });
 
   it('passes default message property to block-ui-content', () => {
-    let instance = blkContComp.componentInstance;
-    let message = instance.message;
     let { componentInstance } = blkContComp;
+    let message = componentInstance.message;
 
     cf.detectChanges();
 
