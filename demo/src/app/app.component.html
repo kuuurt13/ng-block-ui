@@ -11,5 +11,5 @@
   </div>
 </block-ui>
 <div *ngFor="let block of blockInstances">
-  <block-element *blockUI="block"></block-element>
+  <block-element *blockUI="block; message: 'Default...'; template: blockTemplate"></block-element>
 </div>

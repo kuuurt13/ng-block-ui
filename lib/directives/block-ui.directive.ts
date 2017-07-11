@@ -12,11 +12,17 @@ import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant'
 
 @Directive({ selector: '[blockUI]' })
 export class BlockUIDirective implements OnInit {
-  private blockTarget: string;
   private blockUIComponentRef: ComponentRef<BlockUIContentComponent>;
+  blockTarget: string;
+  message: string;
+  template: any;
 
   @Input()
   set blockUI(name) { this.blockTarget = name; };
+  @Input()
+  set blockUIMessage(message) { this.message = message; };
+  @Input()
+  set blockUITemplate(template) { this.template = template; };
 
   constructor(
     private viewRef: ViewContainerRef,
@@ -38,8 +44,10 @@ export class BlockUIDirective implements OnInit {
 
         if (blockUIContent) {
           parentElement.appendChild(blockUIContent);
-          this.blockUIComponentRef.instance.name = this.blockTarget || BlockUIDefaultName;
           this.blockUIComponentRef.instance.className = 'block-ui-wrapper--element';
+          this.blockUIComponentRef.instance.name = this.blockTarget || BlockUIDefaultName;
+          if (this.message) this.blockUIComponentRef.instance.defaultMessage = this.message;
+          if (this.template) this.blockUIComponentRef.instance.templateCmp = this.template;
         }
       }
     } catch (error) {

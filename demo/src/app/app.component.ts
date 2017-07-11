@@ -29,11 +29,11 @@ export class AppComponent {
   }
 
   blockElement() {
-    this.elementBlockUI.start('Loading...');
+    this.elementBlockUI.start();
 
-    // setTimeout((blockUI) => {
-    //   this.elementBlockUI.stop();
-    // }, this.timeout);
+    setTimeout((blockUI) => {
+      this.elementBlockUI.stop();
+    }, this.timeout);
   }
 
   blockAllElements() {
