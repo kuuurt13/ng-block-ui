@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { BlockUIInstanceService } from '../../services/block-ui-instance.service';
 import { BlockUIEvent } from '../../models/block-ui-action.model';
+import { BlockTimeout } from '../../models/block-ui-block-timeout.model';
 import { BlockUIActions } from '../../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 import { styles } from './block-ui-content.component.style';
@@ -32,11 +33,14 @@ import { template } from './block-ui-content.component.template';
 })
 export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @Input() name: string = BlockUIDefaultName;
+  @Input() delayStart: number = 0;
+  @Input() delayStop: number = 0;
   @Input('message') defaultMessage: string;
   @Input('template') templateCmp: any;
   @ViewChild('templateOutlet', { read: ViewContainerRef })
   templateOutlet: ViewContainerRef;
 
+  timeouts: any = { delayStart: null, delayStop: null };
   className: string;
   active: boolean = false;
   templateCompRef: ComponentRef<{ message?: any }> | TemplateRef<{}>;
@@ -78,18 +82,27 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private subscribeToBlockUI(blockUI$: Observable<any>): Subscription {
     return blockUI$
-      .map(event => this.onDispatchedEvent(event))
-      .subscribe();
+      .subscribe(event => this.onDispatchedEvent(event));
   }
 
   private onDispatchedEvent(event: BlockUIEvent) {
     switch (event.action) {
       case (BlockUIActions.START):
-      case (BlockUIActions.UPDATE):
-        this.onStart(event);
+        this.delay('delayStart', this.delayStart, event)(
+          this.onStart.bind(this)
+        );
         break;
 
       case (BlockUIActions.STOP):
+        this.delay('delayStop', this.delayStop, event)(
+          this.onStop.bind(this)
+        );
+        break;
+
+      case (BlockUIActions.UPDATE):
+        this.onUpdate(event);
+        break;
+
       case (BlockUIActions.RESET):
         this.onStop(event);
         break;
@@ -111,9 +124,21 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private onStop(event: BlockUIEvent) {
     const { name, action } = event;
+    const { delayStart } = this.timeouts;
 
     if (name === this.name || action === BlockUIActions.RESET) {
+      delayStart && clearTimeout(delayStart);
       this.active = false;
+    }
+  }
+
+  private onUpdate(event: BlockUIEvent) {
+    const { name, message } = event;
+
+    if (name === this.name) {
+      this.active = true;
+      this.message = message;
+      this.updateBlockTemplate(message);
     }
   }
 
@@ -127,6 +152,18 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (name === this.name) {
       this.blockUISubscription.unsubscribe();
     }
+  }
+
+  private delay(type: string, delay: number, event: BlockUIEvent) {
+    return (action: Function) => {
+      if (delay) {
+        this.timeouts[type] = setTimeout(event => {
+          action(event);
+        }, delay, event);
+      } else {
+        action(event);
+      }
+    };
   }
 
   ngOnDestroy() {

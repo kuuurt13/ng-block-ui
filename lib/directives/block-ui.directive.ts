@@ -23,6 +23,10 @@ export class BlockUIDirective implements OnInit {
   set blockUIMessage(message) { this.message = message; };
   @Input()
   set blockUITemplate(template) { this.template = template; };
+  @Input()
+  set delayStart(delayStart) { this.delayStart = delayStart; };
+  @Input()
+  set delayStop(delayStop) { this.delayStop = delayStop; };
 
   constructor(
     private viewRef: ViewContainerRef,
@@ -48,6 +52,8 @@ export class BlockUIDirective implements OnInit {
           this.blockUIComponentRef.instance.name = this.blockTarget || BlockUIDefaultName;
           if (this.message) this.blockUIComponentRef.instance.defaultMessage = this.message;
           if (this.template) this.blockUIComponentRef.instance.templateCmp = this.template;
+          if (this.delayStart) this.blockUIComponentRef.instance.delayStart = this.delayStart;
+          if (this.delayStop) this.blockUIComponentRef.instance.templateCmp = this.delayStop;
         }
       }
     } catch (error) {
