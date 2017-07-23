@@ -121,6 +121,21 @@ export class AppComponent {
   }
 ```
 
+#### Delay Start and Stop
+When blocking with fast service calls the block overlay can flicker for a small amount of time.
+To prevent this a `delayStart` and a `delayStop` can be configured to prevent this scenario.
+
+| Delay | Description
+|---|---|
+| `delayStart: number` | Waits given amount of milliseconds before starting to block.
+| `delayStop: number` | Waits given amount of milliseconds before stopping current block.
+
+```html
+<block-ui [delayStart]="500" [delayStop]="500">
+  <!-- Your app markup here -->
+</block-ui>
+```
+
 ### Block UI Directive
 Sometimes you want to only apply blocking to a certain element in your app.
 The Block UI directive can be added to an element to apply blocking only to that specific element.

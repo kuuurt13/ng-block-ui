@@ -11,7 +11,13 @@ import { BlockUIDefaultName } from '../../constants/block-ui-default-name.consta
   selector: 'block-ui',
   template: `
     <ng-content></ng-content>
-    <block-ui-content [name]="name" [message]="message" [template]="template">
+    <block-ui-content
+      [name]="name"
+      [message]="message"
+      [template]="template"
+      [delayStart]="delayStart"
+      [delayStop]="delayStop"
+    >
     </block-ui-content>
   `,
   encapsulation: ViewEncapsulation.None
@@ -19,6 +25,8 @@ import { BlockUIDefaultName } from '../../constants/block-ui-default-name.consta
 export class BlockUIComponent implements OnInit {
   @Input() name: string;
   @Input() message: string;
+  @Input() delayStart: number;
+  @Input() delayStop: number;
   @Input() template: any;
 
   constructor() { }

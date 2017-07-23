@@ -1,5 +1,5 @@
 import { } from 'jasmine';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -9,14 +9,23 @@ import { BlockUI } from '../../decorators/block-ui.decorator';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 
 describe('block-ui-content component', () => {
-  describe('block-ui-content component no template', () => {
+  describe('block-ui-content component no template:', () => {
     @Component({
       selector: 'test-comp',
-      template: `<block-ui-content [message]="defaultMessage"></block-ui-content>`
+      template: `
+        <block-ui-content
+          [message]="defaultMessage"
+          [delayStart]="delayStart"
+          [delayStop]="delayStop"
+        >
+        </block-ui-content>
+      `
     })
     class TestComp {
       @BlockUI() blockUI: any;
       defaultMessage: string;
+      delayStart: number = 0;
+      delayStop: number = 0;
     }
 
     let cf: ComponentFixture<any>;
@@ -63,9 +72,6 @@ describe('block-ui-content component', () => {
 
     it('block-ui-wrapper is no longer active on blockUI.reset()', () => {
       testCmp.blockUI.reset();
-      cf.detectChanges();
-
-      testCmp.blockUI.stop();
       cf.detectChanges();
 
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
