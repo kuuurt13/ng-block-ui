@@ -1,3 +1,9 @@
+#### 1.0.0-beta.12 (2017-7-23)
+
+##### New Features
+
+* **core:** Added delay start/end settings - (#24) ([a49ec83d](https://github.com/kuuurt13/ng-block-ui/commit/a49ec83d3808011fd55ce3a69a23e02c1e69c0a9))
+
 #### 1.0.0-beta.11 (2017-7-11)
 
 ##### New Features
