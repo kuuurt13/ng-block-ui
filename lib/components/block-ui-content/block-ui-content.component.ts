@@ -46,7 +46,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   templateCompRef: ComponentRef<{ message?: any }> | TemplateRef<{}>;
 
 
-  private message: string;
+  private message: any;
   private blockUISubscription: Subscription;
 
   constructor(

@@ -14,7 +14,7 @@ import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant'
 export class BlockUIDirective implements OnInit {
   private blockUIComponentRef: ComponentRef<BlockUIContentComponent>;
   blockTarget: string;
-  message: string;
+  message: any;
   template: any;
 
   @Input()

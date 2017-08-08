@@ -183,7 +183,7 @@ Instead of declaring seperate instances with the `@BlockUI()` decorator you can 
 
 | Method | Parameters | Description
 |---|---|---|
-| `start` | `target: string \| string[], message?: string` | Starts blocking for a single instance or multiple instances by passing instance name(s).
+| `start` | `target: string \| string[], message?: any` | Starts blocking for a single instance or multiple instances by passing instance name(s).
 | `stop` | `target: string \| string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
 | `unsubscribe` | `target: string \| string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
 

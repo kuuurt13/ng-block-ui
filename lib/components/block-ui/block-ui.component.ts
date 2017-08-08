@@ -24,7 +24,7 @@ import { BlockUIDefaultName } from '../../constants/block-ui-default-name.consta
 })
 export class BlockUIComponent implements OnInit {
   @Input() name: string;
-  @Input() message: string;
+  @Input() message: any;
   @Input() delayStart: number;
   @Input() delayStop: number;
   @Input() template: any;
