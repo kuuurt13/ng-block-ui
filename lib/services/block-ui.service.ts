@@ -14,7 +14,7 @@ export class BlockUIService {
   /**
   * Starts blocking for given BlockUI instance or instances
   */
-  start(target: string | string[], message?: string): void {
+  start(target: string | string[], message?: any): void {
     this.dispatch(target, BlockUIActions.START, message);
   }
 
@@ -32,7 +32,7 @@ export class BlockUIService {
     this.dispatch(target, BlockUIActions.UNSUBSCRIBE);
   }
 
-  private dispatch(target: string | string[] = [], type: string, message?: string) {
+  private dispatch(target: string | string[] = [], type: string, message?: any) {
     const instances = typeof target === 'string' ? [target] : target;
     instances.forEach(i => this.blockUIInstance.decorate(i)[type](message));
   }

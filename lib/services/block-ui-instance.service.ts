@@ -28,7 +28,7 @@ export class BlockUIInstanceService {
   }
 
   private dispatch(subject: ReplaySubject<any>, action: BlockUIActions, name: string = BlockUIDefaultName): Function {
-    return (message?: string): void => {
+    return (message?: any): void => {
       subject.next({
         name,
         action,

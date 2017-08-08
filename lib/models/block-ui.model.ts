@@ -5,12 +5,12 @@ export interface NgBlockUI {
     /**
      * Starts blocking for BlockUI instance
      */
-    start(message?: string): void;
+    start(message?: any): void;
 
     /**
      * Update blocking message for BlockUI instance
      */
-    update(message: string): void;
+    update(message: any): void;
 
     /**
      * Stops blocking for BlockUI instance
