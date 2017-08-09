@@ -1,3 +1,9 @@
+#### 1.0.0-beta.13 (2017-8-9)
+
+##### Other Changes
+
+* **all:** Change message type to any (#29) ([4a04ab38](https://github.com/kuuurt13/ng-block-ui/commit/4a04ab38c03cca2e5ab9f224ef4767413bf9c5ef))
+
 #### 1.0.0-beta.12 (2017-7-23)
 
 ##### New Features
