@@ -1,3 +1,9 @@
+#### 0.9.1 (2017-8-9)
+
+##### Other Changes
+
+* **all:** Change message type to any (#29) ([35a66117](https://github.com/kuuurt13/ng-block-ui/commit/35a661171a4ea6e2073bc0ed3fd8271fbbe8b383))
+
 ### 0.9.0 (2017-7-23)
 
 ##### New Features
