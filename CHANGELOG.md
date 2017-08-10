@@ -1,3 +1,9 @@
+#### 1.0.0-beta.14 (2017-08-10)
+
+##### Bug Fixes
+
+* **build:** Fixed bad npm build (#31) ([9dbbed41](https://github.com/kuuurt13/ng-block-ui/commit/9dbbed4186c85366d67b71cad76091ac2a47c228))
+
 #### 1.0.0-beta.13 (2017-8-9)
 
 ##### Other Changes
