@@ -1,6 +1,6 @@
 {
   "name": "ng-block-ui",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.15",
   "description": "Angular (2 & up) Block UI",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
