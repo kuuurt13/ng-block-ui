@@ -119,6 +119,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       this.active = true;
       this.message = event.message;
       this.updateBlockTemplate(event.message);
+      this.changeDetectionRef.detectChanges();
     }
   }
 
@@ -129,6 +130,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (name === this.name || action === BlockUIActions.RESET) {
       delayStart && clearTimeout(delayStart);
       this.active = false;
+      this.changeDetectionRef.detectChanges();
     }
   }
 
@@ -139,6 +141,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       this.active = true;
       this.message = message;
       this.updateBlockTemplate(message);
+      this.changeDetectionRef.detectChanges();
     }
   }
 
