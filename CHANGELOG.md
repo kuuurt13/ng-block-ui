@@ -1,3 +1,9 @@
+#### 1.0.0-beta.15 (2017-8-27)
+
+##### Bug Fixes
+
+* **content:** Explicitly detect changes when block event is dispatched (#33) ([252d25bb](https://github.com/kuuurt13/ng-block-ui/commit/252d25bb7e832c792e260ca42bb0e80dfa2b10b3))
+
 #### 1.0.0-beta.14 (2017-08-10)
 
 ##### Bug Fixes
