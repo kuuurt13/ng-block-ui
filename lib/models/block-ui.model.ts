@@ -3,6 +3,16 @@
  */
 export interface NgBlockUI {
     /**
+     * BlockUI instance name
+     */
+    name: string;
+
+    /**
+     * Is BlockUI instance active
+     */
+    isActive: boolean;
+
+    /**
      * Starts blocking for BlockUI instance
      */
     start(message?: any): void;

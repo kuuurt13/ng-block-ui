@@ -18,7 +18,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { BlockUIInstanceService } from '../../services/block-ui-instance.service';
-import { BlockUIEvent } from '../../models/block-ui-action.model';
+import { BlockUIEvent } from '../../models/block-ui-event.model';
 import { BlockTimeout } from '../../models/block-ui-block-timeout.model';
 import { BlockUIActions } from '../../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
