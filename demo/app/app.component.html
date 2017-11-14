@@ -1,4 +1,4 @@
-<block-ui [message]="defaultMessage" [template]="blockTemplate" [delayStart]="1000" [delayStop]="1000">
+<block-ui>
   <h1>Angular Block UI</h1>
   <div class="controls">
     <button class="button button--default" (click)="blockMain('Loading...')">Block UI</button>
@@ -11,5 +11,5 @@
   </div>
 </block-ui>
 <div *ngFor="let block of blockInstances">
-  <block-element *blockUI="block; message: 'Default...'; template: blockTemplate"></block-element>
+  <block-element *blockUI="block; message: 'Default...'"></block-element>
 </div>
