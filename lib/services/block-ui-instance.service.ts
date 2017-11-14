@@ -4,14 +4,25 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { BlockUIActions } from '../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 import { NgBlockUI } from '../models/block-ui.model';
+import { BlockUISettings } from '../models/block-ui-settings.model';
+import { BlockUIService } from '../../index';
 
 
 @Injectable()
 export class BlockUIInstanceService {
+  blockUISettings: BlockUISettings | any = {};
   private blockUISubject: ReplaySubject<any> = new ReplaySubject();
   private blockUIObservable: Observable<any> = this.blockUISubject.asObservable();
 
   constructor() { }
+
+  getSettings(): BlockUISettings | any {
+    return this.blockUISettings;
+  }
+
+  setSettings(settings: BlockUISettings | any = {}): void {
+    this.blockUISettings = settings;
+  }
 
   decorate(name: string = BlockUIDefaultName): NgBlockUI {
     return {
