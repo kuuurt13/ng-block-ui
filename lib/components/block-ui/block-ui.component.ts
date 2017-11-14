@@ -5,6 +5,7 @@ import {
   OnInit,
   ComponentRef
 } from '@angular/core';
+import { BlockUIInstanceService } from '../../services/block-ui-instance.service';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 
 @Component({
@@ -29,9 +30,12 @@ export class BlockUIComponent implements OnInit {
   @Input() delayStop: number;
   @Input() template: any;
 
-  constructor() { }
+  constructor(
+    private blockUI: BlockUIInstanceService,
+  ) { }
 
   ngOnInit() {
     this.name = this.name || BlockUIDefaultName;
+    this.template = this.template || this.blockUI.blockUISettings.template;
   }
 }

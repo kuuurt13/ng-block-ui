@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BlockUIComponent } from './components/block-ui/block-ui.component';
@@ -6,6 +6,7 @@ import { BlockUIContentComponent } from './components/block-ui-content/block-ui-
 import { BlockUIInstanceService } from './services/block-ui-instance.service';
 import { BlockUIService } from './services/block-ui.service';
 import { BlockUIDirective } from './directives/block-ui.directive';
+import { BlockUISettings } from './models/block-ui-settings.model';
 
 export const BlockUIServiceInstance = new BlockUIInstanceService();
 
@@ -31,14 +32,22 @@ export function provideInstance() {
     BlockUIComponent,
     BlockUIDirective,
     BlockUIContentComponent
-  ],
-  providers: [
-    {
-      provide: BlockUIInstanceService,
-      useFactory: provideInstance,
-      deps: []
-    },
-    BlockUIService
   ]
 })
-export class BlockUIModule { }
+export class BlockUIModule {
+  public static forRoot(settings: BlockUISettings): ModuleWithProviders {
+    BlockUIServiceInstance.setSettings(settings);
+
+    return {
+      ngModule: BlockUIModule,
+      providers: [
+        {
+          provide: BlockUIInstanceService,
+          useFactory: provideInstance,
+          deps: []
+        },
+        BlockUIService
+      ]
+    };
+  }
+}
