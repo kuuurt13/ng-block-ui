@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    "start": "watchman lib \"npm run build:tsc && cp -r bundles demo\"",
     "build": "npm run build:ngc && npm run build:tsc",
-    "build:ngc": "node_modules/.bin/ngc -p tsconfig.json",
-    "build:tsc": "node_modules/typescript/bin/tsc -p tsconfig-umd.json",
+    "build:ngc": "node_modules/.bin/ngc -p tsconfig.json && echo 'Build Complete'",
+    "build:tsc": "node_modules/typescript/bin/tsc -p tsconfig-umd.json && echo 'Build Complete'",
     "pack:dev": "npm run build && npm pack",
     "prerelease": "npm run build",
     "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin master && git push origin --tags",
@@ -60,12 +61,14 @@
     "tslint-loader": "^2.1.5",
     "typescript": "^2.2.1",
     "typings": "^1.3.1",
+    "watchman": "^0.1.8",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "zone.js": "~0.6.26"
   },
   "files": [
     "dist",
-    "bundles"
+    "bundles",
+    "demo"
   ]
 }

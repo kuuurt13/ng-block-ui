@@ -6,6 +6,8 @@ settings.json
 
 /dist
 /bundles
+demo/bundles
+demo/node_modules
 
 index.js
 index.js.map

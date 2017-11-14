@@ -1,11 +1,13 @@
 import { Component, ComponentRef } from '@angular/core';
 import { BlockUI, NgBlockUI, BlockUIService } from 'ng-block-ui';
+
 import { BlockTemplateComponent } from './block-template/block-template.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  moduleId: __moduleName
 })
 export class AppComponent {
   @BlockUI() blockUI: NgBlockUI;
@@ -47,7 +49,7 @@ export class AppComponent {
   blockUpdate() {
     let messages: string[] = ['Logining In', 'Loading Settings', 'Loading Widgets'],
       i = 0,
-      interval;
+      interval: any;
 
     this.elementBlockUI.start('Welcome');
 
