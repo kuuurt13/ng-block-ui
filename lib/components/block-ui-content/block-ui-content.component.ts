@@ -24,6 +24,7 @@ import { BlockUIActions } from '../../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 import { styles } from './block-ui-content.component.style';
 import { template } from './block-ui-content.component.template';
+import { BlockUISettings } from '../../models/block-ui-settings.model';
 
 @Component({
   selector: 'block-ui-content',
@@ -47,14 +48,16 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   message: any;
 
   private blockUISubscription: Subscription;
+  private settings: BlockUISettings;
 
   constructor(
     private blockUI: BlockUIInstanceService,
     private resolver: ComponentFactoryResolver,
     private changeDetectionRef: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
+    this.settings = this.blockUI.getSettings();
     this.blockUISubscription = this.subscribeToBlockUI(this.blockUI.observe());
   }
 
@@ -64,10 +67,10 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
         if (this.templateCmp instanceof TemplateRef) {
           this.templateOutlet.createEmbeddedView(this.templateCmp);
         } else {
-          const templateComp = this.resolver.resolveComponentFactory(this.templateCmp);
-          this.templateCompRef = this.templateOutlet.createComponent(templateComp);
+            const templateComp = this.resolver.resolveComponentFactory(this.templateCmp);
+            this.templateCompRef = this.templateOutlet.createComponent(templateComp);
 
-          this.updateBlockTemplate(this.message);
+            this.updateBlockTemplate(this.message);
         }
       }
     } catch (error) {
@@ -113,17 +116,16 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     }
   }
 
-  private onStart(event: BlockUIEvent) {
-    if (event.name === this.name) {
+  private onStart({ name, message }: BlockUIEvent) {
+    if (name === this.name) {
       this.active = true;
-      this.message = event.message;
-      this.updateBlockTemplate(event.message);
+      this.message = message || this.defaultMessage || this.settings.message;
+      this.updateBlockTemplate(this.message);
       this.changeDetectionRef.detectChanges();
     }
   }
 
-  private onStop(event: BlockUIEvent) {
-    const { name, action } = event;
+  private onStop({ name, action }: BlockUIEvent) {
     const { delayStart } = this.timeouts;
 
     if (name === this.name || action === BlockUIActions.RESET) {
@@ -133,18 +135,16 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     }
   }
 
-  private onUpdate(event: BlockUIEvent) {
-    const { name, message } = event;
-
+  private onUpdate({ name, message }: BlockUIEvent) {
     if (name === this.name) {
       this.active = true;
-      this.message = message;
-      this.updateBlockTemplate(message);
+      this.message = message || this.defaultMessage || this.settings.message;
+      this.updateBlockTemplate(this.message);
       this.changeDetectionRef.detectChanges();
     }
   }
 
-  private updateBlockTemplate(msg: string = this.defaultMessage): void {
+  private updateBlockTemplate(msg: string): void {
     if (this.templateCompRef && this.templateCompRef instanceof ComponentRef) {
       this.templateCompRef.instance.message = msg;
     }
@@ -158,6 +158,8 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private delay(type: string, delay: number, event: BlockUIEvent) {
     return (action: Function) => {
+      delay = delay || this.settings[type] || 0;
+
       if (delay) {
         this.timeouts[type] = setTimeout(event => {
           action(event);

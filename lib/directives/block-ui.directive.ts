@@ -8,6 +8,7 @@ import {
   TemplateRef
 } from '@angular/core';
 import { BlockUIContentComponent } from '../components/block-ui-content/block-ui-content.component';
+import { BlockUIInstanceService } from '../services/block-ui-instance.service';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 
 @Directive({ selector: '[blockUI]' })
@@ -35,6 +36,7 @@ export class BlockUIDirective implements OnInit {
   };
 
   constructor(
+    private blockUIService: BlockUIInstanceService,
     private viewRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -53,20 +55,22 @@ export class BlockUIDirective implements OnInit {
         let blockUIContent = this.findContentNode(this.viewRef.element.nativeElement);
 
         if (blockUIContent) {
+          const settings = this.blockUIService.getSettings();
+
           parentElement.appendChild(blockUIContent);
           this.blockUIComponentRef.instance.className = 'block-ui-wrapper--element';
           this.blockUIComponentRef.instance.name = this.blockTarget || BlockUIDefaultName;
           if (this.message) this.blockUIComponentRef.instance.defaultMessage = this.message;
-          if (this.template) this.blockUIComponentRef.instance.templateCmp = this.template;
           if (this.delayStart) this.blockUIComponentRef.instance.delayStart = this.delayStart;
           if (this.delayStop) this.blockUIComponentRef.instance.delayStop = this.delayStop;
+          if (this.template || settings.template)
+            this.blockUIComponentRef.instance.templateCmp = this.template || settings.template;
         }
       }
     } catch (error) {
       console.error('ng-block-ui:', error);
     }
   }
-
 
   private isComponentInTemplate(element: any): boolean {
     let { children } = element || [];
