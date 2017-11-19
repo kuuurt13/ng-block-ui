@@ -24,6 +24,7 @@
     "dist"
   ],
   "files": [
-    "./index.ts"
+    "./index.ts",
+    "./router.ts"
   ]
 }

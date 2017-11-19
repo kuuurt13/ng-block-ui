@@ -8,6 +8,11 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "baseUrl": ".",
+    "paths": {
+      "ng-block-ui": ["../bundles/umd"],
+      "ng-block-ui/router": ["../bundles/umd/router"]
+    }
   }
 }
