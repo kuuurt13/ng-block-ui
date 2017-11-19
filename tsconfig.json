@@ -26,7 +26,8 @@
     "jasmine"
   ],
   "files": [
-    "./index.ts"
+    "./index.ts",
+    "./router.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "dist",
