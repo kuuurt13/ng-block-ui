@@ -2,11 +2,12 @@ import { Component, ComponentRef } from '@angular/core';
 import { BlockUI, NgBlockUI, BlockUIService } from 'ng-block-ui';
 
 @Component({
-  selector: 'my-app',
-  templateUrl: './app.component.html',
+  selector: 'default',
+  templateUrl: './default.component.html',
+  styleUrls: ['./default.component.css'],
   moduleId: __moduleName
 })
-export class AppComponent {
+export class DeafultComponent {
   @BlockUI() blockUI: NgBlockUI;
   @BlockUI('block-element') elementBlockUI: NgBlockUI;
 

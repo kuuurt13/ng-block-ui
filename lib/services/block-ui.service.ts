@@ -32,8 +32,27 @@ export class BlockUIService {
     this.dispatch(target, BlockUIActions.UNSUBSCRIBE);
   }
 
+  /**
+  * Checks if BlockUI is actively blocking
+  */
+  isActive(target: string | string[] = null): boolean {
+    const targets = target ? this.toArray(target) : null;
+    const instances = this.blockUIInstance.blockUIInstances;
+
+    return instances.some((i: any) => {
+      if (!targets) {
+        return i.isActive;
+      }
+      return targets.indexOf(i.name) >= 0 && i.isActive;
+    });
+  }
+
   private dispatch(target: string | string[] = [], type: string, message?: any) {
-    const instances = typeof target === 'string' ? [target] : target;
+    const instances = this.toArray(target);
     instances.forEach(i => this.blockUIInstance.decorate(i)[type](message));
+  }
+
+  private toArray(target: string | string[] = []) {
+    return typeof target === 'string' ? [target] : target;
   }
 }
