@@ -36,7 +36,7 @@ export function provideInstance() {
 })
 export class BlockUIModule {
   public static forRoot(settings: BlockUISettings): ModuleWithProviders {
-    BlockUIServiceInstance.setSettings(settings);
+    BlockUIServiceInstance.updateSettings(settings);
 
     return {
       ngModule: BlockUIModule,

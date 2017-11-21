@@ -24,8 +24,8 @@ export class BlockUIInstanceService {
     return this.blockUISettings;
   }
 
-  setSettings(settings: BlockUISettings | any = {}): void {
-    this.blockUISettings = settings;
+  updateSettings(settings: BlockUISettings | any = {}): void {
+    this.blockUISettings = { ...this.blockUISettings, ...settings };
   }
 
   decorate(name: string = BlockUIDefaultName): NgBlockUI {
