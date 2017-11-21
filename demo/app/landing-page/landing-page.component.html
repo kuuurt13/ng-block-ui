@@ -2,4 +2,9 @@
 <div class="controls">
     <button class="button button--default" routerLink="/">Go Back</button>
     <button class="button button--default" (click)="blockMain()">Start Block</button>
+    <button class="button button--default" (click)="getUser()">Get User</button>
+</div>
+<div class="user" *ngIf="user">
+    <img [src]="user.avatar_url" />
+    <h2>{{user.login}}</h2>
 </div>
