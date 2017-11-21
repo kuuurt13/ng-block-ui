@@ -25,6 +25,7 @@
   ],
   "files": [
     "./index.ts",
-    "./router.ts"
+    "./router.ts",
+    "./http.ts"
   ]
 }
