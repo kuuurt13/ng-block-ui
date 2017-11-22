@@ -16,17 +16,23 @@ export class BlockUIDirective implements OnInit {
   blockTarget: string;
   message: any;
   template: any;
+  delayStart: any;
+  delayStop: any;
 
   @Input()
-  set blockUI(name) { this.blockTarget = name; };
+  set blockUI(name: any) { this.blockTarget = name; };
   @Input()
-  set blockUIMessage(message) { this.message = message; };
+  set blockUIMessage(message: any) { this.message = message; };
   @Input()
-  set blockUITemplate(template) { this.template = template; };
+  set blockUITemplate(template: any) { this.template = template; };
   @Input()
-  set delayStart(delayStart) { this.delayStart = delayStart; };
+  set blockUIDelayStart(delayStart: any) {
+     this.delayStart = delayStart ? Number(delayStart) : null;
+  };
   @Input()
-  set delayStop(delayStop) { this.delayStop = delayStop; };
+  set blockUIDelayStop(delayStop: any) {
+    this.delayStop = delayStop ? Number(delayStop) : null;
+  };
 
   constructor(
     private viewRef: ViewContainerRef,
@@ -53,7 +59,7 @@ export class BlockUIDirective implements OnInit {
           if (this.message) this.blockUIComponentRef.instance.defaultMessage = this.message;
           if (this.template) this.blockUIComponentRef.instance.templateCmp = this.template;
           if (this.delayStart) this.blockUIComponentRef.instance.delayStart = this.delayStart;
-          if (this.delayStop) this.blockUIComponentRef.instance.templateCmp = this.delayStop;
+          if (this.delayStop) this.blockUIComponentRef.instance.delayStop = this.delayStop;
         }
       }
     } catch (error) {
