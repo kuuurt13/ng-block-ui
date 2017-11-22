@@ -1,3 +1,9 @@
+#### 0.9.3 (2017-11-22)
+
+##### Bug Fixes
+
+* **directive:** fix delay start/stop (#44) ([e0283325](https://github.com/kuuurt13/ng-block-ui/commit/e02833250d65e8e37193ba1c993894d02b5ad65b))
+
 #### 0.9.2 (2017-8-27)
 
 ##### Bug Fixes
