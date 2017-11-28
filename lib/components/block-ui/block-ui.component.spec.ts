@@ -27,7 +27,7 @@ describe('block-ui component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ BlockUIModule ],
+      imports: [ BlockUIModule.forRoot() ],
       declarations: [ TestComp ]
     })
     .compileComponents();
