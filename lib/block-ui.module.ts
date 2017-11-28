@@ -35,7 +35,7 @@ export function provideInstance() {
   ]
 })
 export class BlockUIModule {
-  public static forRoot(settings: BlockUISettings): ModuleWithProviders {
+  public static forRoot(settings: BlockUISettings = {}): ModuleWithProviders {
     BlockUIServiceInstance.updateSettings(settings);
 
     return {
