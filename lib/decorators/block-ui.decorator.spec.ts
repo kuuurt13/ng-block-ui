@@ -9,7 +9,7 @@ import { BlockUI } from './block-ui.decorator';
 describe('BlockUI decorator', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BlockUIModule]
+      imports: [ BlockUIModule.forRoot() ]
     })
       .compileComponents();
 

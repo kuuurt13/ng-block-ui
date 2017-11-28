@@ -34,8 +34,8 @@ describe('block-ui-content component', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [BlockUIModule],
-        declarations: [TestComp]
+        imports: [ BlockUIModule.forRoot() ],
+        declarations: [ TestComp ]
       })
         .compileComponents();
 
@@ -136,8 +136,11 @@ describe('block-ui-content component', () => {
     }
 
     @NgModule({
-      imports: [ BlockUIModule ],
-      declarations: [ TestTemplateComp, TestComp ],
+      imports: [ BlockUIModule.forRoot() ],
+      declarations: [
+        TestTemplateComp,
+        TestComp
+      ],
       entryComponents: [ TestTemplateComp ]
     })
     class TestModule {}
@@ -148,7 +151,10 @@ describe('block-ui-content component', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [ BlockUIModule, TestModule ]
+        imports: [
+          BlockUIModule.forRoot(),
+          TestModule
+        ]
       })
         .compileComponents();
 
@@ -201,9 +207,9 @@ describe('block-ui-content component', () => {
     @Component({
       selector: 'test-comp',
       template: `
-        <template class="ref-template" #templateTest>
+        <ng-template class="ref-template" #templateTest>
           <div class="test-template">Test</div>
-        </template>
+        </ng-template>
         <block-ui-content [message]="defaultMessage" [template]="templateTest"></block-ui-content>
       `
     })
@@ -214,7 +220,7 @@ describe('block-ui-content component', () => {
     }
 
     @NgModule({
-      imports: [ BlockUIModule ],
+      imports: [ BlockUIModule.forRoot() ],
       declarations: [ TestComp ]
     })
     class TestModule {}
@@ -225,7 +231,10 @@ describe('block-ui-content component', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [ BlockUIModule, TestModule ]
+        imports: [
+          BlockUIModule.forRoot(),
+          TestModule
+        ]
       })
         .compileComponents();
 
