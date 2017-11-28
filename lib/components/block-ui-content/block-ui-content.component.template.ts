@@ -6,6 +6,6 @@ export const template = `
       {{ message || defaultMessage }}
     </div>
   </div>
-  <template *ngIf="templateCmp" #templateOutlet></template>
+  <ng-template *ngIf="templateCmp" #templateOutlet></ng-template>
 </div>
 `;

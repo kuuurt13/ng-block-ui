@@ -11,9 +11,9 @@ import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant'
 @Component({
   selector: 'test-comp',
   template: `
-    <template class="ref-template" #templateTest>
+    <ng-template class="ref-template" #templateTest>
       <div class="test-template">Test</div>
-    </template>
+    </ng-template>
     <div class="host-element" *blockUI="'element'; message: 'default'; template: templateTest">
         <h1 class="header">Test</h1>
     </div>
@@ -32,7 +32,7 @@ describe(`block-ui element directive`, () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ BlockUIModule ],
+      imports: [ BlockUIModule.forRoot() ],
       declarations: [ TestComp ]
     })
       .compileComponents();
