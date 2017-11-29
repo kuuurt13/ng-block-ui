@@ -260,4 +260,72 @@ describe('block-ui-content component', () => {
       expect(spinner).toBe(null);
     });
   });
+
+  describe('block-ui-content module settings', () => {
+    @Component({
+      selector: 'test-comp',
+      template: `
+        <block-ui-content [message]="defaultMessage">
+        </block-ui-content>
+      `
+    })
+    class TestComp {
+      @BlockUI() blockUI: any;
+      defaultMessage: string;
+      delayStart: number = 0;
+      delayStop: number = 0;
+    }
+
+    let cf: ComponentFixture<any>;
+    let testCmp: TestComp;
+    let blkContComp: DebugElement;
+    let globalMessage: string = 'Global Message';
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          BlockUIModule.forRoot({
+            message: globalMessage
+          })
+        ],
+        declarations: [ TestComp ]
+      }).compileComponents();
+
+      cf = TestBed.createComponent(TestComp);
+      cf.detectChanges();
+
+      testCmp = cf.debugElement.componentInstance;
+      blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+    });
+
+    it('displays module default message on start', () => {
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+      expect(nativeElement.innerText).toBe(globalMessage);
+    });
+
+    it('setting message on block-ui-content overrides module level', () => {
+      let defaultMessage = 'Default';
+
+      testCmp.defaultMessage = defaultMessage;
+      cf.detectChanges();
+
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+      expect(nativeElement.innerText).toBe(defaultMessage);
+    });
+
+    it('message passed to start overrides module message', () => {
+      let expectedMessage = 'Loading...';
+      testCmp.blockUI.start(expectedMessage);
+      cf.detectChanges();
+
+      let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+      expect(nativeElement.innerText).toBe(expectedMessage);
+    });
+  });
 });
