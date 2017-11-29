@@ -1,34 +1,72 @@
 import { } from 'jasmine';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
+import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { BlockUIModule } from '../../block-ui.module';
 import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.component';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
+import { BlockUISettings } from '../../models/block-ui-settings.model';
 
 @Component({
-  selector: 'test-comp',
+  selector: 'template-comp',
   template: `
-    <block-ui [name]="blockName" [message]="message">
-      <h1 class="header">Test</h1>
-    </block-ui>
+    <div class="test-template">{{message}}</div>
   `
 })
-class TestComp {
-  blockName: string;
-  message: string = 'Default...';
-}
+class TestTemplateComp {}
 
 describe('block-ui component', () => {
   let cf: ComponentFixture<any>;
+  let testCmp: any;
   let blkContComp: DebugElement;
   let blockContentElement: HTMLElement;
+  let globalSettings: BlockUISettings = {
+    message: 'Global',
+    delayStart: 2000,
+    delayStop: 2000,
+  };
 
   beforeEach(() => {
+
+    @Component({
+      selector: 'test-comp',
+      template: `
+        <block-ui
+          [name]="blockName"
+          [message]="message"
+          [delayStart]="delayStart"
+          [delayStop]="delayStop"
+          [template]="customTmp"
+        >
+          <h1 class="header">Test</h1>
+        </block-ui>
+      `
+    })
+    class TestComp {
+      blockName: string;
+      message: string;
+      delayStart: number;
+      delayStop: number;
+      customTmp: any;
+    }
+
+    @NgModule({
+      imports: [
+        BlockUIModule.forRoot(globalSettings)
+      ],
+      declarations: [
+        TestTemplateComp,
+        TestComp
+      ],
+      entryComponents: [ TestTemplateComp ]
+    })
+    class TestModule {}
+
     TestBed.configureTestingModule({
-      imports: [ BlockUIModule.forRoot() ],
-      declarations: [ TestComp ]
+      imports: [
+        TestModule
+      ]
     })
     .compileComponents();
 
@@ -37,6 +75,7 @@ describe('block-ui component', () => {
 
     blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
     blockContentElement = blkContComp.nativeElement;
+    testCmp = cf.debugElement.componentInstance;
   });
 
   it('appends block-ui-content', () => {
@@ -64,11 +103,36 @@ describe('block-ui component', () => {
   });
 
   it('passes default message property to block-ui-content', () => {
+    let msg = 'test';
     let { componentInstance } = blkContComp;
-    let message = componentInstance.message;
+    testCmp.message = msg;
 
     cf.detectChanges();
 
-    expect(componentInstance.message).toBe(message);
+    expect(componentInstance.defaultMessage).toBe(msg);
+  });
+
+  it('passes delays to block-ui-content', () => {
+    let start = 3000;
+    let stop = 3000;
+    let { componentInstance } = blkContComp;
+
+    testCmp.delayStart = start;
+    testCmp.delayStop = stop;
+
+    cf.detectChanges();
+
+    expect(componentInstance.delayStart).toBe(start);
+    expect(componentInstance.delayStop).toBe(stop);
+  });
+
+  it('passes template to block-ui-content', () => {
+    let { componentInstance } = blkContComp;
+
+    testCmp.customTmp = TestTemplateComp;
+
+    cf.detectChanges();
+
+    expect(componentInstance.templateCmp).toBe(TestTemplateComp);
   });
 });
