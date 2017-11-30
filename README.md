@@ -173,7 +173,7 @@ export class AppComponent {
 |---|---|
 | `start` | Starts blocking for instance, can be passed an optional message.
 | `stop` | Stops blocking for instance.
-| `reset` | Stops blocking for all currently blocking instances app wide.
+| `reset` | Stops blocking for all currently blocking instances app wide regardless of the `delayStop` option.
 | `update` | Updates current instances blocking message with the passed message.
 | `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe during the `onDestroy` lifecycle hook. In some cases it might be desirable to unsubscribe while the component/element is still in the view.
 
