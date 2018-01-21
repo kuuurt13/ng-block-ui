@@ -1,3 +1,9 @@
+#### 1.0.0-beta.17 (2018-1-21)
+
+##### Bug Fixes
+
+* **directive:** use renderer to add class for Angular Universal (#49) (#50) ([b0ac2a17](https://github.com/kuuurt13/ng-block-ui/commit/b0ac2a17183e5c552cb02417cd292c97c4ab3925))
+
 #### 1.0.0-beta.16 (2017-11-22)
 
 ##### Bug Fixes
