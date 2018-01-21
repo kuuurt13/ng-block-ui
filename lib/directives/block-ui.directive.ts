@@ -5,7 +5,8 @@ import {
   ComponentRef,
   ComponentFactoryResolver,
   ViewContainerRef,
-  TemplateRef
+  TemplateRef,
+  Renderer2
 } from '@angular/core';
 import { BlockUIContentComponent } from '../components/block-ui-content/block-ui-content.component';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
@@ -37,6 +38,7 @@ export class BlockUIDirective implements OnInit {
   constructor(
     private viewRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
+    private renderer: Renderer2,
     private componentFactoryResolver: ComponentFactoryResolver
   ) { }
 
@@ -46,7 +48,7 @@ export class BlockUIDirective implements OnInit {
       const parentElement = this.viewRef.element.nativeElement.nextSibling;
 
       if (parentElement && !this.isComponentInTemplate(parentElement)) {
-        parentElement.classList.add('block-ui__element');
+        this.renderer.addClass(parentElement, 'block-ui__element');
 
         this.blockUIComponentRef = this.createComponent();
 
