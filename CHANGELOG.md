@@ -1,3 +1,9 @@
+#### 0.9.4 (2018-1-22)
+
+##### Other Changes
+
+* **component:** Make message public for BlockUIContentComponent (#51) ([0da8dc10](https://github.com/kuuurt13/ng-block-ui/commit/0da8dc10341b5f5f1231460dbaccb8058ea3f940))
+
 #### 0.9.3 (2017-11-22)
 
 ##### Bug Fixes
