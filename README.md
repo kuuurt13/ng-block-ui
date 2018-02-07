@@ -1,6 +1,6 @@
 # NG Block UI
 
-A Block UI implementation for Angular 2 & up
+A Block UI implementation for Angular
 
 [![npm](https://img.shields.io/npm/v/ng-block-ui.svg)](https://www.npmjs.com/package/ng-block-ui)
 [![npm](https://img.shields.io/npm/dm/ng-block-ui.svg)](https://www.npmjs.com/package/ng-block-ui)
@@ -10,35 +10,7 @@ A Block UI implementation for Angular 2 & up
 Add to your project via [npm](https://www.npmjs.com/package/ng-block-ui)
 
 ```bash
-// Angular 2.x
 npm install ng-block-ui --save
-
--- or --
-
-// Angular 4.x
-npm install ng-block-ui@next --save
-```
-
-#### Configuring SystemJS
-
-If your project is using SystemJS for module loading, you will need to add ng-block-ui to the SystemJS configuration:
-
-```js
-System.config({
-  // Existing configuration options
-  map: {
-    ...
-    'ng-block-ui': 'npm:ng-block-ui/bundles/umd'
-  },
-  packages: {
-    ...
-    'ng-block-ui': {
-        main: 'index.js',
-        defaultExtension: 'js'
-    }
-  }
-});
-
 ```
 
 Include the `BlockUIModule` in your main app module.
@@ -48,24 +20,18 @@ Include the `BlockUIModule` in your main app module.
 import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
-  declarations: [
-   ... // Your main app component
-  ],
   imports: [
-    ..., // Other imports
-    BlockUIModule
+    BlockUIModule.forRoot()
   ],
-  bootstrap: [ AppComponent ]
+  ...
 })
 export class AppModule { }
 ```
-## Usage
+## Quick Start
+Wrap your main components in your app root template with a `block-ui` component.
 
-### Block UI Component
-Wrap all components in your app root template with a `block-ui` component.
-
-Import the `BlockUI` decorator into your component and declare a variable with the decorator.
-This decorator will auto wire this variable to the main Block UI instance of your app.
+Import the `BlockUI` decorator into your component and declare a property with the decorator.
+This decorator will auto wire this property to the main Block UI instance of your app.
 
 To start blocking your app, simply invoke the `start` method.
 This method also can take a custom message to display while blocking.
@@ -98,60 +64,191 @@ export class AppComponent {
   }
 ```
 
-#### Default Message
-A default message can be configured to be shown instead of passing a message each time to the start method.
-The default message will be shown any time blocking is activated. A message can still be passed to the start method
-and it will take precedence over the default message.
+## Settings
+Settings can be changed on the module level and component/directive level. Also, in some cases settings can be overwritten via the method level.
 
+### Default Message
+A default message can be configured to be shown instead of passing a message each time to the `start` method. The default message will be shown any time blocking is activated.
+
+| Setting | Type | Description
+|---|---|---|
+| `message` | `string` | Custom message to be displayed while blocking.
+
+#### Module Level
+```ts
+@NgModule({
+  imports: [
+    BlockUIModule.forRoot({
+      message: 'Deafult Message'
+    })
+  ],
+  ...
+})
+export class AppModule { }
+```
+
+#### Component Level
+```html
+<block-ui message="Deafult Message">
+  <!-- Markup here -->
+</block-ui>
+```
+
+#### Method Level
 ```js
 @Component({
-  selector: 'app-root',
+  ...,
   template: `
-    <block-ui [message]="'Loading...'">
-      <!-- Your app markup here -->
+    <block-ui message="Deafult Message">
+      <!-- Your markup here -->
     </block-ui>
   `
 })
-export class AppComponent {
+export class Cmp {
   @BlockUI() blockUI: NgBlockUI;
 
-  constructor() {
-    this.blockUI.start(); // Default "Loading..." message will display
-    this.blockUI.start('Updating...'); // Custom "Updating..." message will display
+  defaultMessage() {
+    this.blockUI.start(); // "Default Message" will display
   }
+
+  customMessage() {
+    this.blockUI.start('Updating...'); // "Updating..." will display
+  }
+}
 ```
 
-#### Delay Start and Stop
+### Delay Start/Stop
 When blocking with fast service calls the block overlay can flicker for a small amount of time.
 To prevent this a `delayStart` and a `delayStop` can be configured to prevent this scenario.
 
-| Delay | Description
-|---|---|
-| `delayStart: number` | Waits given amount of milliseconds before starting to block.
-| `delayStop: number` | Waits given amount of milliseconds before stopping current block.
+| Setting | Type | Description
+|---|---|---|
+| `delayStart` | `number` | Waits given amount of milliseconds before starting to block.
+| `delayStop` | `number` | Waits given amount of milliseconds before stopping current block.
 
+#### Module Level
+```ts
+@NgModule({
+  imports: [
+    BlockUIModule.forRoot({
+      delayStart: 500,
+      delayStop: 500
+    })
+  ],
+  ...
+})
+export class AppModule { }
+```
+
+#### Component Level
 ```html
 <block-ui [delayStart]="500" [delayStop]="500">
   <!-- Your app markup here -->
 </block-ui>
 ```
+### Custom Template
+If you want to display other markup than the default spinner and message then you can provide a custom template.
+Custom templates can be provided as a `Component` or `TemplateRef`. The template will then be used instead of the default template whenever blocking.
 
-### Block UI Directive
+| Setting | Type | Description
+|---|---|---|
+| `template` | `Component | TemplateRef` | Custom template to be used when blocking
+
+#### Component Custom Template
+Create a component and declare it in your app module.
+The component also will need to be added to the `entryComponents` property of the module.
+
+*Example Component:*
+
+*Note: When providing a `Component` as a template just add the `{{message}}`
+interpolation to your template and it will display your default message or the message passed to the `start` method.*
+
+```js
+// Template component
+// Use block-ui-template class to center div if desired
+@Component({
+  template: `
+    <div class="block-ui-template">
+      <img src="logo.png" />
+      <p>{{message}}</p>
+    </div>
+  `
+})
+export class BlockTemplateCmp {}
+```
+
+##### Module Level
+```js
+@NgModule({
+  imports: [
+    BlockUIModule.forRoot({
+      template: BlockTemplateCmp
+    })
+  ],
+  declarations: [
+    ...,
+    BlockTemplateCmp // Declare template component
+  ],
+  entryComponents: [ BlockTemplateCmp ]
+})
+export class AppModule { }
+```
+
+##### Component Level
+```js
+@Component({
+  selector: 'app-root',
+  template: `
+    <block-ui [template]="blockTemplate">
+      <!-- Your markup here -->
+    </block-ui>
+  `
+})
+export class AppComponent {
+  // Declare template component
+  blockTemplate: BlockTemplateCmp = BlockTemplateCmp;
+}
+```
+
+#### TemplateRef Custom Template
+Add a `<ng-template>` with a template reference variable to the view. Then pass the template reference variable to the `blockUI` component using the `[template]` property.
+
+*Note: TemplateRef templates can only be set on a Component level.*
+
+
+##### Component Level
+```js
+@Component({
+  selector: 'cmp',
+  template: `
+    <ng-template #blockTemplate>
+      <div class="block-ui-template">
+        <img src="logo.png" />
+      </div>
+    </ng-template>
+
+    <block-ui [template]="blockTemplate">
+      <!-- Your app markup here -->
+    </block-ui>
+  `
+})
+export class Cmp {}
+```
+
+## Block UI Directive
 Sometimes you want to only apply blocking to a certain element in your app.
 The Block UI directive can be added to an element to apply blocking only to that specific element.
 
 Add the `*blockUI` structural directive to any element
 and pass it an instance name `*blockUI="'contact-list'"`.
 
-Then in a component create a variable using the Block UI decorator with the instance name.
-This will then take care of wiring up that variable to point to that specific instance in your app `@BlockUI('contact-list')`.
+Then in a component create a class property using the Block UI decorator with the instance name `@BlockUI('contact-list')`. This will then take care of wiring up that property to point to that specific instance in your app.
 
 ```js
 @Component({
   selector: 'app-cmp',
   template: `
     <div>
-      <!-- Other markup -->
       <div *blockUI="'contact-list'">
         <!-- List markup -->
       </div>
@@ -168,7 +265,17 @@ export class AppComponent {
   }
 ```
 
-### NgBlockUI Instance
+### Directive Settings
+Angular has a specific syntax for passing properties to structural directives. Properties are passed in `key: value;` pair. To pass settings to a Block UI directive they must be passed as shown below.
+
+```html
+<div *blockUI="'instance-name'; message: 'Loading'; template: blockTemplate">
+</div>
+```
+
+## NgBlockUI Instance
+Below highlights all the methods that can be found on a BlockUI instance when a class property is decorated with the `@BlockUI()` decorator.
+
 | Method | Description
 |---|---|
 | `start` | Starts blocking for instance, can be passed an optional message.
@@ -177,94 +284,19 @@ export class AppComponent {
 | `update` | Updates current instances blocking message with the passed message.
 | `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe during the `onDestroy` lifecycle hook. In some cases it might be desirable to unsubscribe while the component/element is still in the view.
 
-### BlockUIService
+## BlockUIService
 In some cases you may want to have more control over all the instances in you app.
 Instead of declaring seperate instances with the `@BlockUI()` decorator you can use the `BlockUIService`. This service allows you to easily target multiple instance across your app.
 
 | Method | Parameters | Description
 |---|---|---|
-| `start` | `target: string \| string[], message?: any` | Starts blocking for a single instance or multiple instances by passing instance name(s).
-| `stop` | `target: string \| string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
-| `unsubscribe` | `target: string \| string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
+| `start` | `target: string | string[], message?: any` | Starts blocking for a single instance or multiple instances by passing instance name(s).
+| `stop` | `target: string | string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
+| `unsubscribe` | `target: string | string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
 
-### Custom Templates
-If you want to display other markup than the default spinner and message then you can provide a custom template.
-Custom templates can be provided as a `Component` or `TemplateRef`. The template will then be used instead of the default
-template whenever blocking.
-
-#### TemplateRef Custom Template
-Add a `<ng-template>` with a template reference variable to the view. Then pass the template reference variable to the `blockUI` component using the `[template]` property.
-
-*Note: If you are using Angular 2.x instead of 4.x you will need to use `<template>` instead of `<ng-template>`*
-
-```js
-// Optionally add block-ui-template css class to center div
-@Component({
-  selector: 'app-root',
-  template: `
-    <ng-template #blockTemplate>
-      <div class="block-ui-template">
-        <img src="logo.png" />
-      </div>
-    </ng-template>
-
-    <block-ui [template]="blockTemplate">
-      <!-- Your app markup here -->
-    </block-ui>
-  `
-})
-export class AppComponent {}
-```
-
-#### Component Custom Template
-Create a component and declare it in your app `NgModule`.
-The component also will need to be added to the `entryComponents` property of the module. Once added to the module, import and declare the template component in your component that holds your `blockUI` component. Just pass the
-component to the `blockUI` using the `[template]` property.
-
-*Note: When providing a `Component` as a template just add the `{{message}}`
-interpolation to your template and it will display your default message or the message passed to the `start` method.*
-
-```js
-@NgModule({
-  imports: [ BlockUIModule ],
-  declarations: [
-    AppComponent,
-    BlockTemplateComponent // Declare template component
-  ],
-  entryComponents: [ BlockTemplateComponent ] // Add to entryComponents
-  ...
-})
-export class AppModule { }
-
-
-// Template component
-// Use block-ui-template css helper class to center div if desired
-@Component({
-  template: `
-    <div class="block-ui-template">
-      <img src="logo.png" />
-      <p>{{message}}</p>
-    </div>
-  `
-})
-export class BlockTemplateComponent {}
-
-
-// Pass template component to blockUI
-@Component({
-  selector: 'app-root',
-  template: `
-    <block-ui [template]="blockTemplate">
-      <!-- Your app markup here -->
-    </block-ui>
-  `
-})
-export class AppComponent {
-  // Declare template component
-  blockTemplate: BlockTemplateComponent = BlockTemplateComponent;
-  ...
-}
-```
+## Guides
+### [Upgrading to 1.0.0](docs/migration-1.0.0.md)
+### [SystemJS Config](docs/systemjs-config.md)
 
 ## Examples
 ### BlockUI Component - [Plunker](https://embed.plnkr.co/ZVDRrq?show=app.compontent.html,preview&autoCloseSidebar)
