@@ -294,6 +294,9 @@ Instead of declaring seperate instances with the `@BlockUI()` decorator you can 
 | `stop` | `target: string | string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
 | `unsubscribe` | `target: string | string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
 
+## Other Modules
+### [Router Module](docs/router-module.md) - Prevent route changes while blocking
+
 ## Guides
 ### [Upgrading to 1.0.0](docs/migration-1.0.0.md)
 ### [SystemJS Config](docs/systemjs-config.md)
