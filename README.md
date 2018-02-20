@@ -295,6 +295,7 @@ Instead of declaring seperate instances with the `@BlockUI()` decorator you can 
 | `unsubscribe` | `target: string | string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
 
 ## Other Modules
+### [Http Module](docs/http-module.md) - Automatically block during http requests
 ### [Router Module](docs/router-module.md) - Prevent route changes while blocking
 
 ## Guides
