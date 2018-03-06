@@ -151,7 +151,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   }
 
   private onUnsubscribe(name: string) {
-    if (name === this.name) {
+    if (this.blockUISubscription && name === this.name) {
       this.blockUISubscription.unsubscribe();
     }
   }
