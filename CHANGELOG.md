@@ -1,3 +1,9 @@
+#### 0.9.5 (2018-3-5)
+
+##### Bug Fixes
+
+* **component:** Check if blockUISubscription is defined before unsubscribing (#52) ([157281d3](https://github.com/kuuurt13/ng-block-ui/commit/157281d3d87d4ce088f48b1da13fef8420089496))
+
 #### 0.9.4 (2018-1-22)
 
 ##### Other Changes
