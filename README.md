@@ -70,9 +70,9 @@ Settings can be changed on the module level and component/directive level. Also,
 ### Default Message
 A default message can be configured to be shown instead of passing a message each time to the `start` method. The default message will be shown any time blocking is activated.
 
-| Setting | Type | Description
-|---|---|---|
-| `message` | `string` | Custom message to be displayed while blocking.
+| Setting   | Type     | Description                                    |
+|-----------|----------|------------------------------------------------|
+| `message` | `string` | Custom message to be displayed while blocking. |
 
 #### Module Level
 ```ts
@@ -121,10 +121,10 @@ export class Cmp {
 When blocking with fast service calls the block overlay can flicker for a small amount of time.
 To prevent this a `delayStart` and a `delayStop` can be configured to prevent this scenario.
 
-| Setting | Type | Description
-|---|---|---|
-| `delayStart` | `number` | Waits given amount of milliseconds before starting to block.
-| `delayStop` | `number` | Waits given amount of milliseconds before stopping current block.
+| Setting      | Type     | Description                                                       |
+|--------------|----------|-------------------------------------------------------------------|
+| `delayStart` | `number` | Waits given amount of milliseconds before starting to block.      |
+| `delayStop`  | `number` | Waits given amount of milliseconds before stopping current block. |
 
 #### Module Level
 ```ts
@@ -150,9 +150,9 @@ export class AppModule { }
 If you want to display other markup than the default spinner and message then you can provide a custom template.
 Custom templates can be provided as a `Component` or `TemplateRef`. The template will then be used instead of the default template whenever blocking.
 
-| Setting | Type | Description
-|---|---|---|
-| `template` | `Component | TemplateRef` | Custom template to be used when blocking
+| Setting    | Type                                      | Description                              |
+|------------|-------------------------------------------|------------------------------------------|
+| `template` | <code>Component &#124; TemplateRef</code> | Custom template to be used when blocking |
 
 #### Component Custom Template
 Create a component and declare it in your app module.
@@ -276,23 +276,23 @@ Angular has a specific syntax for passing properties to structural directives. P
 ## NgBlockUI Instance
 Below highlights all the methods that can be found on a BlockUI instance when a class property is decorated with the `@BlockUI()` decorator.
 
-| Method | Description
-|---|---|
-| `start` | Starts blocking for instance, can be passed an optional message.
-| `stop` | Stops blocking for instance.
-| `reset` | Stops blocking for all currently blocking instances app wide regardless of the `delayStop` option.
-| `update` | Updates current instances blocking message with the passed message.
-| `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe during the `onDestroy` lifecycle hook. In some cases it might be desirable to unsubscribe while the component/element is still in the view.
+| Method        | Description                                                                                                                                                |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `start`       | Starts blocking for instance, can be passed an optional message.                                                                                           |
+| `stop`        | Stops blocking for instance.                                                                                                                               |
+| `reset`       | Stops blocking for all currently blocking instances app wide regardless of the `delayStop` option.                                                         |
+| `update`      | Updates current instances blocking message with the passed message.                                                                                        |
+| `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe during the `onDestroy` lifecycle hook. In some cases |                  it might be desirable to unsubscribe while the component/element is still in the view.
 
 ## BlockUIService
 In some cases you may want to have more control over all the instances in you app.
 Instead of declaring seperate instances with the `@BlockUI()` decorator you can use the `BlockUIService`. This service allows you to easily target multiple instance across your app.
 
-| Method | Parameters | Description
-|---|---|---|
-| `start` | `target: string | string[], message?: any` | Starts blocking for a single instance or multiple instances by passing instance name(s).
-| `stop` | `target: string | string[]` | Stops blocking for a single instance or multiple instances by passing instance name(s).
-| `unsubscribe` | `target: string | string[]` | Unsubscribes a single instance or multiple instances by passing instance name(s).
+| Method        | Parameters                                                 | Description                                                                              |
+|---------------|------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| `start`       | <code>target: string &#124; string[], message?: any</code> | Starts blocking for a single instance or multiple instances by passing instance name(s). |
+| `stop`        | <code>target: string &#124; string[]</code>                | Stops blocking for a single instance or multiple instances by passing instance name(s).  |
+| `unsubscribe` | <code>target: string &#124; string[]</code>                | Unsubscribes a single instance or multiple instances by passing instance name(s).        |
 
 ## Other Modules
 ### [Http Module](docs/http-module.md) - Automatically block during http requests
