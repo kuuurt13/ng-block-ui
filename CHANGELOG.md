@@ -1,3 +1,40 @@
+#### 1.0.0-rc.1 (2018-3-11)
+
+##### Documentation Changes
+
+* **readme:**
+  * Added isActive documentation (#40) ([de97fa7c](https://github.com/kuuurt13/ng-block-ui/commit/de97fa7ca7eb8c19c1e8997f64a31bd361d7bb1d))
+  * fixed table layouts ([dd85481c](https://github.com/kuuurt13/ng-block-ui/commit/dd85481c7284c33fe33d938ccb47282a8e2dad7c))
+* **http:** block ui http module (#38) ([d19e54df](https://github.com/kuuurt13/ng-block-ui/commit/d19e54df41a3d5afaa0df3238488ed4ae4690959))
+* **router:** block ui route guard (#39) ([eb794de8](https://github.com/kuuurt13/ng-block-ui/commit/eb794de89bdeff15bb05ab6434891864c610f8f6))
+* **all:** 1.0.0 updates and improvements (#41) ([e790e967](https://github.com/kuuurt13/ng-block-ui/commit/e790e967330867752c30e36adbdebb31ffadec1b))
+* **migration:** Added 1.0.0 migration guide (#41) ([b7990c2c](https://github.com/kuuurt13/ng-block-ui/commit/b7990c2c49c12b403edd29bf0515572f4548d047))
+* **contrib:** Add contributing guidelines (#41) ([d35aca88](https://github.com/kuuurt13/ng-block-ui/commit/d35aca8883ab077f5cc89103939c38c638720d3c))
+* **clarification:** Clarify that NgBlockUI's reset() method does not take into account `delayStop` option (#46) ([a3192eef](https://github.com/kuuurt13/ng-block-ui/commit/a3192eefb20912367dcd0c473d5bc8b03a2c5ea8))
+
+##### New Features
+
+* **http:** auto block on http requests (#38) ([e5a8d47a](https://github.com/kuuurt13/ng-block-ui/commit/e5a8d47a0759dbd2b70f99cb4b456584df3ca7ac))
+* **router:** prevent navigation when blocking (#39) ([5a131ac3](https://github.com/kuuurt13/ng-block-ui/commit/5a131ac330786703fa6834ba5cbf39d7cc24fa4e))
+* **blockUI:** add isActive boolean to blockUI instance (#40) ([ecc1b689](https://github.com/kuuurt13/ng-block-ui/commit/ecc1b689090c1b27135e006f4908afde0311ed2b))
+* **settings:** settings can now be set globally at module level ([c4010c27](https://github.com/kuuurt13/ng-block-ui/commit/c4010c27f625ab2a616dd2518bf7cda78da90276))
+
+##### Bug Fixes
+
+* **directive:** use renderer to add class for Angular Universal (#49) (#50) ([2bab554e](https://github.com/kuuurt13/ng-block-ui/commit/2bab554e151ed9eab5a292fd31a0f50cee1c5af0))
+* **module:** set settings to empty object by default ([0bc9fd4b](https://github.com/kuuurt13/ng-block-ui/commit/0bc9fd4ba9a41bfc50d712591d04a99db4347212))
+
+##### Other Changes
+
+* **demo:** use systemjs to dynamically test load lib changes (#41) ([bdb97b6e](https://github.com/kuuurt13/ng-block-ui/commit/bdb97b6e1a5a4d6e8575785f1a590012b3f848a1))
+
+##### Tests
+
+* **http:** add tests for BlockUIHttpModule (#38) ([22ef1a7f](https://github.com/kuuurt13/ng-block-ui/commit/22ef1a7fd1e1048a51d54a859806f3611d1cf93b))
+* **router:** added prevent navigation tests ([649c6c4f](https://github.com/kuuurt13/ng-block-ui/commit/649c6c4fae8dad35d4ef1d094316b997527aff02))
+* **module:** added module settings tests ([a87b9c1d](https://github.com/kuuurt13/ng-block-ui/commit/a87b9c1d63c41c49bd63861f663eb5e9655d45b6))
+* **all:** fix BlockUIModule imports ([612e883e](https://github.com/kuuurt13/ng-block-ui/commit/612e883e43c35b909532eaadc234d5627f0682ce))
+
 #### 0.9.5 (2018-3-5)
 
 ##### Bug Fixes

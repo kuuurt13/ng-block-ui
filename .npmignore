@@ -11,3 +11,6 @@ karma.shim.js
 tslint.json
 webpack.config.json
 vendor.ts
+docs
+.travis.yml
+CONTRIBUTING.md
