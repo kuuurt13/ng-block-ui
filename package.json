@@ -1,7 +1,7 @@
 {
   "name": "ng-block-ui",
-  "version": "0.9.5",
-  "description": "Angular (2 & up) Block UI",
+  "version": "1.0.0-rc.1",
+  "description": "Angular Block UI",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
@@ -23,7 +23,9 @@
   },
   "keywords": [
     "Angular",
-    "Angular 2",
+    "Angular 4",
+    "Angular 5",
+    "Loading",
     "Block UI",
     "Spinner"
   ],
