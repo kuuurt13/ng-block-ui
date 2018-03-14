@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BlockUIComponent } from './components/block-ui/block-ui.component';
@@ -11,7 +11,10 @@ import { BlockUISettings } from './models/block-ui-settings.model';
 export const BlockUIServiceInstance = new BlockUIInstanceService();
 
 // Needed for AOT compiling
-export function provideInstance() {
+export const BlockUIModuleSettings = new InjectionToken<string>('BlockUIModuleSettings');
+
+export function provideInstance(settings: BlockUISettings): any {
+  BlockUIServiceInstance.updateSettings(settings);
   return BlockUIServiceInstance;
 }
 
@@ -36,15 +39,17 @@ export function provideInstance() {
 })
 export class BlockUIModule {
   public static forRoot(settings: BlockUISettings = {}): ModuleWithProviders {
-    BlockUIServiceInstance.updateSettings(settings);
-
     return {
       ngModule: BlockUIModule,
       providers: [
         {
+          provide: BlockUIModuleSettings,
+          useValue: settings
+        },
+        {
           provide: BlockUIInstanceService,
           useFactory: provideInstance,
-          deps: []
+          deps: [BlockUIModuleSettings]
         },
         BlockUIService
       ]
