@@ -1,3 +1,9 @@
+#### 1.0.0-rc.2 (2018-3-13)
+
+##### Bug Fixes
+
+* **module:** make forRoot settings AOT compatible (#53) ([314e3205](https://github.com/kuuurt13/ng-block-ui/commit/314e32051fb8b64fe2ca4043e171a561a6fbc94c))
+
 #### 1.0.0-rc.1 (2018-3-11)
 
 ##### Documentation Changes
