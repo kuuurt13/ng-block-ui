@@ -1,3 +1,9 @@
+#### 1.0.0-rc.3 (2018-3-14)
+
+##### Bug Fixes
+
+* **http:** make module AOT compatible ([1f76c9cf](https://github.com/kuuurt13/ng-block-ui/commit/1f76c9cf589d0458fa5ae65dbbb02b9ffaafb866))
+
 #### 1.0.0-rc.2 (2018-3-13)
 
 ##### Bug Fixes
