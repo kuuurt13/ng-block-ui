@@ -8,9 +8,8 @@ import {
 import { Observable } from 'rxjs/Observable';
 
 import { BlockUIService } from '../services/block-ui.service';
-import { BlockUIInstanceService } from '../services/block-ui-instance.service';
+import { BlockUIHttpSettings } from './block-ui-http-settings.service';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
-
 
 @Injectable()
 export class BlockUIInterceptor implements HttpInterceptor {
@@ -18,7 +17,7 @@ export class BlockUIInterceptor implements HttpInterceptor {
 
   constructor(
     private blockUIService: BlockUIService,
-    private blockUIInstance: BlockUIInstanceService
+    private BlockUIHttpSettings: BlockUIHttpSettings
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -38,8 +37,8 @@ export class BlockUIInterceptor implements HttpInterceptor {
 
   shouldBlock(request: HttpRequest<any>): boolean {
     const { method, urlWithParams } = request;
-    const { http = {} } = this.blockUIInstance.getSettings();
-    const requestFilters = http.requestFilters || [];
+    const settings = this.BlockUIHttpSettings.settings;
+    const requestFilters = settings.requestFilters || [];
 
     return !requestFilters.some((f: any) => {
       if (f && f.method && f.url) {
