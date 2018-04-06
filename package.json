@@ -10,7 +10,7 @@
     "build:ngc": "node_modules/.bin/ngc -p tsconfig.json && echo 'Build Complete'",
     "build:tsc": "node_modules/typescript/bin/tsc -p tsconfig-umd.json && echo 'Build Complete'",
     "pack:dev": "npm run build && npm pack",
-    "prerelease": "npm run build",
+    "prepublishOnly": "npm run build",
     "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin master && git push origin --tags",
     "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin master && git push origin --tags",
     "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin master && git push origin --tags",
