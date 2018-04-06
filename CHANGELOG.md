@@ -1,3 +1,9 @@
+## 1.0.0 (2018-4-5)
+
+##### Other Changes
+
+* **scripts:** Added prepublishOnly script ([8767db71](https://github.com/kuuurt13/ng-block-ui/commit/8767db71bc1295b0fad1549cab7aa07e51672215))
+
 #### 1.0.0-rc.3 (2018-3-14)
 
 ##### Bug Fixes
