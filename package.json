@@ -2,20 +2,19 @@
   "name": "ng-block-ui",
   "version": "1.0.0",
   "description": "Angular Block UI",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "./index.js",
+  "typings": "./index.d.ts",
   "scripts": {
-    "start": "watchman lib \"npm run build:tsc && cp -r bundles demo\"",
-    "build": "npm run build:ngc && npm run build:tsc",
+    "start": "watchman lib 'npm run build:tsc && cp -r bundles demo'",
+    "build": "npm run build:ngc && npm run build:copy",
+    "build:copy": "cp -r package.json .npmignore README.md LICENSE ./dist",
     "build:ngc": "node_modules/.bin/ngc -p tsconfig.json && echo 'Build Complete'",
     "build:tsc": "node_modules/typescript/bin/tsc -p tsconfig-umd.json && echo 'Build Complete'",
-    "pack:dev": "npm run build && npm pack",
-    "prepublishOnly": "npm run build",
-    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin master && git push origin --tags",
-    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin master && git push origin --tags",
-    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin master && git push origin --tags",
-    "test": "node_modules/karma/bin/karma start karma.conf.js",
-    "test:watch": "node_modules/karma/bin/karma start karma.conf.js --singleRun=false"
+    "release:major": "changelog -M && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin master && git push origin --tags",
+    "release:minor": "changelog -m && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin master && git push origin --tags",
+    "release:patch": "changelog -p && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin master && git push origin --tags",
+    "test": "npx karma start karma.conf.js",
+    "test:watch": "npx karma start karma.conf.js --singleRun=false"
   },
   "repository": {
     "type": "git",
@@ -69,9 +68,5 @@
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "zone.js": "^0.8.4"
-  },
-  "files": [
-    "dist",
-    "bundles"
-  ]
+  }
 }
