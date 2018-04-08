@@ -1,3 +1,9 @@
+#### 1.0.2 (2018-4-8)
+
+##### Bug Fixes
+
+* **build:** add missing umd bundle ([63e7119d](https://github.com/kuuurt13/ng-block-ui/commit/63e7119d88910960174c0a949405f0a27fac65c2))
+
 #### 1.0.1 (2018-4-8)
 
 ##### Bug Fixes
