@@ -6,7 +6,7 @@
   "typings": "./index.d.ts",
   "scripts": {
     "start": "watchman lib 'npm run build:tsc && cp -r bundles demo'",
-    "build": "npm run build:ngc && npm run build:copy",
+    "build": "npm run build:ngc && npm run build:tsc && npm run build:copy",
     "build:copy": "cp -r package.json .npmignore README.md LICENSE ./dist",
     "build:ngc": "node_modules/.bin/ngc -p tsconfig.json && echo 'Build Complete'",
     "build:tsc": "node_modules/typescript/bin/tsc -p tsconfig-umd.json && echo 'Build Complete'",
