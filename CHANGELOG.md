@@ -1,3 +1,9 @@
+#### 1.0.3 (2018-4-8)
+
+##### Bug Fixes
+
+* **build:** remove bundles from .npmignore ([e236dc15](https://github.com/kuuurt13/ng-block-ui/commit/e236dc156d5ce7cffeeaea52890a83e6a9619c23))
+
 #### 1.0.2 (2018-4-8)
 
 ##### Bug Fixes
