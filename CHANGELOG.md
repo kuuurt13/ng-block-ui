@@ -1,3 +1,9 @@
+#### 1.0.1 (2018-4-8)
+
+##### Bug Fixes
+
+* **build:** flatten npm package structure ([68621f0a](https://github.com/kuuurt13/ng-block-ui/commit/68621f0aabc83da1d0db1e8535a19ea7bc3cfe0c))
+
 ## 1.0.0 (2018-4-5)
 
 ##### Other Changes
