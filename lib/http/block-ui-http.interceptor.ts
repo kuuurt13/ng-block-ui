@@ -6,6 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { _finally } from 'rxjs/operator/finally';
 
 import { BlockUIService } from '../services/block-ui.service';
 import { BlockUIHttpSettings } from './block-ui-http-settings.service';
@@ -21,18 +22,21 @@ export class BlockUIInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.shouldBlock(request)) {
-      const requestHandler = next.handle(request);
+    const req = next.handle(request);
+    const response$ = req.subscribe.bind(req);
+    let active = false;
 
-      this.blockUIService.start(BlockUIDefaultName);
+    req.subscribe = (...args) => {
+      if (this.shouldBlock(request)) {
+        this.blockUIService.start(BlockUIDefaultName);
+        active = true;
+      }
 
-      requestHandler.subscribe(
-        () => this.blockUIService.stop(BlockUIDefaultName),
-        () => this.blockUIService.stop(BlockUIDefaultName)
-      );
-    }
+      return response$(...args);
+    };
 
-    return next.handle(request);
+    return _finally
+      .call(req, () => active && this.blockUIService.stop(BlockUIDefaultName));
   }
 
   shouldBlock(request: HttpRequest<any>): boolean {
