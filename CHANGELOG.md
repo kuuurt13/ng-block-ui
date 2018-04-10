@@ -1,3 +1,13 @@
+#### 1.0.4 (2018-4-9)
+
+##### Bug Fixes
+
+* **http:** interceptor now waits for full request duration #57 ([8eaf83a7](https://github.com/kuuurt13/ng-block-ui/commit/8eaf83a7b67a4267db944c433f672f02a3f9bb36))
+
+##### Other Changes
+
+* **demo:** fixed local development setup ([242e400f](https://github.com/kuuurt13/ng-block-ui/commit/242e400fe0866f421d671e4d9aa899d36af4b15f))
+
 #### 1.0.3 (2018-4-8)
 
 ##### Bug Fixes
