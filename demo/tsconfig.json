@@ -11,9 +11,9 @@
     "suppressImplicitAnyIndexErrors": true,
     "baseUrl": ".",
     "paths": {
-      "ng-block-ui": ["../bundles/umd"],
-      "ng-block-ui/router": ["../bundles/umd/router"],
-      "ng-block-ui/http": ["../bundles/umd/http"]
+      "ng-block-ui": ["./bundles/umd"],
+      "ng-block-ui/router": ["./bundles/umd/router"],
+      "ng-block-ui/http": ["./bundles/umd/http"]
     }
   }
 }
