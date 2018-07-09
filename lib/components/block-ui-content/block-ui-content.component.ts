@@ -41,7 +41,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   @ViewChild('templateOutlet', { read: ViewContainerRef })
   templateOutlet: ViewContainerRef;
 
-  timeouts: any = { delayStart: null, delayStop: null };
+  state = { startTimeout: null, stopTimeout: null, blockCount: 0 };
   className: string;
   active: boolean = false;
   templateCompRef: ComponentRef<{ message?: any }> | TemplateRef<{}>;
@@ -90,15 +90,11 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   private onDispatchedEvent(event: BlockUIEvent) {
     switch (event.action) {
       case (BlockUIActions.START):
-        this.delay('delayStart', this.delayStart, event)(
-          this.onStart.bind(this)
-        );
+        this.onStart(event);
         break;
 
       case (BlockUIActions.STOP):
-        this.delay('delayStop', this.delayStop, event)(
-          this.onStop.bind(this)
-        );
+        this.onStop(event);
         break;
 
       case (BlockUIActions.UPDATE):
@@ -106,7 +102,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
         break;
 
       case (BlockUIActions.RESET):
-        this.onStop(event);
+        this.onReset();
         break;
 
       case (BlockUIActions.UNSUBSCRIBE):
@@ -118,21 +114,46 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private onStart({ name, message }: BlockUIEvent) {
     if (name === this.name) {
-      this.active = true;
-      this.message = message || this.defaultMessage || this.settings.message;
-      this.updateBlockTemplate(this.message);
-      this.changeDetectionRef.detectChanges();
+      const delay = this.delayStart || this.settings['delayStart'] || 0;
+
+      if (delay) {
+        if (this.state.startTimeout == null) {
+          this.state.startTimeout = setTimeout(() => {
+            this.showBlock(message);
+          }, delay);
+        }
+        this.state.blockCount++;
+      } else {
+        this.showBlock(message);
+      }
     }
   }
 
   private onStop({ name, action }: BlockUIEvent) {
-    const { delayStart } = this.timeouts;
-
-    if (name === this.name || action === BlockUIActions.RESET) {
-      delayStart && clearTimeout(delayStart);
-      this.active = false;
-      this.changeDetectionRef.detectChanges();
+    if (name === this.name) {
+      if (this.state.blockCount > 1) {
+        this.state.blockCount--;
+      } else {
+        if (!this.active) {
+          this.clearState();
+        } else {
+          const delay = this.delayStop || this.settings['delayStop'] || 0;
+          if (delay) {
+            if (this.state.stopTimeout == null) {
+              this.state.stopTimeout = setTimeout(() => {
+                this.hideBlock();
+              }, delay);
+            }
+          } else {
+            this.hideBlock();
+          }
+        }
+      }
     }
+  }
+
+  private onReset() {
+    this.hideBlock();
   }
 
   private onUpdate({ name, message }: BlockUIEvent) {
@@ -142,6 +163,27 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       this.updateBlockTemplate(this.message);
       this.changeDetectionRef.detectChanges();
     }
+  }
+
+  private showBlock(message){
+    this.active = true;
+    this.message = message || this.defaultMessage || this.settings.message;
+    this.updateBlockTemplate(this.message);
+    this.changeDetectionRef.detectChanges();
+  }
+
+  private hideBlock() {
+    this.clearState();
+    this.active = false;
+    this.changeDetectionRef.detectChanges();
+  }
+
+  private clearState() {
+    this.state.startTimeout && clearTimeout(this.state.startTimeout);
+    this.state.stopTimeout && clearTimeout(this.state.stopTimeout);
+    this.state.blockCount = 0;
+    this.state.startTimeout = null;
+    this.state.stopTimeout = null;
   }
 
   private updateBlockTemplate(msg: string): void {
@@ -154,20 +196,6 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (this.blockUISubscription && name === this.name) {
       this.blockUISubscription.unsubscribe();
     }
-  }
-
-  private delay(type: string, delay: number, event: BlockUIEvent) {
-    return (action: Function) => {
-      delay = delay || this.settings[type] || 0;
-
-      if (delay) {
-        this.timeouts[type] = setTimeout(event => {
-          action(event);
-        }, delay, event);
-      } else {
-        action(event);
-      }
-    };
   }
 
   ngOnDestroy() {
