@@ -114,7 +114,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private onStart({ name, message }: BlockUIEvent) {
     if (name === this.name) {
-      const delay = this.delayStart || this.settings['delayStart'] || 0;
+      const delay = this.delayStart || this.settings.delayStart || 0;
 
       if (delay) {
         if (this.state.startTimeout == null) {
@@ -137,7 +137,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
         if (!this.active) {
           this.clearState();
         } else {
-          const delay = this.delayStop || this.settings['delayStop'] || 0;
+          const delay = this.delayStop || this.settings.delayStop || 0;
           if (delay) {
             if (this.state.stopTimeout == null) {
               this.state.stopTimeout = setTimeout(() => {
@@ -179,8 +179,8 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   }
 
   private clearState() {
-    this.state.startTimeout && clearTimeout(this.state.startTimeout);
-    this.state.stopTimeout && clearTimeout(this.state.stopTimeout);
+    this.state.startTimeout != null && clearTimeout(this.state.startTimeout);
+    this.state.stopTimeout != null && clearTimeout(this.state.stopTimeout);
     this.state.blockCount = 0;
     this.state.startTimeout = null;
     this.state.stopTimeout = null;

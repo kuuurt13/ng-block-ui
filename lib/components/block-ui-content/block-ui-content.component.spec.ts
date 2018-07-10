@@ -328,4 +328,159 @@ describe('block-ui-content component', () => {
       expect(nativeElement.innerText).toBe(expectedMessage);
     });
   });
+
+  describe('block-ui-content delays:', () => {
+    @Component({
+      selector: 'test-comp',
+      template: `
+        <block-ui-content
+          [message]="defaultMessage"
+          [delayStart]="delayStart"
+          [delayStop]="delayStop"
+        >
+        </block-ui-content>
+      `
+    })
+    class TestComp {
+      @BlockUI() blockUI: any;
+      defaultMessage: string;
+      delayStart: number = 500;
+      delayStop: number = 500;
+    }
+
+    let cf: ComponentFixture<any>;
+    let testCmp: TestComp;
+    let blkContComp: BlockUIContentComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [ BlockUIModule.forRoot() ],
+        declarations: [ TestComp ]
+      })
+        .compileComponents();
+
+      cf = TestBed.createComponent(TestComp);
+      cf.detectChanges();
+
+      testCmp = cf.debugElement.componentInstance;
+      blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent)).componentInstance;
+
+      testCmp.blockUI.reset();
+    });
+
+    it('blocker is NOT active on blockUI.start() until delay has passed', fakeAsync(() => {
+      testCmp.blockUI.start();
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+
+      tick(200);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+
+      tick(300);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+    }));
+
+    it('blocker IS active on blockUI.stop() until delay has passed', fakeAsync(() => {
+      testCmp.blockUI.start();
+      tick(500);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+
+      testCmp.blockUI.stop();
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+
+      tick(200);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+
+      tick(300);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+      expectStateIsReset(blkContComp);
+    }));
+
+    it('blocker is NOT active on blockUI.stop() and state is cleared if delayed start has not yet passed, ignoring delayStop', fakeAsync(() => {
+      testCmp.blockUI.start();
+      tick(300);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+
+      testCmp.blockUI.stop();
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+
+      tick(1000);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+      expectStateIsReset(blkContComp);
+    }));
+
+    it('blocker IS active on blockUI.stop() until all blocked calls have resolved', fakeAsync(() => {
+      testCmp.blockUI.start();
+      testCmp.blockUI.start();
+      testCmp.blockUI.start();
+      tick(500);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBe(3);
+
+      testCmp.blockUI.stop();
+      tick(500);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBe(2);
+
+      testCmp.blockUI.stop();
+      tick(500);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBe(1);
+
+      testCmp.blockUI.stop();
+      tick(500);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+      expectStateIsReset(blkContComp);
+    }));
+
+    it('blocker is no longer active on blockUI.reset(), ignoring any delays or outstanding calls', fakeAsync(() => {
+      testCmp.blockUI.start();
+      testCmp.blockUI.start();
+      testCmp.blockUI.start();
+      tick(500);
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBe(3);
+
+      testCmp.blockUI.reset();
+      cf.detectChanges();
+
+      expect(blkContComp.active).toBeFalsy();
+      expectStateIsReset(blkContComp);
+    }));
+  });
 });
+
+function expectStateIsReset(blkContComp: BlockUIContentComponent) {
+  expect(blkContComp.state.startTimeout).toBeNull();
+  expect(blkContComp.state.stopTimeout).toBeNull();
+  expect(blkContComp.state.blockCount).toBe(0);
+}
