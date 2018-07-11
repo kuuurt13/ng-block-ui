@@ -1,3 +1,13 @@
+#### 1.0.5 (2018-07-11)
+
+##### Bug Fixes
+
+* **component:**  fix blocking delays and multiple http calls ([#45](https://github.com/kuuurt13/ng-block-ui/pull/45)) ([2c344999](https://github.com/kuuurt13/ng-block-ui/commit/2c34499944c8a84c3b048acb5bd6a563d086ba22))
+
+##### Other Changes
+
+* **changelog:**  add generate-changelog dependency ([82986999](https://github.com/kuuurt13/ng-block-ui/commit/82986999d424c8670decf23c4859a055715c3520))
+
 #### 1.0.4 (2018-4-9)
 
 ##### Bug Fixes
