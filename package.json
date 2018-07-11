@@ -48,6 +48,7 @@
     "@types/jasmine": "^2.5.43",
     "babel-polyfill": "^6.23.0",
     "es6-shim": "^0.35.1",
+    "generate-changelog": "^1.7.1",
     "html-webpack-plugin": "^2.22.0",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.4.1",
