@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable, ReplaySubject } from 'rxjs';
 import { BlockUIActions } from '../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 import { NgBlockUI } from '../models/block-ui.model';
@@ -49,7 +48,7 @@ export class BlockUIInstanceService {
   }
 
   private blockUIMiddleware({ action, name }: BlockUIEvent): void {
-    let isActive = null;
+    let isActive: boolean = null;
 
     switch (action) {
       case (BlockUIActions.START):
@@ -63,7 +62,7 @@ export class BlockUIInstanceService {
     }
 
     if (isActive !== null) {
-      this.blockUIInstances.forEach(i =>
+      this.blockUIInstances.forEach((i: any) =>
         i.isActive = i.name === name ? isActive : i.isActive
       );
     }

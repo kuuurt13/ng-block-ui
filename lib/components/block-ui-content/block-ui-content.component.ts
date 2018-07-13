@@ -13,13 +13,10 @@ import {
   ViewContainerRef,
   ChangeDetectorRef
 } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
 
 import { BlockUIInstanceService } from '../../services/block-ui-instance.service';
 import { BlockUIEvent } from '../../models/block-ui-event.model';
-import { BlockTimeout } from '../../models/block-ui-block-timeout.model';
 import { BlockUIActions } from '../../constants/block-ui-actions.constant';
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 import { styles } from './block-ui-content.component.style';
@@ -41,7 +38,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   @ViewChild('templateOutlet', { read: ViewContainerRef })
   templateOutlet: ViewContainerRef;
 
-  state = { startTimeout: null, stopTimeout: null, blockCount: 0 };
+  state: any = { startTimeout: null, stopTimeout: null, blockCount: 0 };
   className: string;
   active: boolean = false;
   templateCompRef: ComponentRef<{ message?: any }> | TemplateRef<{}>;
@@ -165,7 +162,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     }
   }
 
-  private showBlock(message){
+  private showBlock(message: any) {
     this.active = true;
     this.message = message || this.defaultMessage || this.settings.message;
     this.updateBlockTemplate(this.message);
