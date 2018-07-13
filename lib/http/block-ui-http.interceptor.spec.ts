@@ -5,7 +5,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BlockUIModule } from '../block-ui.module';
 import { BlockUIHttpModule } from './block-ui-http.module';
 import { BlockUIService } from '../services/block-ui.service';

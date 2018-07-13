@@ -1,6 +1,6 @@
 import { } from 'jasmine';
 import { TestBed } from '@angular/core/testing';
-
+import { map } from 'rxjs/operators';
 import { BlockUIModule } from '../block-ui.module';
 import { BlockUIInstanceService } from './block-ui-instance.service';
 import { BlockUIActions } from '../constants/block-ui-actions.constant';
@@ -54,10 +54,10 @@ describe('BlockUIInstance service', () => {
       const blockUIObservable = blockUIService.observe();
       const expectedResult = 'test';
 
-      blockUIService.blockUIObservable.map((data) => {
+      blockUIService.blockUIObservable.pipe(map((data) => {
         expect(data).toEqual(expectedResult);
         done();
-      })
+      }))
         .subscribe();
 
       blockUIService.blockUISubject.next(expectedResult);
