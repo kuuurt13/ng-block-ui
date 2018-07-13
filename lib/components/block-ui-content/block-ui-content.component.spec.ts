@@ -6,7 +6,6 @@ import { By } from '@angular/platform-browser';
 import { BlockUIModule } from '../../block-ui.module';
 import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.component';
 import { BlockUI } from '../../decorators/block-ui.decorator';
-import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 
 describe('block-ui-content component', () => {
   describe('block-ui-content component no template:', () => {

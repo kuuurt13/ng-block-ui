@@ -2,6 +2,8 @@
  * A BlockUI instance
  */
 export interface NgBlockUI {
+    [key: string]: any;
+
     /**
      * BlockUI instance name
      */
