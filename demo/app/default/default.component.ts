@@ -22,7 +22,7 @@ export class DeafultComponent {
   blockMain(message: string) {
     this.blockUI.start(message);
 
-    setTimeout((blockUI) => {
+    setTimeout(() => {
       this.blockUI.stop();
     }, this.timeout);
   }
