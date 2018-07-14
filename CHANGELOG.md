@@ -1,3 +1,9 @@
+#### 2.0.0-beta.1 (2018-07-14)
+
+##### Chores
+
+* **core:**  upgrade to support Angular 6 & rxjs 6 ([56bd370b](https://github.com/kuuurt13/ng-block-ui/commit/56bd370b4fb3ee39a4c364759ed5b802feab8632))
+
 #### 1.0.5 (2018-07-11)
 
 ##### Bug Fixes
