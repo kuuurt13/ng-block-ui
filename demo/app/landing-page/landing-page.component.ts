@@ -1,6 +1,6 @@
-import { Component, ComponentRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BlockUI, NgBlockUI, BlockUIService } from 'ng-block-ui';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'landing-page',

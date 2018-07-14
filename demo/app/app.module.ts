@@ -26,14 +26,12 @@ const appRoutes: Routes = [
     BlockElementModule,
     BlockUIModule.forRoot({
       message: 'Global Default Message',
-      delayStop: 3000,
+      delayStart: 500,
       template: BlockTemplateComponent
     }),
     BlockUIRouterModule.forRoot(),
     BlockUIHttpModule.forRoot({
-      requestFilters: [
-        /\/api.github.com\/users\//
-      ]
+      requestFilters: [] // /\/api.github.com\/users\//
     }),
     HttpClientModule,
     RouterModule.forRoot(appRoutes)

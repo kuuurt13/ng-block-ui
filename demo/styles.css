@@ -11,6 +11,7 @@ h1 {
 
 .button {
   padding: 10px 20px;
+  margin: 0 5px;
   border: none;
   cursor: pointer;
 }

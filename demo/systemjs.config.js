@@ -39,11 +39,14 @@
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
 
       // other libraries
+      'core-js':                    'npm:core-js',
       'rxjs':                       'npm:rxjs',
+      'rxjs-compat':                'npm:rxjs',
       'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
       'tslib':                      'npm:tslib/tslib.js',
       'ts':                         'npm:plugin-typescript/lib/plugin.js',
       'typescript':                 'npm:typescript/lib/typescript.js',
+      'zone.js':                    'npm:zone.js',
       'ng-block-ui':                'bundles/umd',
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -52,11 +55,20 @@
         main: './main.ts',
         defaultExtension: 'ts'
       },
-      rxjs: {
-        defaultExtension: 'js'
-      },
+      'core-js': {},
+      'rxjs': {'main': 'index.js','defaultExtension': 'js'},
+      'rxjs/operators': {'main': 'index.js','defaultExtension': 'js'},
+      'rxjs/internal-compatibility': {'main': 'index.js','defaultExtension': 'js'},
+      'rxjs/testing': {'main': 'index.js','defaultExtension': 'js'},
+      'rxjs/ajax': {'main': 'index.js','defaultExtension': 'js'},
+      'rxjs/webSocket': {'main': 'index.js','defaultExtension': 'js'},
+      'rxjs-compat': {'main': 'index.js','defaultExtension': 'js'},
       'angular2-in-memory-web-api': {
         main: './index.js',
+        defaultExtension: 'js'
+      },
+      'zone.js': {
+        main: './zone.js',
         defaultExtension: 'js'
       },
       'ng-block-ui': {
