@@ -1,3 +1,9 @@
+#### 1.0.6 (2018-07-18)
+
+##### Bug Fixes
+
+* **service:**  don't allow duplicate instances ([#74](https://github.com/kuuurt13/ng-block-ui/pull/74)) ([95903a33](https://github.com/kuuurt13/ng-block-ui/commit/95903a33828328fb8d05fa63740a3f251604bea1))
+
 #### 1.0.5 (2018-07-11)
 
 ##### Bug Fixes
