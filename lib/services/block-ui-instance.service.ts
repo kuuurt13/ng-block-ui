@@ -39,7 +39,9 @@ export class BlockUIInstanceService {
       unsubscribe: this.dispatch(this.blockUISubject, BlockUIActions.UNSUBSCRIBE, name)
     } as NgBlockUI;
 
-    this.blockUIInstances.push(blockUI);
+    if (this.blockUIInstances.every((i: NgBlockUI) => i.name !== blockUI.name)) {
+      this.blockUIInstances.push(blockUI);
+    }
 
     return blockUI;
   }
