@@ -1,3 +1,13 @@
+#### 2.0.0-beta.2 (2018-07-22)
+
+##### Documentation Changes
+
+* **readme:**  move examples to stackblitz ([#62](https://github.com/kuuurt13/ng-block-ui/pull/62)) ([b3ef7cd0](https://github.com/kuuurt13/ng-block-ui/commit/b3ef7cd018fd6790c60249237de22202686014db))
+
+##### New Features
+
+* **core:**  queue multiple blocking calls ([#43](https://github.com/kuuurt13/ng-block-ui/pull/43)) ([e009aae4](https://github.com/kuuurt13/ng-block-ui/commit/e009aae4b774f6e27e5492346a7360218856986e))
+
 #### 2.0.0-beta.1 (2018-07-14)
 
 ##### Chores
