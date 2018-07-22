@@ -39,11 +39,12 @@ export class BlockUIService {
     const targets = target ? this.toArray(target) : null;
     const instances = this.blockUIInstance.blockUIInstances;
 
-    return instances.some((i: any) => {
+    return Object.keys(instances).some((key: string) => {
       if (!targets) {
-        return i.isActive;
+        return instances[key].isActive;
       }
-      return targets.indexOf(i.name) >= 0 && i.isActive;
+
+      return targets.indexOf(instances[key].name) >= 0 && instances[key].isActive;
     });
   }
 
