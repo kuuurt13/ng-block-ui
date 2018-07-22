@@ -43,6 +43,8 @@ describe('block-ui-content component', () => {
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+
+      testCmp.blockUI.reset();
     });
 
     it('block-ui-wrapper is not active by default', () => {
@@ -162,6 +164,8 @@ describe('block-ui-content component', () => {
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+
+      testCmp.blockUI.reset();
     });
 
     it('appends template to blockUIContent', () => {
@@ -242,6 +246,7 @@ describe('block-ui-content component', () => {
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+      testCmp.blockUI.reset();
     });
 
     it('appends template to blockUIContent', () => {
@@ -295,6 +300,7 @@ describe('block-ui-content component', () => {
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+      testCmp.blockUI.reset();
     });
 
     it('displays module default message on start', () => {

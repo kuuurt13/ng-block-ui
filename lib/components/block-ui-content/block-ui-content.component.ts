@@ -60,15 +60,17 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   ngAfterViewInit() {
     try {
-      if (this.templateCmp) {
-        if (this.templateCmp instanceof TemplateRef) {
-          this.templateOutlet.createEmbeddedView(this.templateCmp);
-        } else {
-            const templateComp = this.resolver.resolveComponentFactory(this.templateCmp);
-            this.templateCompRef = this.templateOutlet.createComponent(templateComp);
+      if (!this.templateCmp) {
+        return false;
+      }
 
-            this.updateBlockTemplate(this.message);
-        }
+      if (this.templateCmp instanceof TemplateRef) {
+        this.templateOutlet.createEmbeddedView(this.templateCmp);
+      } else {
+        const templateComp = this.resolver.resolveComponentFactory(this.templateCmp);
+        this.templateCompRef = this.templateOutlet.createComponent(templateComp);
+
+        this.updateBlockTemplate(this.message);
       }
     } catch (error) {
       console.error('ng-block-ui:', error);
@@ -114,7 +116,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       const delay = this.delayStart || this.settings.delayStart || 0;
 
       if (delay) {
-        if (this.state.startTimeout == null) {
+        if (this.state.startTimeout === null) {
           this.state.startTimeout = setTimeout(() => {
             this.showBlock(message);
           }, delay);
@@ -123,6 +125,8 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       } else {
         this.showBlock(message);
       }
+
+      this.updateInstanceBlockCount();
     }
   }
 
@@ -136,7 +140,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
         } else {
           const delay = this.delayStop || this.settings.delayStop || 0;
           if (delay) {
-            if (this.state.stopTimeout == null) {
+            if (this.state.stopTimeout === null) {
               this.state.stopTimeout = setTimeout(() => {
                 this.hideBlock();
               }, delay);
@@ -146,6 +150,8 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
           }
         }
       }
+
+      this.updateInstanceBlockCount();
     }
   }
 
@@ -181,9 +187,10 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     this.state.blockCount = 0;
     this.state.startTimeout = null;
     this.state.stopTimeout = null;
+    this.updateInstanceBlockCount();
   }
 
-  private updateBlockTemplate(msg: string): void {
+  private updateBlockTemplate(msg: any): void {
     if (this.templateCompRef && this.templateCompRef instanceof ComponentRef) {
       this.templateCompRef.instance.message = msg;
     }
@@ -192,6 +199,12 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   private onUnsubscribe(name: string) {
     if (this.blockUISubscription && name === this.name) {
       this.blockUISubscription.unsubscribe();
+    }
+  }
+
+  private updateInstanceBlockCount() {
+    if (this.blockUI.blockUIInstances[name]) {
+      this.blockUI.blockUIInstances[name].blockCount = this.state.blockCount;
     }
   }
 
