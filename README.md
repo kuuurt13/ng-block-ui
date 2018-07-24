@@ -306,8 +306,8 @@ Instead of declaring seperate instances with the `@BlockUI()` decorator you can 
 ### [SystemJS Config](docs/systemjs-config.md)
 
 ## Examples
-### BlockUI Component - [Stackblitz](https://stackblitz.com/edit/ng-block-ui-component)
-### BlockUI Component Default Message - [Stackblitz](https://stackblitz.com/edit/ng-block-ui-component-default-message)
-### BlockUI Directive - [Stackblitz](https://stackblitz.com/edit/ng-block-ui-directive)
-### BlockUI Custom Spinner Styles - [Stackblitz](https://stackblitz.com/edit/ng-block-ui-custom-spinner)
-### BlockUI Custom Template - [Stackblitz](https://stackblitz.com/edit/ng-block-ui-custom-template)
+### BlockUI Component - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/default)
+### BlockUI Component Default Message - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/default-message)
+### BlockUI Directive - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/directive)
+### BlockUI Custom Spinner Styles - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/custom-spinner-styles)
+### BlockUI Custom Template - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/custom-template)

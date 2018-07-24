@@ -1,0 +1,13 @@
+<!-- Add blockUI directive to element and pass a name  -->
+<section class="hero" *blockUI="'hero-section'">
+	<h1>NG Block UI</h1>
+	<p>Block UI Implementation for Angular</p>
+	<iframe src="https://ghbtns.com/github-btn.html?user=kuuurt13&repo=ng-block-ui&type=star&size=large" frameborder="0" scrolling="0"
+	 width="75px" height="30px"></iframe>
+</section>
+<section class="block-form">
+	<input class="control control__input" type="text" placeholder="Custom Message" #blockMessage />
+	<button class="control control__btn" (click)="toggleBlocking(blockMessage.value)">
+    Start Blocking
+  </button>
+</section>
