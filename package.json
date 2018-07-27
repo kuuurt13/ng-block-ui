@@ -5,7 +5,7 @@
   "main": "./index.js",
   "typings": "./index.d.ts",
   "scripts": {
-    "start": "watchman lib 'npm run build:tsc && cp -r dist/bundles demo'",
+    "start": "watchman lib 'npm run build:tsc && cp -r dist/bundles dev'",
     "build": "npm run build:ngc && npm run build:tsc && npm run build:copy",
     "build:copy": "cp -r package.json .npmignore README.md LICENSE ./dist",
     "build:ngc": "node_modules/.bin/ngc -p tsconfig.json && echo 'Build Complete'",

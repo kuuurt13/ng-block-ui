@@ -1,0 +1,58 @@
+.hero {
+  padding: 20px;
+  min-height: 240px;
+  background-color: #1976D2;
+  background: -webkit-linear-gradient(145deg,#9175c5,#42A5F5);
+  background: linear-gradient(145deg,#9175c5,#42A5F5);
+  color: #fff;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3.5em;
+  margin: 50px 0 0 0;
+}
+
+.hero p {
+  font-size: 1.5em;
+  margin: 5px 0 15px 0;
+}
+
+.block-form {
+  padding: 70px;
+  text-align: center;
+  background: #fff;
+}
+
+.control {
+  display: block;
+  margin: 5px auto;
+  padding: 5px;
+  background: transparent;
+  font-size: 1.7em;
+  border: none;
+  text-align: center;
+}
+
+.control__btn {
+  margin: 15px auto;
+  padding: 10px 15px;
+  font-size: 1.3em;
+  background: #708ada;
+  color: #fff;
+  cursor: pointer;
+}
+
+.control__input {
+  color: #708ada;
+  border-bottom: solid 3px #708ada;
+  text-align: left;
+}
+
+.control__input:focus {
+  outline: none;
+}
+
+.control__input::placeholder {
+  color: #eae9e9;
+}
