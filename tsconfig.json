@@ -19,7 +19,7 @@
   },
   "exclude": [
     "node_modules",
-    "demo",
+    "dev",
     "**/*.spec.ts"
   ],
   "types": [

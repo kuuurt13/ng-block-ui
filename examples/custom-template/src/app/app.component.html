@@ -1,0 +1,15 @@
+<!-- Pass template component ref to Block UI Component  -->
+<block-ui [template]="blockTemplate">
+	<section class="hero">
+		<h1>NG Block UI</h1>
+		<p>Block UI Implementation for Angular</p>
+		<iframe src="https://ghbtns.com/github-btn.html?user=kuuurt13&repo=ng-block-ui&type=star&size=large" frameborder="0" scrolling="0"
+		 width="75px" height="30px"></iframe>
+	</section>
+	<section class="block-form">
+		<input class="control control__input" type="text" value="Loading..." placeholder="Custom Message" #blockMessage />
+		<button class="control control__btn" (click)="toggleBlocking(blockMessage.value)">
+      Start Blocking
+    </button>
+	</section>
+</block-ui>
