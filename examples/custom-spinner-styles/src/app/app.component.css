@@ -1,0 +1,25 @@
+h1 {
+  color: #708ada;
+  text-align: center;
+  margin-top: 20%;
+  font-size: 35px;
+}
+
+.control {
+  display: block;
+  margin: 5px auto;
+  padding: 5px;
+  background: transparent;
+  font-size: 1.7em;
+  border: none;
+  text-align: center;
+}
+
+.control__btn {
+  margin: 15px auto;
+  padding: 10px 15px;
+  font-size: 1.3em;
+  background: #708ada;
+  color: #fff;
+  cursor: pointer;
+}
