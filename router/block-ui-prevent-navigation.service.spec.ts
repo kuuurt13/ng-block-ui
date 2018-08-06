@@ -5,7 +5,6 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { BlockUIModule } from '../block-ui.module';
-import { BlockUIService } from '../services/block-ui.service';
 import { BlockUI } from '../decorators/block-ui.decorator';
 import { BlockUIRouterModule } from './block-ui-router.module';
 import { BlockUIPreventNavigation } from './block-ui-prevent-navigation.service';

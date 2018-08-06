@@ -7,15 +7,9 @@ System.config({
   // Existing configuration options
   map: {
     ...
-    'ng-block-ui': 'npm:ng-block-ui/bundles/umd'
-  },
-  packages: {
-    ...
-    'ng-block-ui': {
-        main: 'index.js',
-        defaultExtension: 'js'
-    }
+    'ng-block-ui':        'npm:ng-block-ui/bundles/ng-block-ui.umd.js', // Required
+    'ng-block-ui/http':   'npm:ng-block-ui/bundles/ng-block-ui-http.umd.js', // Optional
+    'ng-block-ui/router': 'npm:ng-block-ui/bundles/ng-block-ui-router.umd.js' // Optional
   }
 });
-
 ```

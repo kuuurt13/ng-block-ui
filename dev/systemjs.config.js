@@ -48,6 +48,8 @@
       'typescript':                 'npm:typescript/lib/typescript.js',
       'zone.js':                    'npm:zone.js',
       'ng-block-ui':                'bundles/umd',
+      'ng-block-ui/router':         'bundles/umd/router',
+      'ng-block-ui/http':           'bundles/umd/http',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -72,6 +74,14 @@
         defaultExtension: 'js'
       },
       'ng-block-ui': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      'ng-block-ui/router': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      'ng-block-ui/http': {
         main: 'index.js',
         defaultExtension: 'js'
       },

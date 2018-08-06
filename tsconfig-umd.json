@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "ng-block-ui": ["lib"]
+    },
     "outDir": "dist/bundles/umd",
     "target": "es5",
     "module": "umd",
@@ -24,8 +28,8 @@
     "dist"
   ],
   "files": [
-    "./index.ts",
-    "./router.ts",
-    "./http.ts"
+    "./lib/index.ts",
+    "./router/index.ts",
+    "./http/index.ts"
   ]
 }
