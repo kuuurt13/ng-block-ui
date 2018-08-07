@@ -2,19 +2,17 @@
   "name": "ng-block-ui",
   "version": "2.0.0-beta.2",
   "description": "Angular Block UI",
-  "main": "./index.js",
-  "typings": "./index.d.ts",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
-    "start": "watchman lib 'npm run build:tsc && cp -r dist/bundles dev'",
-    "build": "npm run build:ngc && npm run build:tsc && npm run build:copy",
-    "build:copy": "cp -r package.json .npmignore README.md LICENSE ./dist",
-    "build:ngc": "node_modules/.bin/ngc -p tsconfig.json && echo 'Build Complete'",
-    "build:tsc": "node_modules/typescript/bin/tsc -p tsconfig-umd.json && echo 'Build Complete'",
+    "start": "watchman lib 'npm run build:dev && cp -r dist/bundles dev'",
+    "build": "ng-packagr -p package.json",
+    "build:dev": "tsc -p tsconfig-umd.json && echo 'Build Complete'",
     "release:major": "changelog -M && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin master && git push origin --tags",
     "release:minor": "changelog -m && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin master && git push origin --tags",
     "release:patch": "changelog -p && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin master && git push origin --tags",
-    "test": "npx karma start karma.conf.js",
-    "test:watch": "npx karma start karma.conf.js --singleRun=false"
+    "test": "karma start karma.conf.js",
+    "test:watch": "karma start karma.conf.js --singleRun=false"
   },
   "repository": {
     "type": "git",
@@ -57,6 +55,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
+    "ng-packagr": "^3.0.6",
     "raw-loader": "^0.5.1",
     "reflect-metadata": "^0.1.3",
     "rxjs": "^6.2.1",
@@ -69,5 +68,11 @@
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "zone.js": "^0.8.26"
+  },
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "lib/index.ts"
+    }
   }
 }

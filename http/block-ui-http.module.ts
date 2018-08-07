@@ -1,9 +1,8 @@
 import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BlockUIModule } from '../block-ui.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BlockUIModule, HttpSettings } from 'ng-block-ui';
 import { BlockUIHttpSettings } from './block-ui-http-settings.service';
 import { BlockUIInterceptor } from './block-ui-http.interceptor';
-import { HttpSettings } from '../models/block-ui-http-settings.model';
 
 
 // Needed for AOT compiling

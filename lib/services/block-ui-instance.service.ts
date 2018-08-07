@@ -5,7 +5,6 @@ import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant'
 import { NgBlockUI } from '../models/block-ui.model';
 import { BlockUISettings } from '../models/block-ui-settings.model';
 import { BlockUIEvent } from '../models/block-ui-event.model';
-import { BlockUIService } from '../../index';
 
 
 @Injectable()
