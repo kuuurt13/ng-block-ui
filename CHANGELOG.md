@@ -1,3 +1,13 @@
+#### 2.0.0-beta.3 (2018-08-07)
+
+##### Documentation Changes
+
+* **examples:**  include code examples within the repo ([#62](https://github.com/kuuurt13/ng-block-ui/pull/62)) ([b96809a0](https://github.com/kuuurt13/ng-block-ui/commit/b96809a0290cab5c95e63f8044225c067396c7e0))
+
+##### Bug Fixes
+
+* **build:**  change build to follow APF standards ([#79](https://github.com/kuuurt13/ng-block-ui/pull/79)) ([dcff23fe](https://github.com/kuuurt13/ng-block-ui/commit/dcff23fec6fbcf90644df2035cc3f7f1c10c27d7))
+
 #### 2.0.0-beta.2 (2018-07-22)
 
 ##### Documentation Changes
