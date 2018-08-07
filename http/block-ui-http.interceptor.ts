@@ -7,9 +7,8 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { BlockUIService } from '../services/block-ui.service';
+import { BlockUIService, BLOCKUI_DEFAULT } from 'ng-block-ui';
 import { BlockUIHttpSettings } from './block-ui-http-settings.service';
-import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 
 @Injectable()
 export class BlockUIInterceptor implements HttpInterceptor {
@@ -24,14 +23,14 @@ export class BlockUIInterceptor implements HttpInterceptor {
     let active = false;
 
     if (this.shouldBlock(request)) {
-      this.blockUIService.start(BlockUIDefaultName);
+      this.blockUIService.start(BLOCKUI_DEFAULT);
       active = true;
     }
 
     return next.handle(request)
       .pipe(
         finalize(() => {
-          active && this.blockUIService.stop(BlockUIDefaultName);
+          active && this.blockUIService.stop(BLOCKUI_DEFAULT);
         })
       );
   }

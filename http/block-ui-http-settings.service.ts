@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpSettings } from '../models/block-ui-http-settings.model';
+import { HttpSettings } from 'ng-block-ui';
 
 @Injectable()
 export class BlockUIHttpSettings {
