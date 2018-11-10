@@ -1,3 +1,9 @@
+#### 2.0.0 (2018-11-10)
+
+##### Documentation Changes
+
+* **migration:**  Added 2.0.0 migration guide ([7040ff3e](https://github.com/kuuurt13/ng-block-ui/commit/7040ff3e8cf15d0c4612b07c6bd989d0e537511d))
+
 #### 2.0.0-beta.3 (2018-08-07)
 
 ##### Documentation Changes
