@@ -30,6 +30,8 @@ Accepts an array of requests to be filtered out from from being blocked.
 requestFilters: (RegExp | { method: string, url: RegExp } | Function)[]
 ```
 
+_Note: If using RegExp with AOT compiling, please see this [Stack Overflow Post](https://stackoverflow.com/questions/48751006/ng-build-gives-an-error-because-of-regexp)._
+
 #### Type: `RegExp`
 Filter requests by URL
 
@@ -40,7 +42,7 @@ Below will filter out blocking for any requests containing `api.github.com/users
   imports: [
     ...
     BlockUIHttpModule.forRoot({
-      /api.github.com\/users\//
+      requestFilters: [/api.github.com\/users\//]
     }),
   ],
   ...
@@ -58,10 +60,10 @@ Below will filter out blocking for any requests with a `POST` method and a URL c
   imports: [
     ...
     BlockUIHttpModule.forRoot({
-      {
+      requestFilters: [{
         method: 'POST',
         url: /api.github.com\/users\//
-      }
+      }]
     }),
   ],
   ...
@@ -83,7 +85,7 @@ function filterFooBar(req HttpRequest<any>): boolean {
   imports: [
     ...
     BlockUIHttpModule.forRoot({
-      requestFilters: [ filterFooBar ]
+      requestFilters: [filterFooBar]
     }),
   ],
   ...
