@@ -30,6 +30,16 @@ Accepts an array of requests to be filtered out from from being blocked.
 requestFilters: (RegExp | { method: string, url: RegExp } | Function)[]
 ```
 
+### Setting: `blockAllRequestsInProgress`
+Accepts a boolean. If set to `true`, it deactivates the BlockUI only once the last httpRequest has been processed in case of parallel requests.
+
+Defaulted to `false`.
+
+**Types**
+```
+blockAllRequestsInProgress: boolean
+```
+
 _Note: If using RegExp with AOT compiling, please see this [Stack Overflow Post](https://stackoverflow.com/questions/48751006/ng-build-gives-an-error-because-of-regexp)._
 
 #### Type: `RegExp`
