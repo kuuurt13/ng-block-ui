@@ -12,32 +12,48 @@ import { BlockUIHttpSettings } from './block-ui-http-settings.service';
 
 @Injectable()
 export class BlockUIInterceptor implements HttpInterceptor {
-  private settings: any = {};
+  private activeHttpRequests: number;
 
   constructor(
     private blockUIService: BlockUIService,
-    private BlockUIHttpSettings: BlockUIHttpSettings
-  ) {}
+    private blockUIHttpSettings: BlockUIHttpSettings
+  ) {
+    this.activeHttpRequests = 0;
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let active = false;
+    let active: boolean = false;
 
     if (this.shouldBlock(request)) {
-      this.blockUIService.start(BLOCKUI_DEFAULT);
       active = true;
+      this.activeHttpRequests++;
+      this.blockUIService.start(BLOCKUI_DEFAULT);
     }
 
     return next.handle(request)
       .pipe(
         finalize(() => {
-          active && this.blockUIService.stop(BLOCKUI_DEFAULT);
+          if (this.shouldBlock(request)) {
+            this.activeHttpRequests--;
+
+            let stopBlockUI: boolean = false;
+            if (!!this.blockUIHttpSettings.settings.blockAllRequestsInProgress && this.activeHttpRequests <= 0) {
+              this.activeHttpRequests = 0;
+              stopBlockUI = true;
+            } else if (active) {
+              stopBlockUI = true;
+            }
+            if (stopBlockUI) {
+              this.blockUIService.stop(BLOCKUI_DEFAULT);
+            }
+          }
         })
       );
   }
 
   shouldBlock(request: HttpRequest<any>): boolean {
     const { method, urlWithParams } = request;
-    const settings = this.BlockUIHttpSettings.settings;
+    const settings = this.blockUIHttpSettings.settings;
     const requestFilters = settings.requestFilters || [];
 
     return !requestFilters.some((f: any) => {
