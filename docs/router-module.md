@@ -4,7 +4,7 @@
 This module allows for blocking route changes when Block UI is active.
 
 ### Import Modules
-The core `BlockUIModule` should first be imported within the app. Once added, a seperate module called `BlockUIRouterModule` should then be imported to allow for route blocking.
+The core `BlockUIModule` should first be imported within the app. Once added, a separate module called `BlockUIRouterModule` should then be imported to allow for route blocking.
 
 ```js
 import { RouterModule } from '@angular/router';
