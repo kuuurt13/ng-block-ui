@@ -1,3 +1,16 @@
+### 2.1.0 (2018-12-28)
+
+##### Documentation Changes
+
+* **http:**
+  *  Fixed grammar ([#90](https://github.com/kuuurt13/ng-block-ui/pull/90)) ([124863a2](https://github.com/kuuurt13/ng-block-ui/commit/124863a21771f3cd95307ff81993c21cdeae5bec))
+  *  Fix parameter ordering in README ([#89](https://github.com/kuuurt13/ng-block-ui/pull/89)) ([118fdba9](https://github.com/kuuurt13/ng-block-ui/commit/118fdba9ab2c8420bc8b856cd3b074645f33947e))
+  *  Fixed module settings syntax error ([aea5a9c8](https://github.com/kuuurt13/ng-block-ui/commit/aea5a9c8e9efface6c94fdcc1d702b0354e809cf))
+
+##### New Features
+
+* **interceptor:**  Add a new settings option "blockAllRequestsInProgress" to keep blockUI until all requests are resolved ([dc1b482d](https://github.com/kuuurt13/ng-block-ui/commit/dc1b482da34e10843772325000e263f77153911b))
+
 #### 2.0.0 (2018-11-10)
 
 ##### Documentation Changes
