@@ -23,7 +23,7 @@ export class AppModule {}
 ```
 
 ### Setting: `requestFilters`
-Accepts an array of requests to be filtered out from from being blocked.
+Accepts an array of requests to be filtered out from being blocked.
 
 **Types**
 ```
@@ -74,7 +74,7 @@ export class AppModule {}
 #### Type: `Function`
 Filter requests by passing a function. The function will be passed the current request and if `true` is returned the request will not be blocked.
 
-Below will filter out all requests with a query paramater of `foo=bar`.
+Below will filter out all requests with a query parameter of `foo=bar`.
 
 ```ts
 function filterFooBar(req HttpRequest<any>): boolean {
