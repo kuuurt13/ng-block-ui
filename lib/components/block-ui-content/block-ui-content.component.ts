@@ -203,8 +203,8 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   }
 
   private updateInstanceBlockCount() {
-    if (this.blockUI.blockUIInstances[name]) {
-      this.blockUI.blockUIInstances[name].blockCount = this.state.blockCount;
+    if (this.blockUI.blockUIInstances[this.name]) {
+      this.blockUI.blockUIInstances[this.name].blockCount = this.state.blockCount;
     }
   }
 
