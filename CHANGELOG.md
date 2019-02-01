@@ -1,3 +1,13 @@
+#### 2.1.1 (2019-02-01)
+
+##### Documentation Changes
+
+* **modules:**  Fixed grammar ([#91](https://github.com/kuuurt13/ng-block-ui/pull/91)) ([d4c90aa1](https://github.com/kuuurt13/ng-block-ui/commit/d4c90aa19c72b116fe7f5a39fe0f29295595fa96))
+
+##### Bug Fixes
+
+* **BlockUIContentComponent:**  updateInstanceBlockCount ([#92](https://github.com/kuuurt13/ng-block-ui/pull/92)) ([d5e29919](https://github.com/kuuurt13/ng-block-ui/commit/d5e29919e040b9eb002ea67c91b6f0653d1b2d11))
+
 ### 2.1.0 (2018-12-28)
 
 ##### Documentation Changes
