@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "6.0.7",
     "@angular/router": "6.0.7",
     "core-js": "^2.4.1",
-    "ng-block-ui": "2.0.0-beta.2",
+    "ng-block-ui": "latest",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "zone.js": "^0.8.26"
