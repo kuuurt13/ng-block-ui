@@ -47,7 +47,7 @@
       'ts':                         'npm:plugin-typescript/lib/plugin.js',
       'typescript':                 'npm:typescript/lib/typescript.js',
       'zone.js':                    'npm:zone.js',
-      'ng-block-ui':                'bundles/umd',
+      'ng-block-ui':                'bundles/umd/lib',
       'ng-block-ui/router':         'bundles/umd/router',
       'ng-block-ui/http':           'bundles/umd/http',
     },

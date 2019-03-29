@@ -1,5 +1,5 @@
 import { } from 'jasmine';
-import { ComponentFixture, TestBed, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -8,6 +8,11 @@ import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.co
 import { BlockUI } from '../../decorators/block-ui.decorator';
 
 describe('block-ui-content component', () => {
+  beforeEach(function() {
+    jasmine.clock().uninstall();
+    jasmine.clock().install();
+  });
+
   describe('block-ui-content component no template:', () => {
     @Component({
       selector: 'test-comp',
@@ -55,6 +60,7 @@ describe('block-ui-content component', () => {
     it('block-ui-wrapper is active on blockUI.start()', () => {
       testCmp.blockUI.start();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeTruthy();
@@ -63,9 +69,11 @@ describe('block-ui-content component', () => {
     it('block-ui-wrapper is no longer active on blockUI.stop()', () => {
       testCmp.blockUI.start();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       testCmp.blockUI.stop();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeFalsy();
@@ -74,6 +82,7 @@ describe('block-ui-content component', () => {
     it('block-ui-wrapper is no longer active on blockUI.reset()', () => {
       testCmp.blockUI.reset();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeFalsy();
@@ -83,6 +92,7 @@ describe('block-ui-content component', () => {
       let expectedMessage = 'Loading...';
       testCmp.blockUI.start(expectedMessage);
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(expectedMessage);
@@ -92,9 +102,11 @@ describe('block-ui-content component', () => {
       let defaultMessage = 'Default';
       testCmp.defaultMessage = defaultMessage;
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       testCmp.blockUI.start();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(defaultMessage);
@@ -105,9 +117,11 @@ describe('block-ui-content component', () => {
 
       testCmp.defaultMessage = 'Default';
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       testCmp.blockUI.start(message);
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(message);
@@ -161,6 +175,7 @@ describe('block-ui-content component', () => {
 
       cf = TestBed.createComponent(TestComp);
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
@@ -178,6 +193,7 @@ describe('block-ui-content component', () => {
     it('default spinner is hidden when template is passed', () => {
       testCmp.blockUI.start();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let spinner = cf.debugElement.query(By.css('.block-ui-spinner'));
       expect(spinner).toBe(null);
@@ -187,6 +203,7 @@ describe('block-ui-content component', () => {
       let expectedMessage = 'Loading...';
       testCmp.blockUI.start(expectedMessage);
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('.test-template'));
       expect(nativeElement.innerText).toBe(expectedMessage);
@@ -197,9 +214,11 @@ describe('block-ui-content component', () => {
 
       testCmp.defaultMessage = defaultMessage;
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       testCmp.blockUI.start();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('.test-template'));
       expect(nativeElement.innerText).toBe(defaultMessage);
@@ -243,6 +262,7 @@ describe('block-ui-content component', () => {
 
       cf = TestBed.createComponent(TestComp);
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
@@ -259,6 +279,7 @@ describe('block-ui-content component', () => {
     it('default spinner is hidden when template is passed', () => {
       testCmp.blockUI.start('Loading...');
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let spinner = cf.debugElement.query(By.css('.block-ui-spinner'));
       expect(spinner).toBe(null);
@@ -306,9 +327,10 @@ describe('block-ui-content component', () => {
     it('displays module default message on start', () => {
       testCmp.blockUI.start();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-      expect(nativeElement.innerText).toBe(globalMessage);
+      expect(nativeElement.innerText.trim()).toBe(globalMessage);
     });
 
     it('setting message on block-ui-content overrides module level', () => {
@@ -316,18 +338,21 @@ describe('block-ui-content component', () => {
 
       testCmp.defaultMessage = defaultMessage;
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       testCmp.blockUI.start();
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
-      expect(nativeElement.innerText).toBe(defaultMessage);
+      expect(nativeElement.innerText.trim()).toBe(defaultMessage);
     });
 
     it('message passed to start overrides module message', () => {
       let expectedMessage = 'Loading...';
       testCmp.blockUI.start(expectedMessage);
       cf.detectChanges();
+      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(expectedMessage);
@@ -379,12 +404,12 @@ describe('block-ui-content component', () => {
 
       expect(blkContComp.active).toBeFalsy();
 
-      tick(200);
+      jasmine.clock().tick(200);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeFalsy();
 
-      tick(300);
+      jasmine.clock().tick(300);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeTruthy();
@@ -392,7 +417,7 @@ describe('block-ui-content component', () => {
 
     it('blocker IS active on blockUI.stop() until delay has passed', fakeAsync(() => {
       testCmp.blockUI.start();
-      tick(500);
+      jasmine.clock().tick(500);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeTruthy();
@@ -402,12 +427,12 @@ describe('block-ui-content component', () => {
 
       expect(blkContComp.active).toBeTruthy();
 
-      tick(200);
+      jasmine.clock().tick(200);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeTruthy();
 
-      tick(300);
+      jasmine.clock().tick(300);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeFalsy();
@@ -416,7 +441,7 @@ describe('block-ui-content component', () => {
 
     it('blocker is NOT active on blockUI.stop() and state is cleared if delayed start has not yet passed, ignoring delayStop', fakeAsync(() => {
       testCmp.blockUI.start();
-      tick(300);
+      jasmine.clock().tick(300);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeFalsy();
@@ -426,7 +451,7 @@ describe('block-ui-content component', () => {
 
       expect(blkContComp.active).toBeFalsy();
 
-      tick(1000);
+      jasmine.clock().tick(1000);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeFalsy();
@@ -437,28 +462,28 @@ describe('block-ui-content component', () => {
       testCmp.blockUI.start();
       testCmp.blockUI.start();
       testCmp.blockUI.start();
-      tick(500);
+      jasmine.clock().tick(500);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(3);
 
       testCmp.blockUI.stop();
-      tick(500);
+      jasmine.clock().tick(500);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(2);
 
       testCmp.blockUI.stop();
-      tick(500);
+      jasmine.clock().tick(500);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(1);
 
       testCmp.blockUI.stop();
-      tick(500);
+      jasmine.clock().tick(500);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeFalsy();
@@ -469,7 +494,7 @@ describe('block-ui-content component', () => {
       testCmp.blockUI.start();
       testCmp.blockUI.start();
       testCmp.blockUI.start();
-      tick(500);
+      jasmine.clock().tick(500);
       cf.detectChanges();
 
       expect(blkContComp.active).toBeTruthy();
