@@ -1,3 +1,13 @@
+#### 2.1.2 (2019-03-29)
+
+##### Documentation Changes
+
+* **examples:**  Set version to "latest" ([84240b03](https://github.com/kuuurt13/ng-block-ui/commit/84240b038801bba4a2144489640d26b8af5309aa))
+
+##### Bug Fixes
+
+* **core:**   Fixed issue with blocking concurrency ([#96](https://github.com/kuuurt13/ng-block-ui/pull/96)) ([#97](https://github.com/kuuurt13/ng-block-ui/pull/97)) ([4820007c](https://github.com/kuuurt13/ng-block-ui/commit/4820007cd1c8a5aa8e8cdb46c55710c7544dc6f2))
+
 #### 2.1.1 (2019-02-01)
 
 ##### Documentation Changes
