@@ -9,8 +9,11 @@
   <button class="button button--default" (click)="blockAllElements()">Block All Elements</button>
 </div>
 <div class="controls">
-    <button class="button button--default" routerLink="/landing-page" >Change Route</button>
-  </div>
+  <button class="button button--default" routerLink="/landing-page">Change Route</button>
+</div>
+<div class="controls">
+  <button class="button button--default" routerLink="/multi-http">Multi Http Test</button>
+</div>
 <div *ngFor="let block of blockInstances">
   <block-element *blockUI="block; message: 'Default...'"></block-element>
 </div>

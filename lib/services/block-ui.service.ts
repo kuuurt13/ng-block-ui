@@ -26,6 +26,13 @@ export class BlockUIService {
   }
 
   /**
+  * Reset blocking for given BlockUI instance or instances
+  */
+  reset(target: string | string[]): void {
+    this.dispatch(target, BlockUIActions.RESET);
+  }
+
+  /**
   * Unsubscribes for given BlockUI instance or instances
   */
   unsubscribe(target: string | string[]): void {
