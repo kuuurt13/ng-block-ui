@@ -12,11 +12,13 @@ import { BlockTemplateComponent } from './block-template/block-template.componen
 import { AppComponent } from './app.component';
 import { DeafultComponent } from './default/default.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { MultiHttpComponent } from './multi-http/multi-http.component';
 
 const appRoutes: Routes = [
   { path: '', canActivateChild: [BlockUIPreventNavigation], children: [
     { path: '', component: DeafultComponent },
-    { path: 'landing-page', component: LandingPageComponent }
+    { path: 'landing-page', component: LandingPageComponent },
+    { path: 'multi-http', component: MultiHttpComponent }
   ]}
 ];
 
@@ -26,12 +28,12 @@ const appRoutes: Routes = [
     BlockElementModule,
     BlockUIModule.forRoot({
       message: 'Global Default Message',
-      delayStart: 500,
       template: BlockTemplateComponent
     }),
     BlockUIRouterModule.forRoot(),
     BlockUIHttpModule.forRoot({
-      requestFilters: [] // /\/api.github.com\/users\//
+      requestFilters: [], // /\/api.github.com\/users\//
+      blockAllRequestsInProgress: true
     }),
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     BlockTemplateComponent,
     AppComponent,
     DeafultComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    MultiHttpComponent
   ],
   providers: [],
   entryComponents: [

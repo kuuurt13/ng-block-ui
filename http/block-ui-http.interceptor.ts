@@ -35,16 +35,19 @@ export class BlockUIInterceptor implements HttpInterceptor {
         finalize(() => {
           if (this.shouldBlock(request)) {
             this.activeHttpRequests--;
-
+            const { blockAllRequestsInProgress } = this.blockUIHttpSettings.settings;
             let stopBlockUI: boolean = false;
-            if (!!this.blockUIHttpSettings.settings.blockAllRequestsInProgress && this.activeHttpRequests <= 0) {
+
+            if (!!blockAllRequestsInProgress && this.activeHttpRequests <= 0) {
               this.activeHttpRequests = 0;
               stopBlockUI = true;
             } else if (active) {
               stopBlockUI = true;
             }
+
             if (stopBlockUI) {
-              this.blockUIService.stop(BLOCKUI_DEFAULT);
+              const method: string = blockAllRequestsInProgress ? 'stop' : 'reset';
+              this.blockUIService[method](BLOCKUI_DEFAULT);
             }
           }
         })
@@ -53,7 +56,7 @@ export class BlockUIInterceptor implements HttpInterceptor {
 
   shouldBlock(request: HttpRequest<any>): boolean {
     const { method, urlWithParams } = request;
-    const settings = this.blockUIHttpSettings.settings;
+    const { settings } = this.blockUIHttpSettings;
     const requestFilters = settings.requestFilters || [];
 
     return !requestFilters.some((f: any) => {
