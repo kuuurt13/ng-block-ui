@@ -1,3 +1,9 @@
+#### 2.1.3 (2019-04-03)
+
+##### Bug Fixes
+
+* **http:**  Restore "blockAllRequestsInProgress" setting ([#98](https://github.com/kuuurt13/ng-block-ui/pull/98)) ([dc24d8fc](https://github.com/kuuurt13/ng-block-ui/commit/dc24d8fc78c031e2164a2cbe285868bb3834766f))
+
 #### 2.1.2 (2019-03-29)
 
 ##### Documentation Changes
