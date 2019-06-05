@@ -79,7 +79,7 @@ A default message can be configured to be shown instead of passing a message eac
 @NgModule({
   imports: [
     BlockUIModule.forRoot({
-      message: 'Deafult Message'
+      message: 'Default Message'
     })
   ],
   ...
@@ -89,7 +89,7 @@ export class AppModule { }
 
 #### Component Level
 ```html
-<block-ui message="Deafult Message">
+<block-ui message="Default Message">
   <!-- Markup here -->
 </block-ui>
 ```
@@ -99,7 +99,7 @@ export class AppModule { }
 @Component({
   ...,
   template: `
-    <block-ui message="Deafult Message">
+    <block-ui message="Default Message">
       <!-- Your markup here -->
     </block-ui>
   `
