@@ -1,3 +1,14 @@
+#### 2.1.5 (2019-06-11)
+
+##### Build System / Dependencies
+
+* **scripts:**  Updated ng-packagr to 4.7.1 ([ee14a9d3](https://github.com/kuuurt13/ng-block-ui/commit/ee14a9d3e84ebcb1f7172bb7e08a7d7d96bd87a2))
+
+##### Bug Fixes
+
+* **BlockUIContentComponent:**  Fixed type error ([9403d1af](https://github.com/kuuurt13/ng-block-ui/commit/9403d1af91853e75c24f7c50330e2cfcd32acd36))
+* **http:**  Restore "blockAllRequestsInProgress" setting ([#98](https://github.com/kuuurt13/ng-block-ui/pull/98)) ([dc24d8fc](https://github.com/kuuurt13/ng-block-ui/commit/dc24d8fc78c031e2164a2cbe285868bb3834766f))
+
 #### 2.1.2 (2019-03-29)
 
 ##### Documentation Changes
