@@ -12,7 +12,7 @@ dev/bundles
 dev/node_modules
 dev/app/**/*.js
 dev/app/**/*.js.map
-package-lock.json
+dev/package-lock.json
 
 index.js
 index.js.map
