@@ -170,9 +170,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   private hideBlock() {
     this.clearState();
     this.active = false;
-    if (!( this.changeDetectionRef ).destroyed){
-        this.changeDetectionRef.detectChanges();
-    }
+    this.changeDetectionRef.detectChanges();
   }
 
   private clearState() {
