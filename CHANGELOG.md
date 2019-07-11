@@ -1,3 +1,9 @@
+#### 2.1.6 (2019-07-11)
+
+##### Bug Fixes
+
+* **core:**  Make Update method behave in a more synchronous way ([#103](https://github.com/kuuurt13/ng-block-ui/pull/103)) ([1e036e94](https://github.com/kuuurt13/ng-block-ui/commit/1e036e94dae462895996c49af39d1cac1b2d2773))
+
 #### 2.1.5 (2019-06-11)
 
 ##### Build System / Dependencies
