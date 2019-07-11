@@ -126,6 +126,22 @@ describe('block-ui-content component', () => {
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(message);
     });
+
+    it('displays message passed to blockUI.update()', () => {
+      let initialMessage = 'Loading...';
+      testCmp.blockUI.start(initialMessage);
+      cf.detectChanges();
+      jasmine.clock().tick(1);
+
+      let { nativeElement } = cf.debugElement.query(By.css('div.message'));
+      expect(nativeElement.innerText).toBe(initialMessage);
+
+      let updatedMessage = 'Update';
+      testCmp.blockUI.update(updatedMessage);
+      cf.detectChanges();
+      jasmine.clock().tick(1);
+      expect(nativeElement.innerText).toBe(updatedMessage);
+    });
   });
 
   describe('block-ui-content custom Component template', () => {
@@ -415,7 +431,7 @@ describe('block-ui-content component', () => {
       expect(blkContComp.active).toBeTruthy();
     }));
 
-    it('blocker IS active on blockUI.stop() until delay has passed', fakeAsync(() => {
+    it('blocker is active on blockUI.stop() until delay has passed', fakeAsync(() => {
       testCmp.blockUI.start();
       jasmine.clock().tick(500);
       cf.detectChanges();
