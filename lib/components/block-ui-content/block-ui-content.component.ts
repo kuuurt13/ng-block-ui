@@ -128,13 +128,14 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private onStop({ name }: BlockUIEvent) {
     if (name === this.name) {
+      const delay = this.delayStop || this.settings.delayStop || 0;
+
       if (this.state.blockCount > 1) {
         this.state.blockCount--;
       } else {
         if (!this.active) {
           this.clearState();
         } else {
-          const delay = this.delayStop || this.settings.delayStop || 0;
           if (this.state.stopTimeout === null) {
             this.state.stopTimeout = setTimeout(() => {
               this.hideBlock();
@@ -153,10 +154,13 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private onUpdate({ name, message }: BlockUIEvent) {
     if (name === this.name) {
-      this.active = true;
-      this.message = message || this.defaultMessage || this.settings.message;
-      this.updateBlockTemplate(this.message);
-      this.changeDetectionRef.detectChanges();
+      const delay = this.delayStart || this.settings.delayStart || 0;
+
+      setTimeout(() => {
+        this.message = message || this.defaultMessage || this.settings.message;
+        this.updateBlockTemplate(this.message);
+        this.changeDetectionRef.detectChanges();
+      }, delay);
     }
   }
 
