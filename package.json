@@ -1,6 +1,6 @@
 {
   "name": "ng-block-ui",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "Angular Block UI",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
