@@ -1,3 +1,9 @@
+#### 2.1.7 (2019-08-01)
+
+##### Bug Fixes
+
+* **block-ui-content:**  Safely detect for changes ([#105](https://github.com/kuuurt13/ng-block-ui/pull/105)) ([b02c74ac](https://github.com/kuuurt13/ng-block-ui/commit/b02c74ace0f2014b9509f193f228d0951231ec52))
+
 #### 2.1.6 (2019-07-11)
 
 ##### Bug Fixes
