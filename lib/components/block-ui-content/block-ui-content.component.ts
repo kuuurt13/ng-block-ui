@@ -78,7 +78,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   }
 
   ngAfterViewChecked() {
-    this.changeDetectionRef.detectChanges();
+    this.detectChanges();
   }
 
   private subscribeToBlockUI(blockUI$: Observable<any>): Subscription {
@@ -159,7 +159,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       setTimeout(() => {
         this.message = message || this.defaultMessage || this.settings.message;
         this.updateBlockTemplate(this.message);
-        this.changeDetectionRef.detectChanges();
+        this.detectChanges();
       }, delay);
     }
   }
@@ -168,15 +168,13 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     this.active = true;
     this.message = message || this.defaultMessage || this.settings.message;
     this.updateBlockTemplate(this.message);
-    this.changeDetectionRef.detectChanges();
+    this.detectChanges();
   }
 
   private hideBlock() {
     this.clearState();
     this.active = false;
-    if (!this.changeDetectionRef['destroyed']) {
-      this.changeDetectionRef.detectChanges();
-    }
+    this.detectChanges();
   }
 
   private clearState() {
@@ -203,6 +201,12 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   private updateInstanceBlockCount() {
     if (this.blockUI.blockUIInstances[this.name]) {
       this.blockUI.blockUIInstances[this.name].blockCount = this.state.blockCount;
+    }
+  }
+
+  private detectChanges() {
+    if (!this.changeDetectionRef['destroyed']) {
+      this.changeDetectionRef.detectChanges();
     }
   }
 
