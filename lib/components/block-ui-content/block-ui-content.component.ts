@@ -116,9 +116,13 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       const delay = this.delayStart || this.settings.delayStart || 0;
 
       if (this.state.startTimeout === null) {
-        this.state.startTimeout = setTimeout(() => {
+        if (delay === 0) {
           this.showBlock(message);
-        }, delay);
+        } else {
+          this.state.startTimeout = setTimeout(() => {
+            this.showBlock(message);
+          }, delay);
+        }
       }
 
       this.state.blockCount++;
@@ -137,9 +141,13 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
           this.clearState();
         } else {
           if (this.state.stopTimeout === null) {
-            this.state.stopTimeout = setTimeout(() => {
+            if (delay === 0) {
               this.hideBlock();
-            }, delay);
+            } else {
+              this.state.stopTimeout = setTimeout(() => {
+                this.hideBlock();
+              }, delay);
+            }
           }
         }
       }
@@ -156,12 +164,20 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (name === this.name) {
       const delay = this.delayStart || this.settings.delayStart || 0;
 
-      setTimeout(() => {
-        this.message = message || this.defaultMessage || this.settings.message;
-        this.updateBlockTemplate(this.message);
-        this.detectChanges();
-      }, delay);
+      if (delay === 0) {
+        this.updateMessage(message);
+      } else {
+        setTimeout(() => {
+          this.updateMessage(message);
+        }, delay);
+      }
     }
+  }
+
+  updateMessage(message: string) {
+    this.message = message || this.defaultMessage || this.settings.message;
+    this.updateBlockTemplate(this.message);
+    this.detectChanges();
   }
 
   private showBlock(message: any) {
