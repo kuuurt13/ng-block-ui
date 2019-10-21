@@ -1,3 +1,9 @@
+#### 2.1.8 (2019-10-21)
+
+##### Bug Fixes
+
+* **BlockUIContentComponent:**  Run onStart, onStop and onUpdate methods without setTimeout if delay equals 0 ([b02c74ac](https://github.com/kuuurt13/ng-block-ui/commit/4d2f44c279509a304c6950d7169ace4d473c1c31))
+
 #### 2.1.7 (2019-08-01)
 
 ##### Bug Fixes
