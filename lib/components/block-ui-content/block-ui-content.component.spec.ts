@@ -2,7 +2,7 @@ import { } from 'jasmine';
 import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-
+import { Observable } from 'rxjs';
 import { BlockUIModule } from '../../block-ui.module';
 import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.component';
 import { BlockUI } from '../../decorators/block-ui.decorator';
@@ -141,6 +141,26 @@ describe('block-ui-content component', () => {
       cf.detectChanges();
       jasmine.clock().tick(1);
       expect(nativeElement.innerText).toBe(updatedMessage);
+    });
+
+    it('blockUI.start() is synchronous (issue #107)', () => {
+      function method() {
+        testCmp.blockUI.start();
+      }
+
+      const observable = Observable.create((observer: any) => {
+        observer.next('test');
+      });
+
+      testCmp.blockUI.start();
+
+      observable.subscribe(() => {
+        testCmp.blockUI.stop();
+        method();
+      });
+
+      let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
+      expect(blockWrapper.classes.active).toBeTruthy();
     });
   });
 
