@@ -159,6 +159,8 @@ describe('block-ui-content component', () => {
         method();
       });
 
+      cf.detectChanges();
+      jasmine.clock().tick(1);
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeTruthy();
     });
@@ -438,17 +440,17 @@ describe('block-ui-content component', () => {
       testCmp.blockUI.start();
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
+      expect(blkContComp.state.blockCount).toBe(0);
 
       jasmine.clock().tick(200);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
+      expect(blkContComp.state.blockCount).toBe(0);
 
       jasmine.clock().tick(300);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBe(1);
     }));
 
     it('blocker is active on blockUI.stop() until delay has passed', fakeAsync(() => {
@@ -456,23 +458,22 @@ describe('block-ui-content component', () => {
       jasmine.clock().tick(500);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBeTruthy();
 
       testCmp.blockUI.stop();
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBeTruthy();
 
       jasmine.clock().tick(200);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBeTruthy();
 
       jasmine.clock().tick(300);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
-      expectStateIsReset(blkContComp);
+      expect(blkContComp.state.blockCount).toBe(0);
     }));
 
     it('blocker is NOT active on blockUI.stop() and state is cleared if delayed start has not yet passed, ignoring delayStop', fakeAsync(() => {
@@ -480,50 +481,46 @@ describe('block-ui-content component', () => {
       jasmine.clock().tick(300);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
+      expect(blkContComp.state.blockCount).toBe(0);
 
       testCmp.blockUI.stop();
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
+      expect(blkContComp.state.blockCount).toBe(0);
 
       jasmine.clock().tick(1000);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
-      expectStateIsReset(blkContComp);
+      expect(blkContComp.state.blockCount).toBe(0);
     }));
 
-    it('blocker IS active on blockUI.stop() until all blocked calls have resolved', fakeAsync(() => {
+    it('blocker is active on blockUI.stop() until all blocked calls have resolved', fakeAsync(() => {
       testCmp.blockUI.start();
       testCmp.blockUI.start();
       testCmp.blockUI.start();
       jasmine.clock().tick(500);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(3);
 
       testCmp.blockUI.stop();
       jasmine.clock().tick(500);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
+      expect(blkContComp.state.blockCount).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(2);
 
       testCmp.blockUI.stop();
       jasmine.clock().tick(500);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(1);
 
       testCmp.blockUI.stop();
       jasmine.clock().tick(500);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
-      expectStateIsReset(blkContComp);
+      expect(blkContComp.state.blockCount).toBe(0);
     }));
 
     it('blocker is no longer active on blockUI.reset(), ignoring any delays or outstanding calls', fakeAsync(() => {
@@ -533,20 +530,13 @@ describe('block-ui-content component', () => {
       jasmine.clock().tick(500);
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(3);
 
       testCmp.blockUI.reset();
       cf.detectChanges();
 
-      expect(blkContComp.active).toBeFalsy();
-      expectStateIsReset(blkContComp);
+      expect(blkContComp.state.blockCount).toBe(0);
     }));
   });
 });
 
-function expectStateIsReset(blkContComp: BlockUIContentComponent) {
-  expect(blkContComp.state.startTimeout).toBeNull();
-  expect(blkContComp.state.stopTimeout).toBeNull();
-  expect(blkContComp.state.blockCount).toBe(0);
-}
