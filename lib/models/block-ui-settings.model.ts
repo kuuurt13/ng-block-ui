@@ -1,4 +1,4 @@
-import { ComponentRef, TemplateRef } from '@angular/core';
+import { ComponentRef } from '@angular/core';
 
 export interface BlockUISettings {
   message?: string;

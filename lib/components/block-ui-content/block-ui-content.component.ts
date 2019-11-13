@@ -38,9 +38,14 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   @ViewChild('templateOutlet', { read: ViewContainerRef })
   templateOutlet: ViewContainerRef;
 
-  state: any = { startTimeout: null, stopTimeout: null, blockCount: 0 };
+  defaultState: any = {
+    startTimeout: null,
+    stopTimeout: null,
+    updateTimeout: null,
+    blockCount: 0
+  };
+  state: any = { ...this.defaultState };
   className: string;
-  active: boolean = false;
   templateCompRef: ComponentRef<{ message?: any }> | TemplateRef<{}>;
   message: any;
 
@@ -69,7 +74,6 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       } else {
         const templateComp = this.resolver.resolveComponentFactory(this.templateCmp);
         this.templateCompRef = this.templateOutlet.createComponent(templateComp);
-
         this.updateBlockTemplate(this.message);
       }
     } catch (error) {
@@ -82,29 +86,28 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   }
 
   private subscribeToBlockUI(blockUI$: Observable<any>): Subscription {
-    return blockUI$
-      .subscribe(event => this.onDispatchedEvent(event));
+    return blockUI$.subscribe(event => this.onDispatchedEvent(event));
   }
 
   private onDispatchedEvent(event: BlockUIEvent) {
     switch (event.action) {
-      case (BlockUIActions.START):
+      case BlockUIActions.START:
         this.onStart(event);
         break;
 
-      case (BlockUIActions.STOP):
+      case BlockUIActions.STOP:
         this.onStop(event);
         break;
 
-      case (BlockUIActions.UPDATE):
+      case BlockUIActions.UPDATE:
         this.onUpdate(event);
         break;
 
-      case (BlockUIActions.RESET):
-        this.onReset();
+      case BlockUIActions.RESET:
+        this.resetState();
         break;
 
-      case (BlockUIActions.UNSUBSCRIBE):
+      case BlockUIActions.UNSUBSCRIBE:
         this.onStop(event);
         this.onUnsubscribe(event.name);
         break;
@@ -115,18 +118,11 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (name === this.name) {
       const delay = this.delayStart || this.settings.delayStart || 0;
 
-      if (this.state.startTimeout === null) {
-        if (delay === 0) {
-          this.showBlock(message);
-        } else {
-          this.state.startTimeout = setTimeout(() => {
-            this.showBlock(message);
-          }, delay);
-        }
-      }
-
-      this.state.blockCount++;
-      this.updateInstanceBlockCount();
+      this.state.startTimeout = setTimeout(() => {
+        this.state.blockCount += 1;
+        this.showBlock(message);
+        this.updateInstanceBlockCount();
+      }, delay);
     }
   }
 
@@ -134,78 +130,51 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (name === this.name) {
       const delay = this.delayStop || this.settings.delayStop || 0;
 
-      if (this.state.blockCount > 1) {
-        this.state.blockCount--;
-      } else {
-        if (!this.active) {
-          this.clearState();
-        } else {
-          if (this.state.stopTimeout === null) {
-            if (delay === 0) {
-              this.hideBlock();
-            } else {
-              this.state.stopTimeout = setTimeout(() => {
-                this.hideBlock();
-              }, delay);
-            }
-          }
+      clearTimeout(this.state.stopTimeout);
+      this.state.stopTimeout = setTimeout(() => {
+        if (this.state.blockCount > 0) {
+          this.state.blockCount -= 1;
         }
-      }
-
-      this.updateInstanceBlockCount();
+        this.updateInstanceBlockCount();
+        this.detectChanges();
+      }, delay);
     }
-  }
-
-  private onReset() {
-    this.hideBlock();
   }
 
   private onUpdate({ name, message }: BlockUIEvent) {
     if (name === this.name) {
       const delay = this.delayStart || this.settings.delayStart || 0;
 
-      if (delay === 0) {
+      clearTimeout(this.state.updateTimeout);
+      this.state.updateTimeout = setTimeout(() => {
         this.updateMessage(message);
-      } else {
-        setTimeout(() => {
-          this.updateMessage(message);
-        }, delay);
-      }
+      }, delay);
     }
   }
 
-  updateMessage(message: string) {
-    this.message = message || this.defaultMessage || this.settings.message;
-    this.updateBlockTemplate(this.message);
-    this.detectChanges();
+  private updateMessage(message: string) {
+    this.showBlock(message);
   }
 
   private showBlock(message: any) {
-    this.active = true;
     this.message = message || this.defaultMessage || this.settings.message;
     this.updateBlockTemplate(this.message);
     this.detectChanges();
-  }
-
-  private hideBlock() {
-    this.clearState();
-    this.active = false;
-    this.detectChanges();
-  }
-
-  private clearState() {
-    this.state.startTimeout != null && clearTimeout(this.state.startTimeout);
-    this.state.stopTimeout != null && clearTimeout(this.state.stopTimeout);
-    this.state.blockCount = 0;
-    this.state.startTimeout = null;
-    this.state.stopTimeout = null;
-    this.updateInstanceBlockCount();
   }
 
   private updateBlockTemplate(msg: any): void {
     if (this.templateCompRef && this.templateCompRef instanceof ComponentRef) {
       this.templateCompRef.instance.message = msg;
     }
+  }
+
+  private resetState() {
+    clearTimeout(this.state.startTimeout);
+    clearTimeout(this.state.stopTimeout);
+    clearTimeout(this.state.updateTimeout);
+    this.state = { ...this.defaultState };
+    this.updateInstanceBlockCount();
+    this.detectChanges();
   }
 
   private onUnsubscribe(name: string) {
@@ -216,7 +185,8 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private updateInstanceBlockCount() {
     if (this.blockUI.blockUIInstances[this.name]) {
-      this.blockUI.blockUIInstances[this.name].blockCount = this.state.blockCount;
+      const { blockCount } = this.state;
+      this.blockUI.blockUIInstances[this.name].blockCount = blockCount;
     }
   }
 
@@ -227,6 +197,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   }
 
   ngOnDestroy() {
+    this.resetState();
     this.onUnsubscribe(this.name);
   }
 }
