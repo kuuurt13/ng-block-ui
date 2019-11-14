@@ -17,12 +17,19 @@ export function provideSettingsInstance(settings: HttpSettings): BlockUIHttpSett
 })
 export class BlockUIHttpModule {
   public static forRoot(settings: HttpSettings = {}): ModuleWithProviders {
+    const defaultSettings: HttpSettings = {
+      blockAllRequestsInProgress: true
+    }
+
     return {
       ngModule: BlockUIHttpModule,
       providers: [
         {
           provide: BlockUIHttpModuleSettings,
-          useValue: settings
+          useValue: {
+            ...defaultSettings,
+            ...settings
+          }
         },
         {
           provide: BlockUIHttpSettings,
