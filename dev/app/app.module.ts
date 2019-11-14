@@ -32,8 +32,7 @@ const appRoutes: Routes = [
     }),
     BlockUIRouterModule.forRoot(),
     BlockUIHttpModule.forRoot({
-      requestFilters: [], // /\/api.github.com\/users\//
-      blockAllRequestsInProgress: true
+      requestFilters: [] // /\/api.github.com\/users\//
     }),
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
