@@ -23,11 +23,16 @@ describe('BlockUI service', () => {
 
     it('methods disptach corresponding actions', () => {
       blockUIService.start(instance);
+      blockUIService.update(instance);
       blockUIService.stop(instance);
       blockUIService.unsubscribe(instance);
 
       expect(blockUIService.dispatch).toHaveBeenCalledWith(
         instance, BlockUIActions.START, undefined
+      );
+
+      expect(blockUIService.dispatch).toHaveBeenCalledWith(
+        instance, BlockUIActions.UPDATE, undefined
       );
 
       expect(blockUIService.dispatch).toHaveBeenCalledWith(
@@ -46,6 +51,16 @@ describe('BlockUI service', () => {
 
       expect(blockUIService.dispatch).toHaveBeenCalledWith(
         instance, BlockUIActions.START, message
+      );
+    });
+
+    it('passes a message to the update method', () => {
+      const message = 'Test message';
+
+      blockUIService.update(instance, message);
+
+      expect(blockUIService.dispatch).toHaveBeenCalledWith(
+        instance, BlockUIActions.UPDATE, message
       );
     });
   });

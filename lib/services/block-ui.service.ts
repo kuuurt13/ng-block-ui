@@ -33,6 +33,13 @@ export class BlockUIService {
   }
 
   /**
+  * Updates message for given BlockUI instance or instances
+  */
+  update(target: string | string[], message: any): void {
+    this.dispatch(target, BlockUIActions.UPDATE, message);
+  }
+
+  /**
   * Unsubscribes for given BlockUI instance or instances
   */
   unsubscribe(target: string | string[]): void {

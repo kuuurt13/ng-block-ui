@@ -38,7 +38,11 @@ export class DeafultComponent {
   blockAllElements() {
     this.blockUIService.start(this.blockInstances, 'Loading All');
 
-    setTimeout((blockUI) => {
+    setTimeout(() => {
+      this.blockUIService.update(this.blockInstances, 'Update Message');
+    }, this.timeout / 2);
+
+    setTimeout(() => {
       this.blockUIService.stop(this.blockInstances);
     }, this.timeout);
   }
