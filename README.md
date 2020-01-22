@@ -295,6 +295,7 @@ Instead of declaring seperate instances with the `@BlockUI()` decorator you can 
 | `isActive`    | <code>target: string &#124; string[]</code>                | Indicates if the targeted instance(s) is blocking.                                       |
 | `start`       | <code>target: string &#124; string[], message?: any</code> | Starts blocking for a single instance or multiple instances by passing instance name(s). |
 | `stop`        | <code>target: string &#124; string[]</code>                | Stops blocking for a single instance or multiple instances by passing instance name(s).  |
+| `update`      | <code>target: string &#124; string[], message: any</code>  | Updates message for a single instance or multiple instances by passing instance name(s). |
 | `reset`       | <code>target: string &#124; string[]</code>                | Resets blocking for a single instance or multiple instances by passing instance name(s). |
 | `unsubscribe` | <code>target: string &#124; string[]</code>                | Unsubscribes a single instance or multiple instances by passing instance name(s).        |
 
