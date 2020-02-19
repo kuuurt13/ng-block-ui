@@ -79,9 +79,11 @@ export class BlockUIDirective implements OnInit {
   }
 
   private isComponentInTemplate(element: any): boolean {
-    let { children } = element || [];
-    children = Array.from(children).reverse();
-    return children.some((el: any) => el.localName === 'block-ui');
+    // Needed because of https://github.com/microsoft/TypeScript/issues/26235
+    const targetElement = element || {}
+    let { children } = targetElement;
+    children = Array.from(children || []).reverse();
+    return children.some((el: any) => el && el.localName === 'block-ui');
   }
 
   // Needed for IE (#17)
