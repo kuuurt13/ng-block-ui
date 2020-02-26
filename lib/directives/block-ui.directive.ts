@@ -47,11 +47,7 @@ export class BlockUIDirective implements OnInit {
   ngOnInit() {
     try {
       this.viewRef.createEmbeddedView(this.templateRef);
-      const {
-        nextSibling,
-        previousSibling
-      } = this.viewRef.element.nativeElement;
-      const parentElement = nextSibling || previousSibling;
+      const parentElement = this.getParentElement();
 
       if (parentElement && !this.isComponentInTemplate(parentElement)) {
         this.renderer.addClass(parentElement, 'block-ui__element');
@@ -84,6 +80,15 @@ export class BlockUIDirective implements OnInit {
     let { children } = targetElement;
     children = Array.from(children || []).reverse();
     return children.some((el: any) => el && el.localName === 'block-ui');
+  }
+
+  private getParentElement(): Element {
+    const {
+      nextElementSibling,
+      previousElementSibling
+    } = this.viewRef.element.nativeElement;
+
+    return nextElementSibling || previousElementSibling;
   }
 
   // Needed for IE (#17)
