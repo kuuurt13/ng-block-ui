@@ -2,6 +2,7 @@ import {
   Directive,
   Input,
   OnInit,
+  OnDestroy,
   ComponentRef,
   ComponentFactoryResolver,
   ViewContainerRef,
@@ -11,9 +12,10 @@ import {
 import { BlockUIContentComponent } from '../components/block-ui-content/block-ui-content.component';
 import { BlockUIInstanceService } from '../services/block-ui-instance.service';
 import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
+import { BlockUIService } from '../services/block-ui.service';
 
 @Directive({ selector: '[blockUI]' })
-export class BlockUIDirective implements OnInit {
+export class BlockUIDirective implements OnInit, OnDestroy {
   private blockUIComponentRef: ComponentRef<BlockUIContentComponent>;
   blockTarget: string;
   message: any;
@@ -29,7 +31,7 @@ export class BlockUIDirective implements OnInit {
   set blockUITemplate(template: any) { this.template = template; };
   @Input()
   set blockUIDelayStart(delayStart: any) {
-     this.delayStart = delayStart ? Number(delayStart) : null;
+    this.delayStart = delayStart ? Number(delayStart) : null;
   };
   @Input()
   set blockUIDelayStop(delayStop: any) {
@@ -37,7 +39,8 @@ export class BlockUIDirective implements OnInit {
   };
 
   constructor(
-    private blockUIService: BlockUIInstanceService,
+    private blockUIService: BlockUIService,
+    private blockUIInstanceService: BlockUIInstanceService,
     private viewRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
     private renderer: Renderer2,
@@ -51,13 +54,11 @@ export class BlockUIDirective implements OnInit {
 
       if (parentElement && !this.isComponentInTemplate(parentElement)) {
         this.renderer.addClass(parentElement, 'block-ui__element');
-
         this.blockUIComponentRef = this.createComponent();
-
         let blockUIContent = this.findContentNode(this.viewRef.element.nativeElement);
 
         if (blockUIContent) {
-          const settings = this.blockUIService.getSettings();
+          const settings = this.blockUIInstanceService.getSettings();
 
           parentElement.appendChild(blockUIContent);
           this.blockUIComponentRef.instance.className = 'block-ui-wrapper--element';
@@ -107,5 +108,11 @@ export class BlockUIDirective implements OnInit {
   private createComponent() {
     const resolvedBlockUIComponent = this.componentFactoryResolver.resolveComponentFactory(BlockUIContentComponent);
     return this.viewRef.createComponent(resolvedBlockUIComponent);
+  }
+
+  ngOnDestroy() {
+    if (this.blockTarget) {
+      this.blockUIService.reset(this.blockTarget);
+    }
   }
 }
