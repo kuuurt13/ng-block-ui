@@ -9,11 +9,11 @@ import { BlockUI } from './block-ui.decorator';
 describe('BlockUI decorator', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ BlockUIModule.forRoot() ]
+      imports: [BlockUIModule.forRoot()]
     })
       .compileComponents();
 
-    spyOn(BlockUIServiceInstance, 'decorate');
+    spyOn(BlockUIServiceInstance, 'decorate').and.callFake(name => ({ name }));
   });
 
   it('sets blockUI to instance of NgBlockUI', () => {
@@ -30,5 +30,17 @@ describe('BlockUI decorator', () => {
     }
 
     expect(BlockUIServiceInstance.decorate).toHaveBeenCalledWith('test');
+  });
+
+  it('it creates a unique instance name when "scopeToInstance" is true', () => {
+    class TestClass {
+      @BlockUI('test', { scopeToInstance: true }) blockUI: NgBlockUI;
+    }
+
+    const instance = new TestClass();
+    expect(instance.blockUI.name).toBe('test-1');
+
+    const instanceTwo = new TestClass();
+    expect(instanceTwo.blockUI.name).toBe('test-2');
   });
 });

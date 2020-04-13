@@ -77,7 +77,7 @@ export class BlockUIDirective implements OnInit, OnDestroy {
 
   private isComponentInTemplate(element: any): boolean {
     // Needed because of https://github.com/microsoft/TypeScript/issues/26235
-    const targetElement = element || {}
+    const targetElement = element || {};
     let { children } = targetElement;
     children = Array.from(children || []).reverse();
     return children.some((el: any) => el && el.localName === 'block-ui');
