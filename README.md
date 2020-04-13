@@ -274,6 +274,8 @@ Angular has a specific syntax for passing properties to structural directives. P
 ```
 
 ## NgBlockUI Instance
+
+### NgBlockUI Instance Properties
 Below highlights all the properties that can be found on a BlockUI instance when a class property is decorated with the `@BlockUI()` decorator.
 
 | Property      | Description                                                                                                                                                |
@@ -284,11 +286,18 @@ Below highlights all the properties that can be found on a BlockUI instance when
 | `stop`        | Stops blocking for instance.                                                                                                                               |
 | `reset`       | Stops blocking for all currently blocking instances app wide regardless of the `delayStop` option.                                                         |
 | `update`      | Updates current instances blocking message with the passed message.                                                                                        |
-| `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe by default during `onDestroy`                        |
+| `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe by default during `onDestroy`.                       |
+
+### NgBlockUI Instance Settings
+Below are all the settings that can be passed as a second argument to the `@BlockUI()` decorator (`@BlockUI(<name>, <settings>)`).
+
+| Property          | Description                                                                                                                                            |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `scopeToInstance` | When set to `true` a unique `name` will be given to the blockUI instance which will "scope" it to the parent component instance.                       |
 
 ## BlockUIService
 In some cases you may want to have more control over all the instances in you app.
-Instead of declaring seperate instances with the `@BlockUI()` decorator you can use the `BlockUIService`. This service allows you to easily target multiple instance across your app.
+Instead of declaring separate instances with the `@BlockUI()` decorator you can use the `BlockUIService`. This service allows you to easily target multiple instance across your app.
 
 | Method        | Parameters                                                 | Description                                                                              |
 |---------------|------------------------------------------------------------|------------------------------------------------------------------------------------------|
