@@ -1,4 +1,4 @@
-import { Component, ComponentRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { BlockUI, NgBlockUI, BlockUIService } from 'ng-block-ui';
 
 @Component({
@@ -7,7 +7,7 @@ import { BlockUI, NgBlockUI, BlockUIService } from 'ng-block-ui';
   styleUrls: ['./default.component.css'],
   moduleId: __moduleName
 })
-export class DeafultComponent {
+export class DefaultComponent {
   @BlockUI() blockUI: NgBlockUI;
   @BlockUI('block-element') elementBlockUI: NgBlockUI;
 
@@ -17,7 +17,7 @@ export class DeafultComponent {
 
   constructor(
     private blockUIService: BlockUIService
-  ) {}
+  ) { }
 
   blockMain(message: string) {
     this.blockUI.start(message);
@@ -30,7 +30,7 @@ export class DeafultComponent {
   blockElement() {
     this.elementBlockUI.start();
 
-    setTimeout((blockUI) => {
+    setTimeout(() => {
       this.elementBlockUI.stop();
     }, this.timeout);
   }
@@ -48,7 +48,7 @@ export class DeafultComponent {
   }
 
   blockUpdate() {
-    let messages: string[] = ['Logining In', 'Loading Settings', 'Loading Widgets'],
+    let messages: string[] = ['Logging In', 'Loading Settings', 'Loading Widgets'],
       i = 0,
       interval: any;
 

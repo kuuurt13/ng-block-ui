@@ -1,18 +1,32 @@
 <h1>Angular Block UI</h1>
 <div class="controls">
-  <button class="button button--default" (click)="blockMain('Loading...')">Block UI</button>
-  <button class="button button--default" (click)="blockMain()">Block UI Default Message</button>
+  <button class="button button--default" (click)="blockMain('Loading...')">
+    Block UI
+  </button>
+  <button class="button button--default" (click)="blockMain()">
+    Block UI Default Message
+  </button>
 </div>
 <div class="controls">
-  <button class="button button--default" (click)="blockElement()">Element Block UI</button>
-  <button class="button button--default" (click)="blockUpdate()">Block &amp; Update Message</button>
-  <button class="button button--default" (click)="blockAllElements()">Block All Elements</button>
+  <button class="button button--default" (click)="blockElement()">
+    Element Block UI
+  </button>
+  <button class="button button--default" (click)="blockUpdate()">
+    Block &amp; Update Message
+  </button>
+  <button class="button button--default" (click)="blockAllElements()">
+    Block All Elements
+  </button>
 </div>
 <div class="controls">
-  <button class="button button--default" routerLink="/landing-page">Change Route</button>
+  <button class="button button--default" routerLink="/landing-page">
+    Change Route
+  </button>
 </div>
 <div class="controls">
-  <button class="button button--default" routerLink="/multi-http">Multi Http Test</button>
+  <button class="button button--default" routerLink="/multi-http">
+    Multi Http Test
+  </button>
 </div>
 <div *ngFor="let block of blockInstances">
   <block-element *blockUI="block; message: 'Default...'"></block-element>
