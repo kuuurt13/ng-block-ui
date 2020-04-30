@@ -10,16 +10,20 @@ import { BlockUIHttpModule } from 'ng-block-ui/http';
 import { BlockElementModule } from './block-element/block-element.module';
 import { BlockTemplateComponent } from './block-template/block-template.component';
 import { AppComponent } from './app.component';
-import { DeafultComponent } from './default/default.component';
+import { DefaultComponent } from './default/default.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MultiHttpComponent } from './multi-http/multi-http.component';
 
 const appRoutes: Routes = [
-  { path: '', canActivateChild: [BlockUIPreventNavigation], children: [
-    { path: '', component: DeafultComponent },
-    { path: 'landing-page', component: LandingPageComponent },
-    { path: 'multi-http', component: MultiHttpComponent }
-  ]}
+  {
+    path: '',
+    canActivateChild: [BlockUIPreventNavigation],
+    children: [
+      { path: '', component: DefaultComponent },
+      { path: 'landing-page', component: LandingPageComponent },
+      { path: 'multi-http', component: MultiHttpComponent }
+    ]
+  }
 ];
 
 @NgModule({
@@ -40,7 +44,7 @@ const appRoutes: Routes = [
   declarations: [
     BlockTemplateComponent,
     AppComponent,
-    DeafultComponent,
+    DefaultComponent,
     LandingPageComponent,
     MultiHttpComponent
   ],
@@ -52,4 +56,4 @@ const appRoutes: Routes = [
     AppComponent
   ]
 })
-export class AppModule {}
+export class AppModule { }
