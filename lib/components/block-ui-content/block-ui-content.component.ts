@@ -56,7 +56,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     private blockUI: BlockUIInstanceService,
     private resolver: ComponentFactoryResolver,
     private changeDetectionRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.settings = this.blockUI.getSettings();
@@ -199,5 +199,6 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   ngOnDestroy() {
     this.resetState();
     this.onUnsubscribe(this.name);
+    this.blockUI.clearInstance(this.name);
   }
 }

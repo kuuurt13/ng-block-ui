@@ -11,7 +11,7 @@ import { BlockUIEvent } from '../models/block-ui-event.model';
 export class BlockUIInstanceService {
   blockUISettings: BlockUISettings | any = {};
   blockUIInstances: any = {};
-  private blockUISubject: ReplaySubject<any> = new ReplaySubject();
+  private blockUISubject: ReplaySubject<any> = new ReplaySubject(1);
   private blockUIObservable: Observable<any> = this.blockUISubject.asObservable();
 
   constructor() {
@@ -45,6 +45,10 @@ export class BlockUIInstanceService {
 
   observe(): Observable<any> {
     return this.blockUIObservable;
+  }
+
+  clearInstance(instanceName: string) {
+    this.dispatch(this.blockUISubject, BlockUIActions.RESET, instanceName);
   }
 
   private blockUIMiddleware({ action, name }: BlockUIEvent): void {
