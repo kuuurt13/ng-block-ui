@@ -8,7 +8,7 @@ import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.co
 import { BlockUI } from '../../decorators/block-ui.decorator';
 
 describe('block-ui-content component', () => {
-  beforeEach(function() {
+  beforeEach(function () {
     jasmine.clock().uninstall();
     jasmine.clock().install();
   });
@@ -38,8 +38,8 @@ describe('block-ui-content component', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [ BlockUIModule.forRoot() ],
-        declarations: [ TestComp ]
+        imports: [BlockUIModule.forRoot()],
+        declarations: [TestComp]
       })
         .compileComponents();
 
@@ -174,7 +174,7 @@ describe('block-ui-content component', () => {
         <div class="test-template">{{message}}</div>
       `
     })
-    class TestTemplateComp {}
+    class TestTemplateComp { }
 
     @Component({
       selector: 'test-comp',
@@ -189,14 +189,14 @@ describe('block-ui-content component', () => {
     }
 
     @NgModule({
-      imports: [ BlockUIModule.forRoot() ],
+      imports: [BlockUIModule.forRoot()],
       declarations: [
         TestTemplateComp,
         TestComp
       ],
-      entryComponents: [ TestTemplateComp ]
+      entryComponents: [TestTemplateComp]
     })
-    class TestModule {}
+    class TestModule { }
 
     let cf: ComponentFixture<any>;
     let testCmp: TestComp;
@@ -247,7 +247,7 @@ describe('block-ui-content component', () => {
       expect(nativeElement.innerText).toBe(expectedMessage);
     });
 
-     it('displays default message if set and no message is passed', () => {
+    it('displays default message if set and no message is passed', () => {
       let defaultMessage = 'Default';
 
       testCmp.defaultMessage = defaultMessage;
@@ -280,10 +280,10 @@ describe('block-ui-content component', () => {
     }
 
     @NgModule({
-      imports: [ BlockUIModule.forRoot() ],
-      declarations: [ TestComp ]
+      imports: [BlockUIModule.forRoot()],
+      declarations: [TestComp]
     })
-    class TestModule {}
+    class TestModule { }
 
     let cf: ComponentFixture<any>;
     let testCmp: TestComp;
@@ -351,7 +351,7 @@ describe('block-ui-content component', () => {
             message: globalMessage
           })
         ],
-        declarations: [ TestComp ]
+        declarations: [TestComp]
       }).compileComponents();
 
       cf = TestBed.createComponent(TestComp);
@@ -397,7 +397,7 @@ describe('block-ui-content component', () => {
     });
   });
 
-  describe('block-ui-content delays:', () => {
+  describe('block-ui-content delays', () => {
     @Component({
       selector: 'test-comp',
       template: `
@@ -422,8 +422,8 @@ describe('block-ui-content component', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [ BlockUIModule.forRoot() ],
-        declarations: [ TestComp ]
+        imports: [BlockUIModule.forRoot()],
+        declarations: [TestComp]
       })
         .compileComponents();
 
@@ -537,6 +537,79 @@ describe('block-ui-content component', () => {
 
       expect(blkContComp.state.blockCount).toBe(0);
     }));
+  });
+
+  describe('reset & resetGlobal', () => {
+    @Component({
+      selector: 'test-comp',
+      template: `
+        <block-ui-content [name]="'block-1'">
+        </block-ui-content>
+        <block-ui-content [name]="'block-2'">
+        </block-ui-content>
+      `
+    })
+    class TestComp {
+      @BlockUI('block-1') blockUIOne: any;
+      @BlockUI('block-2') blockUITwo: any;
+      defaultMessage: string;
+    }
+
+    let cf: ComponentFixture<any>;
+    let testCmp: TestComp;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [BlockUIModule.forRoot()],
+        declarations: [TestComp]
+      })
+        .compileComponents();
+
+      cf = TestBed.createComponent(TestComp);
+      cf.detectChanges();
+
+      testCmp = cf.debugElement.componentInstance;
+    });
+
+    it('reset only targets the blockUI instance', () => {
+      testCmp.blockUIOne.start();
+      testCmp.blockUIOne.start();
+      testCmp.blockUITwo.start();
+      cf.detectChanges();
+      jasmine.clock().tick(0);
+
+      const blockOneInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-1')).componentInstance;
+      const blockTwoInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-2')).componentInstance;
+
+      expect(blockOneInstance.state.blockCount).toBe(2);
+      expect(blockTwoInstance.state.blockCount).toBe(1);
+
+      testCmp.blockUIOne.reset();
+      cf.detectChanges();
+
+      expect(blockOneInstance.state.blockCount).toBe(0);
+      expect(blockTwoInstance.state.blockCount).toBe(1);
+    });
+
+    it('resetGlobal targets all blockUI instance', () => {
+      testCmp.blockUIOne.start();
+      testCmp.blockUIOne.start();
+      testCmp.blockUITwo.start();
+      cf.detectChanges();
+      jasmine.clock().tick(0);
+
+      const blockOneInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-1')).componentInstance;
+      const blockTwoInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-2')).componentInstance;
+
+      expect(blockOneInstance.state.blockCount).toBe(2);
+      expect(blockTwoInstance.state.blockCount).toBe(1);
+
+      testCmp.blockUIOne.resetGlobal();
+      cf.detectChanges();
+
+      expect(blockOneInstance.state.blockCount).toBe(0);
+      expect(blockTwoInstance.state.blockCount).toBe(0);
+    });
   });
 });
 

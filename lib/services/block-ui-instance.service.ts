@@ -35,6 +35,7 @@ export class BlockUIInstanceService {
       update: this.dispatch(this.blockUISubject, BlockUIActions.UPDATE, name),
       stop: this.dispatch(this.blockUISubject, BlockUIActions.STOP, name),
       reset: this.dispatch(this.blockUISubject, BlockUIActions.RESET, name),
+      resetGlobal: this.dispatch(this.blockUISubject, BlockUIActions.RESET_GLOBAL, name),
       unsubscribe: this.dispatch(this.blockUISubject, BlockUIActions.UNSUBSCRIBE, name)
     } as NgBlockUI;
 
