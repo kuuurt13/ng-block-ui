@@ -7,6 +7,7 @@ A Block UI implementation for Angular
 [![Build Status](https://travis-ci.org/kuuurt13/ng-block-ui.svg?branch=master)](https://travis-ci.org/kuuurt13/ng-block-ui)
 
 ## Installation
+
 Add to your project via [npm](https://www.npmjs.com/package/ng-block-ui)
 
 ```bash
@@ -27,7 +28,9 @@ import { BlockUIModule } from 'ng-block-ui';
 })
 export class AppModule { }
 ```
+
 ## Quick Start
+
 Wrap your main components in your app root template with a `block-ui` component.
 
 Import the `BlockUI` decorator into your component and declare a property with the decorator.
@@ -65,16 +68,19 @@ export class AppComponent {
 ```
 
 ## Settings
+
 Settings can be changed on the module level and component/directive level. Also, in some cases settings can be overwritten via the method level.
 
 ### Default Message
+
 A default message can be configured to be shown instead of passing a message each time to the `start` method. The default message will be shown any time blocking is activated.
 
 | Setting   | Type     | Description                                    |
-|-----------|----------|------------------------------------------------|
+| --------- | -------- | ---------------------------------------------- |
 | `message` | `string` | Custom message to be displayed while blocking. |
 
 #### Module Level
+
 ```ts
 @NgModule({
   imports: [
@@ -88,6 +94,7 @@ export class AppModule { }
 ```
 
 #### Component Level
+
 ```html
 <block-ui message="Default Message">
   <!-- Markup here -->
@@ -95,6 +102,7 @@ export class AppModule { }
 ```
 
 #### Method Level
+
 ```js
 @Component({
   ...,
@@ -118,15 +126,17 @@ export class Cmp {
 ```
 
 ### Delay Start/Stop
+
 When blocking with fast service calls the block overlay can flicker for a small amount of time.
 To prevent this a `delayStart` and a `delayStop` can be configured to prevent this scenario.
 
 | Setting      | Type     | Description                                                       |
-|--------------|----------|-------------------------------------------------------------------|
+| ------------ | -------- | ----------------------------------------------------------------- |
 | `delayStart` | `number` | Waits given amount of milliseconds before starting to block.      |
 | `delayStop`  | `number` | Waits given amount of milliseconds before stopping current block. |
 
 #### Module Level
+
 ```ts
 @NgModule({
   imports: [
@@ -141,27 +151,31 @@ export class AppModule { }
 ```
 
 #### Component Level
+
 ```html
 <block-ui [delayStart]="500" [delayStop]="500">
   <!-- Your app markup here -->
 </block-ui>
 ```
+
 ### Custom Template
+
 If you want to display other markup than the default spinner and message then you can provide a custom template.
 Custom templates can be provided as a `Component` or `TemplateRef`. The template will then be used instead of the default template whenever blocking.
 
 | Setting    | Type                                      | Description                              |
-|------------|-------------------------------------------|------------------------------------------|
+| ---------- | ----------------------------------------- | ---------------------------------------- |
 | `template` | <code>Component &#124; TemplateRef</code> | Custom template to be used when blocking |
 
 #### Component Custom Template
+
 Create a component and declare it in your app module.
 The component also will need to be added to the `entryComponents` property of the module.
 
-*Example Component:*
+_Example Component:_
 
-*Note: When providing a `Component` as a template just add the `{{message}}`
-interpolation to your template and it will display your default message or the message passed to the `start` method.*
+_Note: When providing a `Component` as a template just add the `{{message}}`
+interpolation to your template and it will display your default message or the message passed to the `start` method._
 
 ```js
 // Template component
@@ -170,14 +184,15 @@ interpolation to your template and it will display your default message or the m
   template: `
     <div class="block-ui-template">
       <img src="logo.png" />
-      <p>{{message}}</p>
+      <p>{{ message }}</p>
     </div>
-  `
+  `,
 })
 export class BlockTemplateCmp {}
 ```
 
 ##### Module Level
+
 ```js
 @NgModule({
   imports: [
@@ -195,14 +210,15 @@ export class AppModule { }
 ```
 
 ##### Component Level
+
 ```js
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
     <block-ui [template]="blockTemplate">
       <!-- Your markup here -->
     </block-ui>
-  `
+  `,
 })
 export class AppComponent {
   // Declare template component
@@ -211,15 +227,16 @@ export class AppComponent {
 ```
 
 #### TemplateRef Custom Template
+
 Add a `<ng-template>` with a template reference variable to the view. Then pass the template reference variable to the `blockUI` component using the `[template]` property.
 
-*Note: TemplateRef templates can only be set on a Component level.*
-
+_Note: TemplateRef templates can only be set on a Component level._
 
 ##### Component Level
+
 ```js
 @Component({
-  selector: 'cmp',
+  selector: "cmp",
   template: `
     <ng-template #blockTemplate>
       <div class="block-ui-template">
@@ -230,12 +247,13 @@ Add a `<ng-template>` with a template reference variable to the view. Then pass 
     <block-ui [template]="blockTemplate">
       <!-- Your app markup here -->
     </block-ui>
-  `
+  `,
 })
 export class Cmp {}
 ```
 
 ## Block UI Directive
+
 Sometimes you want to only apply blocking to a certain element in your app.
 The Block UI directive can be added to an element to apply blocking only to that specific element.
 
@@ -266,59 +284,75 @@ export class AppComponent {
 ```
 
 ### Directive Settings
+
 Angular has a specific syntax for passing properties to structural directives. Properties are passed in `key: value;` pair. To pass settings to a Block UI directive they must be passed as shown below.
 
 ```html
-<div *blockUI="'instance-name'; message: 'Loading'; template: blockTemplate">
-</div>
+<div
+  *blockUI="'instance-name'; message: 'Loading'; template: blockTemplate"
+></div>
 ```
 
 ## NgBlockUI Instance
 
 ### NgBlockUI Instance Properties
+
 Below highlights all the properties that can be found on a BlockUI instance when a class property is decorated with the `@BlockUI()` decorator.
 
-| Property      | Description                                                                                                                                                |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`        | Name of the targeted instance (defaults to main instance).                                                                                                 |
-| `isActive`    | Indicates if the targeted instance is blocking.                                                                                                            |
-| `start`       | Starts blocking for instance, can be passed an optional message.                                                                                           |
-| `stop`        | Stops blocking for instance.                                                                                                                               |
-| `reset`       | Stops blocking for all currently blocking instances app wide regardless of the `delayStop` option.                                                         |
-| `update`      | Updates current instances blocking message with the passed message.                                                                                        |
-| `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe by default during `onDestroy`.                       |
+| Property      | Description                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `name`        | Name of the targeted instance (defaults to main instance).                                                                           |
+| `isActive`    | Indicates if the targeted instance is blocking.                                                                                      |
+| `start`       | Starts blocking for instance, can be passed an optional message.                                                                     |
+| `stop`        | Stops blocking for instance.                                                                                                         |
+| `reset`       | Stops blocking for all targeted instances regardless of the `delayStop` option.                                                      |
+| `resetGlobal` | Stops blocking app wide for all instances regardless of the `delayStop` option.                                                      |
+| `update`      | Updates current instances blocking message with the passed message.                                                                  |
+| `unsubscribe` | Unsubscribe an instance so it no longer can be blocked. All BlockUI components/directives unsubscribe by default during `onDestroy`. |
 
 ### NgBlockUI Instance Settings
+
 Below are all the settings that can be passed as a second argument to the `@BlockUI()` decorator (`@BlockUI(<name>, <settings>)`).
 
-| Property          | Description                                                                                                                                            |
-|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `scopeToInstance` | When set to `true` a unique `name` will be given to the blockUI instance which will "scope" it to the parent component instance.                       |
+| Property          | Description                                                                                                                      |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `scopeToInstance` | When set to `true` a unique `name` will be given to the blockUI instance which will "scope" it to the parent component instance. |
 
 ## BlockUIService
+
 In some cases you may want to have more control over all the instances in you app.
 Instead of declaring separate instances with the `@BlockUI()` decorator you can use the `BlockUIService`. This service allows you to easily target multiple instance across your app.
 
 | Method        | Parameters                                                 | Description                                                                              |
-|---------------|------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| ------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `isActive`    | <code>target: string &#124; string[]</code>                | Indicates if the targeted instance(s) is blocking.                                       |
 | `start`       | <code>target: string &#124; string[], message?: any</code> | Starts blocking for a single instance or multiple instances by passing instance name(s). |
 | `stop`        | <code>target: string &#124; string[]</code>                | Stops blocking for a single instance or multiple instances by passing instance name(s).  |
 | `update`      | <code>target: string &#124; string[], message: any</code>  | Updates message for a single instance or multiple instances by passing instance name(s). |
 | `reset`       | <code>target: string &#124; string[]</code>                | Resets blocking for a single instance or multiple instances by passing instance name(s). |
+| `resetGlobal` | <code>N/A</code>                                           | Resets blocking app wide for all instances.                                              |
 | `unsubscribe` | <code>target: string &#124; string[]</code>                | Unsubscribes a single instance or multiple instances by passing instance name(s).        |
 
 ## Other Modules
+
 ### [Http Module](docs/http-module.md) - Automatically block during http requests
+
 ### [Router Module](docs/router-module.md) - Prevent route changes while blocking
 
 ## Guides
+
 ### [Upgrading to 2.0.0](docs/migration-2.0.0.md)
+
 ### [SystemJS Config](docs/systemjs-config.md)
 
 ## Examples
+
 ### BlockUI Component - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/default)
+
 ### BlockUI Component Default Message - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/default-message)
+
 ### BlockUI Directive - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/directive)
+
 ### BlockUI Custom Spinner Styles - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/custom-spinner-styles)
+
 ### BlockUI Custom Template - [Stackblitz](https://stackblitz.com/github/kuuurt13/ng-block-ui/tree/master/examples/custom-template)

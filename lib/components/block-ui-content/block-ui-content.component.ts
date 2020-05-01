@@ -104,6 +104,10 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
         break;
 
       case BlockUIActions.RESET:
+        this.onReset(event);
+        break;
+
+      case BlockUIActions.RESET_GLOBAL:
         this.resetState();
         break;
 
@@ -149,6 +153,12 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       this.state.updateTimeout = setTimeout(() => {
         this.updateMessage(message);
       }, delay);
+    }
+  }
+
+  private onReset({ name }: BlockUIEvent) {
+    if (name === this.name) {
+      this.resetState();
     }
   }
 

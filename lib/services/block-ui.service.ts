@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BlockUIActions } from '../constants/block-ui-actions.constant';
-import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 import { BlockUIInstanceService } from './block-ui-instance.service';
+import { NgBlockUI } from '../models/block-ui.model';
 
 
 @Injectable()
 export class BlockUIService {
+  globalDispatch: NgBlockUI = this.blockUIInstance.decorate();
 
   constructor(
     private blockUIInstance: BlockUIInstanceService
-  ) {}
+  ) { }
 
   /**
   * Starts blocking for given BlockUI instance or instances
@@ -30,6 +31,13 @@ export class BlockUIService {
   */
   reset(target: string | string[]): void {
     this.dispatch(target, BlockUIActions.RESET);
+  }
+
+  /**
+  * Reset blocking for all BlockUI instances
+  */
+  resetGlobal(): void {
+    this.globalDispatch.resetGlobal();
   }
 
   /**

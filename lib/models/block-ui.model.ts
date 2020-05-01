@@ -35,9 +35,14 @@ export interface NgBlockUI {
     stop(): void;
 
     /**
-     * Stops blocking for all current BlockUI instances
+     * Resets blocking for BlockUI instances regardless of how many times start was called
      */
     reset(): void;
+
+    /**
+     * Resets blocking for all BlockUI instances
+     */
+    resetGlobal(): void;
 
     /**
     * Unsubscribes BlockUI instance
