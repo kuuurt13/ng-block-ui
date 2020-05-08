@@ -14,7 +14,7 @@ export class MultiHttpComponent {
   };
   url = "https://httpstat.us/200?sleep=";
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) { }
 
   getWithTimeout(request: string, timeout: number) {
     this.requests[request] = "pending";
@@ -23,7 +23,7 @@ export class MultiHttpComponent {
     });
   }
 
-  makeReqs() {
+  makeRequests() {
     this.getWithTimeout("first", 1000);
     this.getWithTimeout("second", 3000);
   }

@@ -64,4 +64,17 @@ export class DefaultComponent {
       }
     }, 850);
   }
+
+  blockNestedTimeout() {
+    this.blockUI.start("foo");
+
+    setTimeout(() => {
+      this.blockUI.stop();
+      this.blockUI.start("bar");
+
+      setTimeout(() => {
+        this.blockUI.stop();
+      }, 2500);
+    }, 2500);
+  }
 }
