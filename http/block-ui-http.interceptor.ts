@@ -25,8 +25,6 @@ export class BlockUIInterceptor implements HttpInterceptor {
     let active: boolean = false;
 
     if (this.shouldBlock(request)) {
-      active = true;
-      this.activeHttpRequests++;
       this.blockUIService.start(BLOCKUI_DEFAULT);
     }
 
@@ -34,21 +32,9 @@ export class BlockUIInterceptor implements HttpInterceptor {
       .pipe(
         finalize(() => {
           if (this.shouldBlock(request)) {
-            this.activeHttpRequests--;
             const { blockAllRequestsInProgress } = this.blockUIHttpSettings.settings;
-            let stopBlockUI: boolean = false;
-
-            if (!!blockAllRequestsInProgress && this.activeHttpRequests <= 0) {
-              this.activeHttpRequests = 0;
-              stopBlockUI = true;
-            } else if (active) {
-              stopBlockUI = true;
-            }
-
-            if (stopBlockUI) {
-              const method: string = blockAllRequestsInProgress ? 'stop' : 'reset';
-              this.blockUIService[method](BLOCKUI_DEFAULT);
-            }
+            const method: string = blockAllRequestsInProgress ? 'stop' : 'reset';
+            this.blockUIService[method](BLOCKUI_DEFAULT);
           }
         })
       );
