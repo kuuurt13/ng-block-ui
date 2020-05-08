@@ -23,6 +23,15 @@ import { styles } from './block-ui-content.component.style';
 import { template } from './block-ui-content.component.template';
 import { BlockUISettings } from '../../models/block-ui-settings.model';
 
+export type BlockState = {
+  startTimeouts: Array<any>;
+  stopTimeouts: Array<any>;
+  updateTimeouts: Array<any>;
+  blockCount: number;
+  startCallCount: number;
+  stopCallCount: number;
+}
+
 @Component({
   selector: 'block-ui-content',
   template: template,
@@ -38,13 +47,15 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   @ViewChild('templateOutlet', { read: ViewContainerRef })
   templateOutlet: ViewContainerRef;
 
-  defaultState: any = {
-    startTimeout: null,
-    stopTimeout: null,
-    updateTimeout: null,
-    blockCount: 0
+  defaultBlockState: BlockState = {
+    startTimeouts: [],
+    stopTimeouts: [],
+    updateTimeouts: [],
+    blockCount: 0,
+    startCallCount: 0,
+    stopCallCount: 0
   };
-  state: any = { ...this.defaultState };
+  state: BlockState = { ...this.defaultBlockState };
   className: string;
   templateCompRef: ComponentRef<{ message?: any }> | TemplateRef<{}>;
   message: any;
@@ -122,26 +133,31 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (name === this.name) {
       const delay = this.delayStart || this.settings.delayStart || 0;
 
-      this.state.startTimeout = setTimeout(() => {
+      this.state.startCallCount += 1;
+      const startTimeout = setTimeout(() => {
         this.state.blockCount += 1;
         this.showBlock(message);
         this.updateInstanceBlockCount();
       }, delay);
+      this.state.startTimeouts.push(startTimeout);
     }
   }
 
   private onStop({ name }: BlockUIEvent) {
     if (name === this.name) {
-      const delay = this.delayStop || this.settings.delayStop || 0;
+      const stopCount = this.state.stopCallCount + 1;
 
-      clearTimeout(this.state.stopTimeout);
-      this.state.stopTimeout = setTimeout(() => {
-        if (this.state.blockCount > 0) {
+      if (this.state.startCallCount - stopCount >= 0) {
+        const delay = this.delayStop || this.settings.delayStop || 0;
+
+        this.state.stopCallCount = stopCount;
+        const stopTimeout = setTimeout(() => {
           this.state.blockCount -= 1;
-        }
-        this.updateInstanceBlockCount();
-        this.detectChanges();
-      }, delay);
+          this.updateInstanceBlockCount();
+          this.detectChanges();
+        }, delay);
+        this.state.stopTimeouts.push(stopTimeout);
+      }
     }
   }
 
@@ -149,10 +165,11 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
     if (name === this.name) {
       const delay = this.delayStart || this.settings.delayStart || 0;
 
-      clearTimeout(this.state.updateTimeout);
-      this.state.updateTimeout = setTimeout(() => {
+      clearTimeout(this.state.updateTimeouts[0]);
+      const updateTimeout = setTimeout(() => {
         this.updateMessage(message);
       }, delay);
+      this.state.updateTimeouts.push(updateTimeout);
     }
   }
 
@@ -179,10 +196,12 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
   }
 
   private resetState() {
-    clearTimeout(this.state.startTimeout);
-    clearTimeout(this.state.stopTimeout);
-    clearTimeout(this.state.updateTimeout);
-    this.state = { ...this.defaultState };
+    [
+      ...this.state.startTimeouts,
+      ...this.state.stopTimeouts,
+      ...this.state.updateTimeouts
+    ].forEach(clearTimeout);
+    this.state = { ...this.defaultBlockState };
     this.updateInstanceBlockCount();
     this.detectChanges();
   }
