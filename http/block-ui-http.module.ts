@@ -9,7 +9,12 @@ import { BlockUIInterceptor } from './block-ui-http.interceptor';
 export const BlockUIHttpModuleSettings = new InjectionToken<string>('BlockUIHttpModuleSettings');
 
 export function provideSettingsInstance(settings: HttpSettings): BlockUIHttpSettings {
-  return { settings };
+  return {
+    settings: {
+      blockAllRequestsInProgress: true,
+      ...settings
+    }
+  };
 }
 
 @NgModule({
@@ -22,10 +27,7 @@ export class BlockUIHttpModule {
       providers: [
         {
           provide: BlockUIHttpModuleSettings,
-          useValue: {
-            blockAllRequestsInProgress: true,
-            ...settings
-          }
+          useValue: settings
         },
         {
           provide: BlockUIHttpSettings,
