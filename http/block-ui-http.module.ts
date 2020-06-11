@@ -21,7 +21,7 @@ export function provideSettingsInstance(settings: HttpSettings): BlockUIHttpSett
   imports: [BlockUIModule]
 })
 export class BlockUIHttpModule {
-  public static forRoot(settings: HttpSettings = {}): ModuleWithProviders {
+  static forRoot(settings: HttpSettings = {}): ModuleWithProviders<BlockUIHttpModule> {
     return {
       ngModule: BlockUIHttpModule,
       providers: [
