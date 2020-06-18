@@ -3,6 +3,7 @@
 A Block UI implementation for Angular
 
 [![npm](https://img.shields.io/npm/v/ng-block-ui.svg)](https://www.npmjs.com/package/ng-block-ui)
+[![npm](https://img.shields.io/npm/v/ng-block-ui/next)](https://www.npmjs.com/package/ng-block-ui/v/next)
 [![npm](https://img.shields.io/npm/dm/ng-block-ui.svg)](https://www.npmjs.com/package/ng-block-ui)
 [![Build Status](https://travis-ci.org/kuuurt13/ng-block-ui.svg?branch=master)](https://travis-ci.org/kuuurt13/ng-block-ui)
 
@@ -16,7 +17,7 @@ npm install ng-block-ui --save
 
 Include the `BlockUIModule` in your main app module.
 
-```js
+```ts
 // All other imports
 import { BlockUIModule } from 'ng-block-ui';
 
@@ -40,7 +41,7 @@ To start blocking your app, simply invoke the `start` method.
 This method also can take a custom message to display while blocking.
 Once finished call the `stop` method to stop blocking the app.
 
-```js
+```ts
 import { Component } from '@angular/core';
 
 // Import BlockUI decorator & optional NgBlockUI type
@@ -66,6 +67,10 @@ export class AppComponent {
     }, 2000);
   }
 ```
+
+### Current Release
+
+For more information and/or migrating to the newest version see [Releases](./RELEASES.md).
 
 ## Settings
 
@@ -103,7 +108,7 @@ export class AppModule { }
 
 #### Method Level
 
-```js
+```ts
 @Component({
   ...,
   template: `
@@ -177,7 +182,7 @@ _Example Component:_
 _Note: When providing a `Component` as a template just add the `{{message}}`
 interpolation to your template and it will display your default message or the message passed to the `start` method._
 
-```js
+```ts
 // Template component
 // Use block-ui-template class to center div if desired
 @Component({
@@ -193,7 +198,7 @@ export class BlockTemplateCmp {}
 
 ##### Module Level
 
-```js
+```ts
 @NgModule({
   imports: [
     BlockUIModule.forRoot({
@@ -211,7 +216,7 @@ export class AppModule { }
 
 ##### Component Level
 
-```js
+```ts
 @Component({
   selector: "app-root",
   template: `
@@ -234,7 +239,7 @@ _Note: TemplateRef templates can only be set on a Component level._
 
 ##### Component Level
 
-```js
+```ts
 @Component({
   selector: "cmp",
   template: `
@@ -262,7 +267,7 @@ and pass it an instance name `*blockUI="'contact-list'"`.
 
 Then in a component create a class property using the Block UI decorator with the instance name `@BlockUI('contact-list')`. This will then take care of wiring up that property to point to that specific instance in your app.
 
-```js
+```ts
 @Component({
   selector: 'app-cmp',
   template: `
@@ -340,8 +345,6 @@ Instead of declaring separate instances with the `@BlockUI()` decorator you can 
 ### [Router Module](docs/router-module.md) - Prevent route changes while blocking
 
 ## Guides
-
-### [Upgrading to 2.0.0](docs/migration-2.0.0.md)
 
 ### [SystemJS Config](docs/systemjs-config.md)
 
