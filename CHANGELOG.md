@@ -1,3 +1,50 @@
+#### 3.0.1 (2020-06-29)
+
+##### Chores
+
+* **deps:**  Update ng-packagr ([a488da43](https://github.com/kuuurt13/ng-block-ui/commit/a488da439411d9b3c2d49475e01d334f4b32321f))
+* **docs:**  Updated blockAllRequestsInProgress docs ([854cbb43](https://github.com/kuuurt13/ng-block-ui/commit/854cbb43e0f39b19e5cdaa8ad2da5ce7e3513d91))
+* **Development:**
+  *  Added new test scenario ([2ec60de5](https://github.com/kuuurt13/ng-block-ui/commit/2ec60de568ad1f284cdfc594de9dd44f05faf040))
+  *  Clean up development app ([59333099](https://github.com/kuuurt13/ng-block-ui/commit/593330997cf67860d161afb52a52f81888666ab8))
+
+##### Continuous Integration
+
+* **config:**  Fixed Travis CI config ([1bf3986e](https://github.com/kuuurt13/ng-block-ui/commit/1bf3986e161fbc5e1c8c2fdbaa51ad20c50fc766))
+
+##### New Features
+
+* **Decorator:**  Added "scopeToInstance" setting ([dc6b6a80](https://github.com/kuuurt13/ng-block-ui/commit/dc6b6a80852047711a48c597b3e7ffdf8375d1df))
+* **BlockUIService:**  Added update method ([c8b03884](https://github.com/kuuurt13/ng-block-ui/commit/c8b03884ce918d2c5c3d7211869f82b3b420507e))
+
+##### Bug Fixes
+
+* **Directive:**
+  *  Correctly find parent node ([9668a9f0](https://github.com/kuuurt13/ng-block-ui/commit/9668a9f0cc3f010048b7145e67a1b05a3a2620ea))
+  *  Stop blocking on destruction ([e994de01](https://github.com/kuuurt13/ng-block-ui/commit/e994de01d7ef4e61c0c0b05b44d1b71861cee854))
+  *  Fixed issue when finding "parentElement" for Ivy renderer ([75b13614](https://github.com/kuuurt13/ng-block-ui/commit/75b136149f1423c032950cb9df1c5f87251143ac))
+  *  Fixed default values in isComponentInTemplate method ([f56b5113](https://github.com/kuuurt13/ng-block-ui/commit/f56b5113b1a50bdf38bf9621144c910db52714c2))
+  *  Added ivy renderer support ([a8adc9d3](https://github.com/kuuurt13/ng-block-ui/commit/a8adc9d36f46d08e044713b3bad77c73a5cea0bd))
+* **http:**
+  *  Issue with passing default settings ([009ecf7c](https://github.com/kuuurt13/ng-block-ui/commit/009ecf7c86c52244e4732d0f73ef2f34ae08664d))
+  *  Set default settings in provider to fix AOT error ([deebf716](https://github.com/kuuurt13/ng-block-ui/commit/deebf71639bfebee01a7e9fb4aea1b43bea27f7d))
+* **BlockUI:**
+  *  Don't clear previous timeout on stop ([a04d3e56](https://github.com/kuuurt13/ng-block-ui/commit/a04d3e56da2062ac67b3702e539ee756e25d2aee))
+  *  Reset should only targets given instance ([684be370](https://github.com/kuuurt13/ng-block-ui/commit/684be3708d740bc2f549152fb195fb16e383c139))
+* **BlockUIContent:**  Fully clean up on destroy ([5542a1c9](https://github.com/kuuurt13/ng-block-ui/commit/5542a1c9dbc80a64487a229cc9424b50b56d41b4))
+
+##### Other Changes
+
+* **Http:**  Default "blockAllRequestsInProgress" to true ([531c1dab](https://github.com/kuuurt13/ng-block-ui/commit/531c1dabb8369b7569172dda5d1ad3461ea0356a))
+
+##### Refactors
+
+* **BlockUI:**  Rewrite block queueing in more cohesive way ([cc9c2e6c](https://github.com/kuuurt13/ng-block-ui/commit/cc9c2e6c1c607f2e407a8e70dc502b612d294ea2))
+
+##### Tests
+
+* **BlockUIContentComponent:**  Add test coverage for non-delay ([#109](https://github.com/kuuurt13/ng-block-ui/pull/109)) ([20f785df](https://github.com/kuuurt13/ng-block-ui/commit/20f785df34ffb66b32349868624519c1b43a9caa))
+
 #### 3.0.0 (2020-06-18)
 
 ##### Chores
