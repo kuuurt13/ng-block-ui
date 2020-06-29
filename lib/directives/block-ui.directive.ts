@@ -7,7 +7,8 @@ import {
   ComponentFactoryResolver,
   ViewContainerRef,
   TemplateRef,
-  Renderer2
+  Renderer2,
+  EmbeddedViewRef
 } from '@angular/core';
 import { BlockUIContentComponent } from '../components/block-ui-content/block-ui-content.component';
 import { BlockUIInstanceService } from '../services/block-ui-instance.service';
@@ -84,12 +85,10 @@ export class BlockUIDirective implements OnInit, OnDestroy {
   }
 
   private getParentElement(): Element {
-    const {
-      nextElementSibling,
-      previousElementSibling
-    } = this.viewRef.element.nativeElement;
+    const embeddedView = this.viewRef.get(0) as EmbeddedViewRef<any>;
 
-    return nextElementSibling || previousElementSibling;
+    return embeddedView.rootNodes[0];
+
   }
 
   // Needed for IE (#17)
