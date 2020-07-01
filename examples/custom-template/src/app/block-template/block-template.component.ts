@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'block-temp',
+  selector: 'app-block-temp',
   styles: [`
     :host {
       text-align: center;
-      color: #1976D2;
+      color: #ffffff;
     }
   `],
   template: `

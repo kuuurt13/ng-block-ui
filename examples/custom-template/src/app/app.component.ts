@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { BlockTemplateComponent } from './block-template/block-template.component';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,9 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 export class AppComponent {
   // Wires up BlockUI instance
   @BlockUI() blockUI: NgBlockUI;
+  blockTemplate: BlockTemplateComponent;
 
-  constructor() {}
+  constructor() { }
 
   toggleBlocking(message?: string) {
     this.blockUI.start(message);

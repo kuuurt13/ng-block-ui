@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BlockUIModule } from 'ng-block-ui';
-import { BlockTemplateComponent } from './block-template.component';
+import { BlockTemplateComponent } from './block-template/block-template.component';
 
 @NgModule({
   imports: [
@@ -21,4 +21,4 @@ import { BlockTemplateComponent } from './block-template.component';
   bootstrap: [AppComponent]
 })
 
-export class AppModule {}
+export class AppModule { }

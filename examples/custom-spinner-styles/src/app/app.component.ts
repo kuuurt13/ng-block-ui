@@ -10,10 +10,10 @@ export class AppComponent {
   // Wires up BlockUI instance
   @BlockUI() blockUI: NgBlockUI;
 
-  constructor() {}
+  constructor() { }
 
-  toggleBlocking() {
-    this.blockUI.start('Loading...');
+  toggleBlocking(message: string) {
+    this.blockUI.start(message);
 
     setTimeout(() => {
       this.blockUI.stop();
