@@ -1,5 +1,5 @@
 import { } from 'jasmine';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 
 import { BlockUIModule, BlockUIServiceInstance } from '../block-ui.module';
 import { NgBlockUI } from '../models/block-ui.model';
@@ -7,14 +7,14 @@ import { BlockUI } from './block-ui.decorator';
 
 
 describe('BlockUI decorator', () => {
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [BlockUIModule.forRoot()]
     })
       .compileComponents();
 
     spyOn(BlockUIServiceInstance, 'decorate').and.callFake(name => ({ name }));
-  });
+  }));
 
   it('sets blockUI to instance of NgBlockUI', () => {
     class TestClass {

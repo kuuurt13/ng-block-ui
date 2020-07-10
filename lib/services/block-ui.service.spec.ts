@@ -21,7 +21,7 @@ describe('BlockUI service', () => {
   describe('decorate', () => {
     const instance = 'testInstance';
 
-    it('methods disptach corresponding actions', () => {
+    it('methods dispatch corresponding actions', () => {
       blockUIService.start(instance);
       blockUIService.update(instance);
       blockUIService.stop(instance);

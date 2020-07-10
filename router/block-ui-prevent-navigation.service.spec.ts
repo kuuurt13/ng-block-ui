@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
-import { BlockUIModule } from '../block-ui.module';
-import { BlockUI } from '../decorators/block-ui.decorator';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { BlockUI, BlockUIModule } from 'ng-block-ui';
 import { BlockUIRouterModule } from './block-ui-router.module';
 import { BlockUIPreventNavigation } from './block-ui-prevent-navigation.service';
 
@@ -27,18 +24,20 @@ describe('block-ui-prevent-navigation', () => {
 
     constructor(
       public router: Router
-    ) {}
+    ) { }
   }
 
   let cf: ComponentFixture<any>;
   let testCmp: TestComp;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     const appRoutes: Routes = [
-      { path: '', canActivateChild: [BlockUIPreventNavigation], children: [
-        { path: '', component: TestComp },
-        { path: 'landing-page', component: LandingComp }
-      ]}
+      {
+        path: '', canActivateChild: [BlockUIPreventNavigation], children: [
+          { path: '', component: TestComp },
+          { path: 'landing-page', component: LandingComp }
+        ]
+      }
     ];
 
     TestBed.configureTestingModule({
@@ -60,7 +59,7 @@ describe('block-ui-prevent-navigation', () => {
     cf.detectChanges();
 
     testCmp = cf.debugElement.componentInstance;
-  });
+  }));
 
   it('should block navigation if blocking', () => {
     testCmp.blockUI.reset();

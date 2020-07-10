@@ -1,16 +1,16 @@
 import { } from 'jasmine';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-
 import { BlockUIModule } from '../block-ui.module';
 import { BlockUI } from '../decorators/block-ui.decorator';
 import { BlockUIContentComponent } from '../components/block-ui-content/block-ui-content.component';
-import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 
-@Component({
-  selector: 'test-comp',
-  template: `
+
+describe(`block-ui element directive`, () => {
+  @Component({
+    selector: 'test-comp',
+    template: `
     <ng-template class="ref-template" #templateTest>
       <div class="test-template">Test</div>
     </ng-template>
@@ -18,22 +18,21 @@ import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant'
         <h1 class="header">Test</h1>
     </div>
   `
-})
-class TestComp {
-  @BlockUI('element') blockUI: any;
-  blockName: string;
-}
+  })
+  class TestComp {
+    @BlockUI('element') blockUI: any;
+    blockName: string;
+  }
 
-describe(`block-ui element directive`, () => {
   let cf: ComponentFixture<any>;
   let blkContComp: DebugElement;
   let blockContentElement: HTMLElement;
   let testCmp: TestComp;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ BlockUIModule.forRoot() ],
-      declarations: [ TestComp ]
+      imports: [BlockUIModule.forRoot()],
+      declarations: [TestComp]
     })
       .compileComponents();
 
@@ -41,6 +40,11 @@ describe(`block-ui element directive`, () => {
     cf.detectChanges();
 
     testCmp = cf.debugElement.componentInstance;
+  }));
+
+  afterEach(() => {
+    cf.destroy();
+    testCmp = null;
   });
 
   it(`appends block-ui-content`, () => {
@@ -66,7 +70,7 @@ describe(`block-ui element directive`, () => {
 
   it(`passes name property to block-ui-content`, () => {
     let name = 'test-name';
-    let { componentInstance } = blkContComp;
+    let { componentInstance } = cf.debugElement.query(By.directive(BlockUIContentComponent));
 
     componentInstance.name = name;
     cf.detectChanges();
@@ -76,7 +80,7 @@ describe(`block-ui element directive`, () => {
 
   it(`passes default message property to block-ui-content`, () => {
     let expectedMessage = 'default';
-    let { componentInstance } = blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
+    let { componentInstance } = cf.debugElement.query(By.directive(BlockUIContentComponent));
 
     expect(componentInstance.defaultMessage).toBe(expectedMessage);
   });
