@@ -1,5 +1,5 @@
 import { } from 'jasmine';
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick, async } from '@angular/core/testing';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
@@ -8,16 +8,12 @@ import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.co
 import { BlockUI } from '../../decorators/block-ui.decorator';
 
 describe('block-ui-content component', () => {
-  beforeEach(function () {
-    jasmine.clock().uninstall();
-    jasmine.clock().install();
-  });
-
   describe('block-ui-content component no template:', () => {
     @Component({
       selector: 'test-comp',
       template: `
         <block-ui-content
+          [name]="'content-test'"
           [message]="defaultMessage"
           [delayStart]="delayStart"
           [delayStop]="delayStop"
@@ -26,7 +22,7 @@ describe('block-ui-content component', () => {
       `
     })
     class TestComp {
-      @BlockUI() blockUI: any;
+      @BlockUI('content-test') blockUI: any;
       defaultMessage: string;
       delayStart: number = 0;
       delayStop: number = 0;
@@ -52,98 +48,100 @@ describe('block-ui-content component', () => {
       testCmp.blockUI.reset();
     });
 
-    it('block-ui-wrapper is not active by default', () => {
+
+    it('block-ui-wrapper is not active by default', fakeAsync(() => {
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeFalsy();
-    });
+    }));
 
-    it('block-ui-wrapper is active on blockUI.start()', () => {
+    it('block-ui-wrapper is active on blockUI.start()', fakeAsync(() => {
       testCmp.blockUI.start();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeTruthy();
-    });
+    }));
 
-    it('block-ui-wrapper is no longer active on blockUI.stop()', () => {
+    it('block-ui-wrapper is no longer active on blockUI.stop()', fakeAsync(() => {
       testCmp.blockUI.start();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       testCmp.blockUI.stop();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeFalsy();
-    });
+    }));
 
-    it('block-ui-wrapper is no longer active on blockUI.reset()', () => {
+    it('block-ui-wrapper is no longer active on blockUI.reset()', fakeAsync(() => {
       testCmp.blockUI.reset();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeFalsy();
-    });
+    }));
 
-    it('displays messages passed to blockUI.start()', () => {
+    it('displays messages passed to blockUI.start()', fakeAsync(() => {
       let expectedMessage = 'Loading...';
       testCmp.blockUI.start(expectedMessage);
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(expectedMessage);
-    });
+    }));
 
-    it('displays default message if set and no message is passed', () => {
+    it('displays default message if set and no message is passed', fakeAsync(() => {
       let defaultMessage = 'Default';
       testCmp.defaultMessage = defaultMessage;
+
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       testCmp.blockUI.start();
+
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(defaultMessage);
-    });
+    }));
 
-    it('passed messages take priority over default', () => {
+    it('passed messages take priority over default', fakeAsync(() => {
       let message = 'Loading...';
-
       testCmp.defaultMessage = 'Default';
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       testCmp.blockUI.start(message);
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(message);
-    });
+    }));
 
-    it('displays message passed to blockUI.update()', () => {
+    it('displays message passed to blockUI.update()', fakeAsync(() => {
       let initialMessage = 'Loading...';
       testCmp.blockUI.start(initialMessage);
+
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(initialMessage);
 
       let updatedMessage = 'Update';
       testCmp.blockUI.update(updatedMessage);
+      flush();
       cf.detectChanges();
-      jasmine.clock().tick(1);
       expect(nativeElement.innerText).toBe(updatedMessage);
-    });
+    }));
 
-    it('blockUI.start() is synchronous (issue #107)', () => {
+    it('blockUI.start() is synchronous (issue #107)', fakeAsync(() => {
       function method() {
         testCmp.blockUI.start();
       }
@@ -159,15 +157,14 @@ describe('block-ui-content component', () => {
         method();
       });
 
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
       let blockWrapper = cf.debugElement.query(By.css('div.block-ui-wrapper'));
       expect(blockWrapper.classes.active).toBeTruthy();
-    });
+    }));
   });
 
   describe('block-ui-content custom Component template', () => {
-
     @Component({
       selector: 'template-comp',
       template: `
@@ -179,11 +176,17 @@ describe('block-ui-content component', () => {
     @Component({
       selector: 'test-comp',
       template: `
-        <block-ui-content [message]="defaultMessage" [template]="template"></block-ui-content>
+        <block-ui-content
+          [name]="'content-test'"
+          [delayStart]="0"
+          [delayStop]="0"
+          [message]="defaultMessage"
+          [template]="template"
+        ></block-ui-content>
       `
     })
     class TestComp {
-      @BlockUI() blockUI: any;
+      @BlockUI('content-test') blockUI: any;
       defaultMessage: string;
       template = TestTemplateComp;
     }
@@ -213,7 +216,6 @@ describe('block-ui-content component', () => {
 
       cf = TestBed.createComponent(TestComp);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
@@ -221,46 +223,48 @@ describe('block-ui-content component', () => {
       testCmp.blockUI.reset();
     });
 
-    it('appends template to blockUIContent', () => {
+    it('appends template to blockUIContent', fakeAsync(() => {
       let template;
 
       template = cf.debugElement.query(By.css('.test-template'));
       expect(template).toBeDefined();
-    });
+    }));
 
-    it('default spinner is hidden when template is passed', () => {
+    it('default spinner is hidden when template is passed', fakeAsync(() => {
       testCmp.blockUI.start();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let spinner = cf.debugElement.query(By.css('.block-ui-spinner'));
       expect(spinner).toBe(null);
-    });
+    }));
 
-    it('displays messages passed to blockUI.start()', () => {
+    it('displays messages passed to blockUI.start()', fakeAsync(() => {
       let expectedMessage = 'Loading...';
       testCmp.blockUI.start(expectedMessage);
+
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('.test-template'));
       expect(nativeElement.innerText).toBe(expectedMessage);
-    });
+    }));
 
-    it('displays default message if set and no message is passed', () => {
+    it('displays default message if set and no message is passed', fakeAsync(() => {
       let defaultMessage = 'Default';
+      flush();
 
       testCmp.defaultMessage = defaultMessage;
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       testCmp.blockUI.start();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('.test-template'));
       expect(nativeElement.innerText).toBe(defaultMessage);
-    });
+    }));
   });
 
   describe('block-ui-content custom TemplateRef template', () => {
@@ -270,11 +274,17 @@ describe('block-ui-content component', () => {
         <ng-template class="ref-template" #templateTest>
           <div class="test-template">Test</div>
         </ng-template>
-        <block-ui-content [message]="defaultMessage" [template]="templateTest"></block-ui-content>
+        <block-ui-content
+          [name]="'content-test'"
+          [delayStart]="0"
+          [delayStop]="0"
+          [message]="defaultMessage"
+          [template]="templateTest"
+        ></block-ui-content>
       `
     })
     class TestComp {
-      @BlockUI() blockUI: any;
+      @BlockUI('content-test') blockUI: any;
       defaultMessage: string;
       templateTest;
     }
@@ -300,43 +310,45 @@ describe('block-ui-content component', () => {
 
       cf = TestBed.createComponent(TestComp);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
       testCmp.blockUI.reset();
     });
 
-    it('appends template to blockUIContent', () => {
+    it('appends template to blockUIContent', fakeAsync(() => {
       let template;
 
       template = cf.debugElement.query(By.css('.test-template'));
       expect(template).toBeDefined();
-    });
+    }));
 
-    it('default spinner is hidden when template is passed', () => {
+    it('default spinner is hidden when template is passed', fakeAsync(() => {
       testCmp.blockUI.start('Loading...');
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let spinner = cf.debugElement.query(By.css('.block-ui-spinner'));
       expect(spinner).toBe(null);
-    });
+    }));
   });
 
   describe('block-ui-content module settings', () => {
     @Component({
       selector: 'test-comp',
       template: `
-        <block-ui-content [message]="defaultMessage">
+        <block-ui-content
+          [message]="defaultMessage"
+          [name]="'content-test'"
+          [delayStart]="0"
+          [delayStop]="0"
+        >
         </block-ui-content>
       `
     })
     class TestComp {
-      @BlockUI() blockUI: any;
+      @BlockUI('content-test') blockUI: any;
       defaultMessage: string;
-      delayStart: number = 0;
-      delayStop: number = 0;
     }
 
     let cf: ComponentFixture<any>;
@@ -344,14 +356,14 @@ describe('block-ui-content component', () => {
     let blkContComp: DebugElement;
     let globalMessage: string = 'Global Message';
 
-    beforeEach(() => {
+    beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [
           BlockUIModule.forRoot({
             message: globalMessage
           })
         ],
-        declarations: [TestComp]
+        declarations: [TestComp],
       }).compileComponents();
 
       cf = TestBed.createComponent(TestComp);
@@ -359,42 +371,46 @@ describe('block-ui-content component', () => {
 
       testCmp = cf.debugElement.componentInstance;
       blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
-      testCmp.blockUI.reset();
+    }));
+
+    afterEach(() => {
+      cf.destroy();
     });
 
-    it('displays module default message on start', () => {
+    it('displays module default message on start', fakeAsync(() => {
       testCmp.blockUI.start();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText.trim()).toBe(globalMessage);
-    });
+    }));
 
-    it('setting message on block-ui-content overrides module level', () => {
+    it('setting message on block-ui-content overrides module level', fakeAsync(() => {
       let defaultMessage = 'Default';
 
       testCmp.defaultMessage = defaultMessage;
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       testCmp.blockUI.start();
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText.trim()).toBe(defaultMessage);
-    });
+    }));
 
-    it('message passed to start overrides module message', () => {
+    it('message passed to start overrides module message', fakeAsync(() => {
       let expectedMessage = 'Loading...';
+
       testCmp.blockUI.start(expectedMessage);
+      tick(1);
       cf.detectChanges();
-      jasmine.clock().tick(1);
 
       let { nativeElement } = cf.debugElement.query(By.css('div.message'));
       expect(nativeElement.innerText).toBe(expectedMessage);
-    });
+    }));
   });
 
   describe('block-ui-content delays', () => {
@@ -402,6 +418,7 @@ describe('block-ui-content component', () => {
       selector: 'test-comp',
       template: `
         <block-ui-content
+          name="content-test"
           [message]="defaultMessage"
           [delayStart]="delayStart"
           [delayStop]="delayStop"
@@ -410,7 +427,7 @@ describe('block-ui-content component', () => {
       `
     })
     class TestComp {
-      @BlockUI() blockUI: any;
+      @BlockUI('content-test') blockUI: any;
       defaultMessage: string;
       delayStart: number = 500;
       delayStop: number = 500;
@@ -442,12 +459,12 @@ describe('block-ui-content component', () => {
 
       expect(blkContComp.state.blockCount).toBe(0);
 
-      jasmine.clock().tick(200);
+      tick(200);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(0);
 
-      jasmine.clock().tick(300);
+      tick(300);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(1);
@@ -455,7 +472,7 @@ describe('block-ui-content component', () => {
 
     it('blocker is active on blockUI.stop() until delay has passed', fakeAsync(() => {
       testCmp.blockUI.start();
-      jasmine.clock().tick(500);
+      tick(500);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBeTruthy();
@@ -465,12 +482,12 @@ describe('block-ui-content component', () => {
 
       expect(blkContComp.state.blockCount).toBeTruthy();
 
-      jasmine.clock().tick(200);
+      tick(200);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBeTruthy();
 
-      jasmine.clock().tick(300);
+      tick(300);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(0);
@@ -478,7 +495,7 @@ describe('block-ui-content component', () => {
 
     it('blocker is NOT active on blockUI.stop() and state is cleared if delayed start has not yet passed, ignoring delayStop', fakeAsync(() => {
       testCmp.blockUI.start();
-      jasmine.clock().tick(300);
+      tick(300);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(0);
@@ -488,7 +505,7 @@ describe('block-ui-content component', () => {
 
       expect(blkContComp.state.blockCount).toBe(0);
 
-      jasmine.clock().tick(1000);
+      tick(1000);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(0);
@@ -498,26 +515,26 @@ describe('block-ui-content component', () => {
       testCmp.blockUI.start();
       testCmp.blockUI.start();
       testCmp.blockUI.start();
-      jasmine.clock().tick(500);
+      tick(500);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(3);
 
       testCmp.blockUI.stop();
-      jasmine.clock().tick(500);
+      tick(500);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBeTruthy();
       expect(blkContComp.state.blockCount).toBe(2);
 
       testCmp.blockUI.stop();
-      jasmine.clock().tick(500);
+      tick(500);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(1);
 
       testCmp.blockUI.stop();
-      jasmine.clock().tick(500);
+      tick(500);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(0);
@@ -527,7 +544,7 @@ describe('block-ui-content component', () => {
       testCmp.blockUI.start();
       testCmp.blockUI.start();
       testCmp.blockUI.start();
-      jasmine.clock().tick(500);
+      tick(500);
       cf.detectChanges();
 
       expect(blkContComp.state.blockCount).toBe(3);
@@ -543,9 +560,9 @@ describe('block-ui-content component', () => {
     @Component({
       selector: 'test-comp',
       template: `
-        <block-ui-content [name]="'block-1'">
+        <block-ui-content [name]="'block-1'" [delayStart]="0" [delayStop]="0">
         </block-ui-content>
-        <block-ui-content [name]="'block-2'">
+        <block-ui-content [name]="'block-2'" [delayStart]="0" [delayStop]="0">
         </block-ui-content>
       `
     })
@@ -571,12 +588,12 @@ describe('block-ui-content component', () => {
       testCmp = cf.debugElement.componentInstance;
     });
 
-    it('reset only targets the blockUI instance', () => {
+    it('reset only targets the blockUI instance', fakeAsync(() => {
       testCmp.blockUIOne.start();
       testCmp.blockUIOne.start();
       testCmp.blockUITwo.start();
       cf.detectChanges();
-      jasmine.clock().tick(0);
+      tick(0);
 
       const blockOneInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-1')).componentInstance;
       const blockTwoInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-2')).componentInstance;
@@ -589,14 +606,14 @@ describe('block-ui-content component', () => {
 
       expect(blockOneInstance.state.blockCount).toBe(0);
       expect(blockTwoInstance.state.blockCount).toBe(1);
-    });
+    }));
 
-    it('resetGlobal targets all blockUI instance', () => {
+    it('resetGlobal targets all blockUI instance', fakeAsync(() => {
       testCmp.blockUIOne.start();
       testCmp.blockUIOne.start();
       testCmp.blockUITwo.start();
       cf.detectChanges();
-      jasmine.clock().tick(0);
+      tick(0);
 
       const blockOneInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-1')).componentInstance;
       const blockTwoInstance = cf.debugElement.query(By.css('.block-ui-wrapper.block-2')).componentInstance;
@@ -609,7 +626,7 @@ describe('block-ui-content component', () => {
 
       expect(blockOneInstance.state.blockCount).toBe(0);
       expect(blockTwoInstance.state.blockCount).toBe(0);
-    });
+    }));
   });
 });
 

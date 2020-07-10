@@ -1,5 +1,5 @@
 import { } from 'jasmine';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -8,27 +8,28 @@ import { BlockUIContentComponent } from '../block-ui-content/block-ui-content.co
 import { BlockUIDefaultName } from '../../constants/block-ui-default-name.constant';
 import { BlockUISettings } from '../../models/block-ui-settings.model';
 
-@Component({
-  selector: 'template-comp',
-  template: `
-    <div class="test-template">{{message}}</div>
-  `
-})
-class TestTemplateComp {}
 
 describe('block-ui component', () => {
+
+  @Component({
+    selector: 'template-comp',
+    template: `
+    <div class="test-template">{{message}}</div>
+  `
+  })
+  class TestTemplateComp { }
+
   let cf: ComponentFixture<any>;
   let testCmp: any;
   let blkContComp: DebugElement;
   let blockContentElement: HTMLElement;
   let globalSettings: BlockUISettings = {
     message: 'Global',
-    delayStart: 2000,
+    delayStart: 1900,
     delayStop: 2000,
   };
 
-  beforeEach(() => {
-
+  beforeEach(async(() => {
     @Component({
       selector: 'test-comp',
       template: `
@@ -51,7 +52,7 @@ describe('block-ui component', () => {
       customTmp: any;
     }
 
-    @NgModule({
+    TestBed.configureTestingModule({
       imports: [
         BlockUIModule.forRoot(globalSettings)
       ],
@@ -59,16 +60,8 @@ describe('block-ui component', () => {
         TestTemplateComp,
         TestComp
       ],
-      entryComponents: [ TestTemplateComp ]
     })
-    class TestModule {}
-
-    TestBed.configureTestingModule({
-      imports: [
-        TestModule
-      ]
-    })
-    .compileComponents();
+      .compileComponents();
 
     cf = TestBed.createComponent(TestComp);
     cf.detectChanges();
@@ -76,7 +69,7 @@ describe('block-ui component', () => {
     blkContComp = cf.debugElement.query(By.directive(BlockUIContentComponent));
     blockContentElement = blkContComp.nativeElement;
     testCmp = cf.debugElement.componentInstance;
-  });
+  }));
 
   it('appends block-ui-content', () => {
     expect(blockContentElement).toBeDefined();

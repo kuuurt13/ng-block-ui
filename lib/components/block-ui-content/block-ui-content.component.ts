@@ -30,7 +30,7 @@ export type BlockState = {
   blockCount: number;
   startCallCount: number;
   stopCallCount: number;
-}
+};
 
 @Component({
   selector: 'block-ui-content',
@@ -40,8 +40,8 @@ export type BlockState = {
 })
 export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @Input() name: string = BlockUIDefaultName;
-  @Input() delayStart: number = 0;
-  @Input() delayStop: number = 0;
+  @Input() delayStart: number;
+  @Input() delayStop: number;
   @Input('message') defaultMessage: string;
   @Input('template') templateCmp: any;
   @ViewChild('templateOutlet', { read: ViewContainerRef })
@@ -131,7 +131,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
 
   private onStart({ name, message }: BlockUIEvent) {
     if (name === this.name) {
-      const delay = this.delayStart || this.settings.delayStart || 0;
+      const delay = this.delayStart ?? this.settings.delayStart ?? 0;
 
       this.state.startCallCount += 1;
       const startTimeout = setTimeout(() => {
@@ -148,7 +148,7 @@ export class BlockUIContentComponent implements OnInit, AfterViewInit, AfterView
       const stopCount = this.state.stopCallCount + 1;
 
       if (this.state.startCallCount - stopCount >= 0) {
-        const delay = this.delayStop || this.settings.delayStop || 0;
+        const delay = this.delayStop ?? this.settings.delayStop ?? 0;
 
         this.state.stopCallCount = stopCount;
         const stopTimeout = setTimeout(() => {

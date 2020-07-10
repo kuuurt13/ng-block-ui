@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
-import { BlockUIModule } from '../block-ui.module';
+import { BlockUIModule, BlockUIService, BLOCKUI_DEFAULT } from 'ng-block-ui';
 import { BlockUIHttpModule } from './block-ui-http.module';
-import { BlockUIService } from '../services/block-ui.service';
-import { BlockUIDefaultName } from '../constants/block-ui-default-name.constant';
 
 
 describe('BlockUIInterceptor', () => {
   let service: TestService;
-  let httpMock: HttpTestingController;
   let blockUIService;
   let blockUIServiceSpy;
 
@@ -43,7 +37,7 @@ describe('BlockUIInterceptor', () => {
     }
   }
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
@@ -65,11 +59,11 @@ describe('BlockUIInterceptor', () => {
     service = TestBed.get(TestService);
     blockUIService = TestBed.get(BlockUIService);
     blockUIServiceSpy = spyOn(blockUIService, 'start');
-  });
+  }));
 
   it('starts blocking', done => {
     service.get('/yup').subscribe(response => {
-      expect(blockUIServiceSpy).toHaveBeenCalledWith(BlockUIDefaultName);
+      expect(blockUIServiceSpy).toHaveBeenCalledWith(BLOCKUI_DEFAULT);
       done();
     });
   });

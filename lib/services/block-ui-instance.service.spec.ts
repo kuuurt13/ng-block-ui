@@ -87,7 +87,7 @@ describe('BlockUIInstance service', () => {
       expect(blockUIService.blockUISubject.next).toHaveBeenCalledWith(expectedData);
     });
 
-    it('passes message to disptached data', () => {
+    it('passes message to dispatched data', () => {
       const message = 'Loading...';
 
       const dispatcher = blockUIService.dispatch(
