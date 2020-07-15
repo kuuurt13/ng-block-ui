@@ -1,3 +1,19 @@
+#### 3.0.2 (2020-07-15)
+
+##### Build System / Dependencies
+
+* **deps:**  bump underscore.string from 3.3.4 to 3.3.5 ([d5c16d11](https://github.com/kuuurt13/ng-block-ui/commit/d5c16d11ab6e70f156f3d7ec1b41f4a6dd1f9a22))
+
+##### Chores
+
+* **Deps:**  Updated deps for dev app  & examples ([3f7a662c](https://github.com/kuuurt13/ng-block-ui/commit/3f7a662c97c199f2a43eebe75a4119f79ca308a6))
+* **deps:**  Updated testing deps ([7c5f9bce](https://github.com/kuuurt13/ng-block-ui/commit/7c5f9bce89cf84668f73229de9766f4a057d70e5))
+* **Docs:**  Updated example dependencies ([ef2c0b8b](https://github.com/kuuurt13/ng-block-ui/commit/ef2c0b8b28fc0dc6b5748f468b2b6c5b5b04cd2a))
+
+##### Bug Fixes
+
+* **Module:**  Add module type to ModuleWithProviders ([f6a117ac](https://github.com/kuuurt13/ng-block-ui/commit/f6a117ac401bd3371ceb78a3004150a775a77bb2))
+
 #### 3.0.1 (2020-06-29)
 
 ##### Chores
