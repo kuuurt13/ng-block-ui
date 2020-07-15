@@ -10,7 +10,7 @@ import { BlockUIPreventNavigation } from './block-ui-prevent-navigation.service'
   ]
 })
 export class BlockUIRouterModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<BlockUIRouterModule> {
     return {
       ngModule: BlockUIRouterModule,
       providers: [
