@@ -6,7 +6,7 @@
   "typings": "./lib/index.d.ts",
   "scripts": {
     "start": "watchman lib 'npm run build:dev && cp -r dist/bundles dev'",
-    "build": "ng-packagr -p package.json",
+    "build": "ng-packagr -p ng-package.json",
     "build:dev": "tsc -p tsconfig-umd.json && echo 'Build Complete'",
     "release:major": "changelog -M && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin master && git push origin --tags",
     "release:minor": "changelog -m && git add *.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin master && git push origin --tags",
@@ -20,8 +20,6 @@
   },
   "keywords": [
     "Angular",
-    "Angular 4",
-    "Angular 5",
     "Loading",
     "Block UI",
     "Spinner"
@@ -32,40 +30,38 @@
     "url": "https://github.com/kuuurt13/ng-block-ui/issues"
   },
   "homepage": "https://github.com/kuuurt13/ng-block-ui#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "@angular/common": "^9.1.9",
-    "@angular/compiler": "^9.1.9",
-    "@angular/compiler-cli": "^9.1.9",
-    "@angular/core": "^9.1.9",
-    "@angular/forms": "^9.1.9",
-    "@angular/platform-browser": "^9.1.9",
-    "@angular/platform-browser-dynamic": "^9.1.9",
-    "@angular/router": "^9.1.9",
-    "@types/jasmine": "^2.8.9",
-    "babel-polyfill": "^6.23.0",
-    "es6-shim": "^0.35.1",
-    "generate-changelog": "^1.7.1",
-    "jasmine": "^2.5.3",
-    "jasmine-core": "^2.4.1",
-    "karma": "^5.1.0",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-jasmine": "^3.3.1",
-    "karma-spec-reporter": "0.0.32",
-    "karma-typescript": "^5.0.3",
-    "ng-packagr": "^9.1.5",
-    "reflect-metadata": "^0.1.3",
-    "rxjs": "^6.5.3",
-    "tslib": "^1.10.0",
-    "tslint": "^6.1.2",
-    "typescript": "^3.7.5",
-    "watchman": "^0.1.8",
-    "zone.js": "^0.10.3"
+  "peerDependencies": {
+    "@angular/common": ">=14.0.0",
+    "@angular/core": ">=14.0.0",
+    "@angular/platform-browser": ">=14.0.0",
+    "@angular/platform-browser-dynamic": ">=14.0.0",
+    "@angular/router": ">=14.0.0",
+    "rxjs": ">=7.5.0",
+    "zone.js": ">=0.11.4"
   },
-  "$schema": "./node_modules/ng-packagr/package.schema.json",
-  "ngPackage": {
-    "lib": {
-      "entryFile": "lib/index.ts"
-    }
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^14.2.3",
+    "@angular/cli": "~14.2.3",
+    "@angular/common": "^14.2.0",
+    "@angular/compiler": "^14.2.0",
+    "@angular/compiler-cli": "^14.2.0",
+    "@angular/core": "^14.2.0",
+    "@angular/platform-browser": "^14.2.0",
+    "@angular/platform-browser-dynamic": "^14.2.0",
+    "@angular/router": "^14.2.0",
+    "@types/jasmine": "~4.0.0",
+    "generate-changelog": "^1.8.0",
+    "jasmine-core": "~4.3.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "ng-packagr": "^14.2.1",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "typescript": "~4.7.2",
+    "watchman": "^1.0.0",
+    "zone.js": "~0.11.4"
   }
 }
