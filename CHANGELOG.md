@@ -1,3 +1,7 @@
+#### 4.0.1 (2023-05-24)
+
+Fix bad build/publish
+
 #### 4.0.0 (2023-05-24)
 
 Added Angular Ivy support ([dd541fe](https://github.com/kuuurt13/ng-block-ui/commit/dd541fec040e3baf3d9d5dd6f0b8833d424694ec))
